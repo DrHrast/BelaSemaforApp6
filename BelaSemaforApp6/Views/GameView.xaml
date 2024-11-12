@@ -19,14 +19,14 @@
 
         <!-- Team Scores -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <Entry Text="{Binding TeamOneScore}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16"/>
-            <Entry Text="{Binding TeamTwoScore}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16"/>
+            <Entry Text="{Binding TeamOneScore}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="0, 0, 15, 0"/>
+            <Entry Text="{Binding TeamTwoScore}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="30, 0, 0, 0"/>
         </HorizontalStackLayout>
 
         <!-- Team Calls -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <Entry Text="{Binding TeamOneCall}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16"/>
-            <Entry Text="{Binding TeamTwoCall}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16"/>
+            <Entry Text="{Binding TeamOneCall}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="0, 0, 15, 0"/>
+            <Entry Text="{Binding TeamTwoCall}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="30, 0, 0, 0"/>
         </HorizontalStackLayout>
 
         <!-- Bela Checkboxes -->
@@ -42,7 +42,7 @@
         </HorizontalStackLayout>
 
         <!-- Add Score Button -->
-        <Button Command="{Binding AddScoreCommand}" Text="Unesi" Style="{DynamicResource ButtonStyle}" HorizontalOptions="Center" />
+        <Button Command="{Binding AddScoreCommand}" Text="Unesi" Style="{DynamicResource ButtonStyle}"/>
 
         <!-- Score CollectionView -->
         <Frame CornerRadius="10" BackgroundColor="#F8F8F8" HorizontalOptions="Center">
