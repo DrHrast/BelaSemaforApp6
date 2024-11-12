@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BelaSemaforApp6.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace BelaSemaforApp6
 {
@@ -17,6 +18,8 @@ namespace BelaSemaforApp6
 
 #if DEBUG
     		builder.Logging.AddDebug();
+            
+            builder.Services.AddTransient<GameViewModel>();
 #endif
 
             return builder.Build();

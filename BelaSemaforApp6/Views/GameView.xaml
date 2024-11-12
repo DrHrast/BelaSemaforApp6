@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:BelaSemaforApp6.ViewModels"
+             xmlns:models="clr-namespace:BelaSemaforApp6.Models"
+             x:DataType="viewModels:GameViewModel"
+             x:Class="BelaSemaforApp6.Views.GameView">
+    
+    <VerticalStackLayout>
+        <VerticalStackLayout>
+            <Label FontSize="20" Text="Bela Blok" TextColor="Grey"></Label>
+            <HorizontalStackLayout>
+                <RadioButton Content="{Binding TeamOneName}" GroupName="TeamName"/>
+                <RadioButton Content="{Binding TeamTwoName}" GroupName="TeamName"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Entry Text="{Binding TeamOneScore}" Placeholder="0"/>
+                <Entry Text="{Binding TeamTwoScore}" Placeholder="0"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Entry Text="{Binding TeamOneCall}" Placeholder="0"/>
+                <Entry Text="{Binding TeamTwoCall}" Placeholder="0"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <CheckBox IsChecked="{Binding TeamOneBela}"/>
+                    <Label Text="Bela"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <CheckBox IsChecked="{Binding TeamTwoBela}"/>
+                    <Label Text="Bela" />
+                </HorizontalStackLayout>
+            </HorizontalStackLayout>
+            <Button Command="{Binding AddScoreCommand}" Text="Unesi"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Scores}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:TurnScore">
+                        <StackLayout Height="20" HorizontalOptions="Center" Orientation="Horizontal">
+                            <Label Style="{DynamicResource LabelStyle}" Text="{Binding TeamOneTotal}" />
+                            <Label Style="{DynamicResource LabelStyle}" Text="{Binding TeamTwoTotal}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
