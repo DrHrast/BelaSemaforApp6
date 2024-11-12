@@ -7,44 +7,60 @@
              x:DataType="viewModels:GameViewModel"
              x:Class="BelaSemaforApp6.Views.GameView">
     
-    <VerticalStackLayout>
-        <VerticalStackLayout>
-            <Label FontSize="20" Text="Bela Blok" TextColor="Grey"></Label>
-            <HorizontalStackLayout>
-                <RadioButton Content="{Binding TeamOneName}" GroupName="TeamName"/>
-                <RadioButton Content="{Binding TeamTwoName}" GroupName="TeamName"/>
+    <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center">
+        
+        <Label FontSize="24" Text="Bela Blok" TextColor="DarkSlateBlue" HorizontalOptions="Center" />
+
+        <!-- Team Selection -->
+        <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
+            <RadioButton Content="{Binding TeamOneName}" GroupName="TeamName" Style="{DynamicResource RadioButtonStyle}" />
+            <RadioButton Content="{Binding TeamTwoName}" GroupName="TeamName" Style="{DynamicResource RadioButtonStyle}" />
+        </HorizontalStackLayout>
+
+        <!-- Team Scores -->
+        <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
+            <Entry Text="{Binding TeamOneScore}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16"/>
+            <Entry Text="{Binding TeamTwoScore}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16"/>
+        </HorizontalStackLayout>
+
+        <!-- Team Calls -->
+        <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
+            <Entry Text="{Binding TeamOneCall}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16"/>
+            <Entry Text="{Binding TeamTwoCall}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16"/>
+        </HorizontalStackLayout>
+
+        <!-- Bela Checkboxes -->
+        <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
+            <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                <CheckBox IsChecked="{Binding TeamOneBela}" VerticalOptions="Center"/>
+                <Label Text="Bela" Style="{DynamicResource LabelStyle}" VerticalOptions="Center"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout>
-                <Entry Text="{Binding TeamOneScore}" Placeholder="0"/>
-                <Entry Text="{Binding TeamTwoScore}" Placeholder="0"/>
+            <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+                <CheckBox IsChecked="{Binding TeamTwoBela}" VerticalOptions="Center"/>
+                <Label Text="Bela" Style="{DynamicResource LabelStyle}" VerticalOptions="Center"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout>
-                <Entry Text="{Binding TeamOneCall}" Placeholder="0"/>
-                <Entry Text="{Binding TeamTwoCall}" Placeholder="0"/>
-            </HorizontalStackLayout>
-            <HorizontalStackLayout>
-                <HorizontalStackLayout>
-                    <CheckBox IsChecked="{Binding TeamOneBela}"/>
-                    <Label Text="Bela"/>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout>
-                    <CheckBox IsChecked="{Binding TeamTwoBela}"/>
-                    <Label Text="Bela" />
-                </HorizontalStackLayout>
-            </HorizontalStackLayout>
-            <Button Command="{Binding AddScoreCommand}" Text="Unesi"/>
-        </VerticalStackLayout>
-        <VerticalStackLayout>
-            <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Scores}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:TurnScore">
-                        <StackLayout Height="20" HorizontalOptions="Center" Orientation="Horizontal">
-                            <Label Style="{DynamicResource LabelStyle}" Text="{Binding TeamOneTotal}" />
-                            <Label Style="{DynamicResource LabelStyle}" Text="{Binding TeamTwoTotal}" />
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
+        </HorizontalStackLayout>
+
+        <!-- Add Score Button -->
+        <Button Command="{Binding AddScoreCommand}" Text="Unesi" Style="{DynamicResource ButtonStyle}" HorizontalOptions="Center" />
+
+        <!-- Score CollectionView -->
+        <Frame CornerRadius="10" BackgroundColor="#F8F8F8" HorizontalOptions="Center">
+            <ScrollView>
+                <VerticalStackLayout Padding="10">
+                    <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Scores}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:TurnScore">
+                                <StackLayout HeightRequest="30" Orientation="Horizontal" HorizontalOptions="Center" Spacing="40">
+                                    <Label Text="{Binding TeamOneTotal}" Style="{DynamicResource LabelStyle}" />
+                                    <Label Text=":" Style="{DynamicResource LabelStyle}" />
+                                    <Label Text="{Binding TeamTwoTotal}" Style="{DynamicResource LabelStyle}" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Frame>
     </VerticalStackLayout>
 </ContentPage>

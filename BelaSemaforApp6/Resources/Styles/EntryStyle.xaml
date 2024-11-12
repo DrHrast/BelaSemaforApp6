@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Style x:Key="EntryStyle" TargetType="Entry">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="BackgroundColor" Value="#F0F0F0" />
+        <Setter Property="PlaceholderColor" Value="Gray" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="WidthRequest" Value="80" />
+        <Setter Property="Margin" Value="5,0" />
+    </Style>
+</ResourceDictionary>

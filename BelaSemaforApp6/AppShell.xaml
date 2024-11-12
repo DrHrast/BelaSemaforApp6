@@ -9,7 +9,6 @@
     Title="BelaSemaforApp6">
 
     <ShellContent
-        Title="Home"
         ContentTemplate="{DataTemplate views:GameView}"
         Route="GameView" />
 
