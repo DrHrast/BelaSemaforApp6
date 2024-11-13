@@ -19,20 +19,20 @@ public partial class GameViewModel : ObservableObject
     [ObservableProperty] private bool _teamTwoBela;
     [ObservableProperty] private int _teamOneTurnScore;
     [ObservableProperty] private int _teamTwoTurnScore;
-    [ObservableProperty] private ObservableCollection<TurnScore>? _scores = [];
+    [ObservableProperty] private ObservableCollection<TurnScoreModel>? _scores = [];
 
-    private int maxScore = 162;
+    private const int Maxscore = 162;
     
     public GameViewModel(IConfiguration config) {}
     
     partial void OnTeamOneScoreChanged(int value)
     {
-        TeamTwoScore = maxScore - value;
+        TeamTwoScore = Maxscore - value;
     }
 
     partial void OnTeamTwoScoreChanged(int value)
     {
-        TeamOneScore = maxScore - value;
+        TeamOneScore = Maxscore - value;
     }
 
     partial void OnTeamOneBelaChanged(bool value)
@@ -48,7 +48,7 @@ public partial class GameViewModel : ObservableObject
     [RelayCommand]
     private void AddScore()
     {
-        Scores.Add(new TurnScore
+        Scores.Add(new TurnScoreModel
         {
             TeamOne = TeamOneScore, 
             OneBela = TeamOneBela, 

@@ -45,22 +45,29 @@
         <Button Command="{Binding AddScoreCommand}" Text="Unesi" Style="{DynamicResource ButtonStyle}"/>
 
         <!-- Score CollectionView -->
-        <Frame CornerRadius="10" BackgroundColor="#F8F8F8" HorizontalOptions="Center">
-            <ScrollView>
-                <VerticalStackLayout Padding="10">
-                    <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Scores}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:TurnScore">
-                                <StackLayout HeightRequest="30" Orientation="Horizontal" HorizontalOptions="Center" Spacing="40">
-                                    <Label Text="{Binding TeamOneTotal}" Style="{DynamicResource LabelStyle}" />
-                                    <Label Text=":" Style="{DynamicResource LabelStyle}" />
-                                    <Label Text="{Binding TeamTwoTotal}" Style="{DynamicResource LabelStyle}" />
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </VerticalStackLayout>
-            </ScrollView>
-        </Frame>
+        <VerticalStackLayout BackgroundColor="#e6e6ff" HorizontalOptions="Center">
+            <VerticalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="{Binding TeamOneName}" Style="{DynamicResource LabelStyle}"/>
+                    <Label Text="{Binding TeamTwoName}" Style="{DynamicResource LabelStyle}"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="1001" Style="{DynamicResource LabelStyle}"/>
+                    <Label Text="1001" Style="{DynamicResource LabelStyle}"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            <VerticalStackLayout Padding="10">
+                <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Scores}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:TurnScoreModel">
+                            <StackLayout HeightRequest="30" Orientation="Horizontal" HorizontalOptions="Center" Spacing="40">
+                                <Label Text="{Binding TeamOneTotal}" Style="{DynamicResource LabelStyle}" />
+                                <Label Text="{Binding TeamTwoTotal}" Style="{DynamicResource LabelStyle}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
