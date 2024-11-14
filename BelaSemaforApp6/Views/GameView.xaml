@@ -5,9 +5,10 @@
              xmlns:viewModels="clr-namespace:BelaSemaforApp6.ViewModels"
              xmlns:models="clr-namespace:BelaSemaforApp6.Models"
              x:DataType="viewModels:GameViewModel"
-             x:Class="BelaSemaforApp6.Views.GameView">
+             x:Class="BelaSemaforApp6.Views.GameView"
+             BackgroundColor="#f0f0f0">
     
-    <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center">
+    <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center" >
         
         <Label FontSize="24" Text="Bela Blok" TextColor="DarkSlateBlue" HorizontalOptions="Center" />
 
@@ -45,29 +46,31 @@
         <Button Command="{Binding AddScoreCommand}" Text="Unesi" Style="{DynamicResource ButtonStyle}"/>
 
         <!-- Score CollectionView -->
-        <VerticalStackLayout BackgroundColor="#e6e6ff" HorizontalOptions="CenterAndExpand">
-            <VerticalStackLayout>
-                <HorizontalStackLayout>
-                    <Label Text="{Binding TeamOneName}" Style="{DynamicResource LabelStyle}"/>
-                    <Label Text="{Binding TeamTwoName}" Style="{DynamicResource LabelStyle}"/>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout>
-                    <Label Text="{Binding TeamOneGameTotal}" Style="{DynamicResource LabelStyle}"/>
-                    <Label Text="{Binding TeamTwoGameTotal}" Style="{DynamicResource LabelStyle}"/>
-                </HorizontalStackLayout>
+        <Frame BackgroundColor="#e6e6ff" CornerRadius="10" Margin="0" Padding="0">
+            <VerticalStackLayout HorizontalOptions="Fill" Margin="0" Padding="0">
+                <VerticalStackLayout Margin="0">
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="40" Margin="0" Padding="0">
+                        <Label Text="{Binding TeamOneName}" Style="{DynamicResource LabelStyle}" />
+                        <Label Text="{Binding TeamTwoName}" Style="{DynamicResource LabelStyle}" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="40" Margin="0" Padding="0">
+                        <Label Text="{Binding TeamOneGameTotal}" Style="{DynamicResource LabelStyle}" />
+                        <Label Text="{Binding TeamTwoGameTotal}" Style="{DynamicResource LabelStyle}" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                <VerticalStackLayout Margin="0" Padding="0">
+                    <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Scores}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:TurnScoreModel">
+                                <StackLayout HeightRequest="30" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="40" Padding="0" Margin="0">
+                                    <Label Text="{Binding TeamOneTurnTotal}" Style="{DynamicResource LabelStyle}" />
+                                    <Label Text="{Binding TeamTwoTurnTotal}" Style="{DynamicResource LabelStyle}" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
             </VerticalStackLayout>
-            <VerticalStackLayout Padding="10">
-                <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Scores}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:TurnScoreModel">
-                            <StackLayout HeightRequest="30" Orientation="Horizontal" HorizontalOptions="Center" Spacing="40">
-                                <Label Text="{Binding TeamOneTurnTotal}" Style="{DynamicResource LabelStyle}" />
-                                <Label Text="{Binding TeamTwoTurnTotal}" Style="{DynamicResource LabelStyle}" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
-        </VerticalStackLayout>
+        </Frame>
     </VerticalStackLayout>
 </ContentPage>

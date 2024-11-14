@@ -8,6 +8,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/ButtonStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/EntryStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/HorizontalGroupStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/LabelStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/RadioButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

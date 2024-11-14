@@ -10,8 +10,8 @@ namespace BelaSemaforApp6.ViewModels;
 public partial class GameViewModel : ObservableObject
 {
     
-    [ObservableProperty] private string? _teamOneName = "TeamOneScoreOnly";
-    [ObservableProperty] private string? _teamTwoName = "TeamTwoScoreOnly";
+    [ObservableProperty] private string? _teamOneName = "TeamOne";
+    [ObservableProperty] private string? _teamTwoName = "TeamTwo";
     [ObservableProperty] private int _teamOneScore;
     [ObservableProperty] private int _teamTwoScore;
     [ObservableProperty] private int _teamOneCall;
