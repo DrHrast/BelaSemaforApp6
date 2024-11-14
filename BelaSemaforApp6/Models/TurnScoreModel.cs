@@ -2,14 +2,16 @@
 
 public class TurnScoreModel
 {
-    public int TeamOne { get; set; }
-    public bool OneBela { get; set; }
-    public int OneCall { get; set; }
-    public int TeamTwo { get; set; }
-    public bool TwoBela { get; set; }
-    public int TwoCall { get; set; }
-    public int TeamOneTotal => OneBela ? TeamOne + 20 + OneCall : TeamOne + OneCall;
-    public int TeamTwoTotal => TwoBela ? TeamTwo + 20 + TwoCall : TeamTwo + TwoCall;
+    public int TeamOneScoreOnly { get; set; }
+    public bool IsTeamOneBelaChecked { get; set; }
+    public int TeamOneCall { get; set; }
+    public bool IsTeamOneCallChecked  { get; set; }
+    public int TeamOneTurnTotal { get; set; }
+    public int TeamTwoScoreOnly { get; set; }
+    public bool IsTeamTwoBelaChecked { get; set; }
+    public int TeamTwoCall { get; set; }
+    public bool IsTeamTwoCallChecked  { get; set; }
+    public int TeamTwoTurnTotal { get; set; }
 
     
 }

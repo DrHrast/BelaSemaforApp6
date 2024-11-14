@@ -13,8 +13,8 @@
 
         <!-- Team Selection -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <RadioButton Content="{Binding TeamOneName}" GroupName="TeamName" Style="{DynamicResource RadioButtonStyle}" />
-            <RadioButton Content="{Binding TeamTwoName}" GroupName="TeamName" Style="{DynamicResource RadioButtonStyle}" />
+            <RadioButton Content="{Binding TeamOneName}" GroupName="TeamName" Style="{DynamicResource RadioButtonStyle}" IsChecked="{Binding TeamOneCallCheck}"/>
+            <RadioButton Content="{Binding TeamTwoName}" GroupName="TeamName" Style="{DynamicResource RadioButtonStyle}" IsChecked="{Binding TeamTwoCallCheck}"/>
         </HorizontalStackLayout>
 
         <!-- Team Scores -->
@@ -45,15 +45,15 @@
         <Button Command="{Binding AddScoreCommand}" Text="Unesi" Style="{DynamicResource ButtonStyle}"/>
 
         <!-- Score CollectionView -->
-        <VerticalStackLayout BackgroundColor="#e6e6ff" HorizontalOptions="Center">
+        <VerticalStackLayout BackgroundColor="#e6e6ff" HorizontalOptions="CenterAndExpand">
             <VerticalStackLayout>
                 <HorizontalStackLayout>
                     <Label Text="{Binding TeamOneName}" Style="{DynamicResource LabelStyle}"/>
                     <Label Text="{Binding TeamTwoName}" Style="{DynamicResource LabelStyle}"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout>
-                    <Label Text="1001" Style="{DynamicResource LabelStyle}"/>
-                    <Label Text="1001" Style="{DynamicResource LabelStyle}"/>
+                    <Label Text="{Binding TeamOneGameTotal}" Style="{DynamicResource LabelStyle}"/>
+                    <Label Text="{Binding TeamTwoGameTotal}" Style="{DynamicResource LabelStyle}"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
             <VerticalStackLayout Padding="10">
@@ -61,8 +61,8 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:TurnScoreModel">
                             <StackLayout HeightRequest="30" Orientation="Horizontal" HorizontalOptions="Center" Spacing="40">
-                                <Label Text="{Binding TeamOneTotal}" Style="{DynamicResource LabelStyle}" />
-                                <Label Text="{Binding TeamTwoTotal}" Style="{DynamicResource LabelStyle}" />
+                                <Label Text="{Binding TeamOneTurnTotal}" Style="{DynamicResource LabelStyle}" />
+                                <Label Text="{Binding TeamTwoTurnTotal}" Style="{DynamicResource LabelStyle}" />
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
