@@ -11,10 +11,12 @@
     <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center" >
         
         <!-- Header -->
-        <HorizontalStackLayout>
-            <Label FontSize="24" Text="Bela Blok" TextColor="DarkSlateBlue" HorizontalOptions="Center" />
-            <Button Command="{Binding NavigateToSettingsCommand}"/>
-        </HorizontalStackLayout>
+        <Frame BackgroundColor="DarkSlateBlue" CornerRadius="10">
+            <HorizontalStackLayout HorizontalOptions="End" Spacing="60">
+                <Label FontSize="24" Text="Bela Blok" TextColor="GhostWhite" HorizontalOptions="Center" />
+                <Button Command="{Binding NavigateToSettingsCommand}"/>
+            </HorizontalStackLayout>
+        </Frame>
         
         <!-- Team Selection -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">

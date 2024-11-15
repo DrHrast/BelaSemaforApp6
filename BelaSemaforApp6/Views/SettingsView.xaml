@@ -9,6 +9,15 @@
     <ContentPage.Content>
         <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
+            
+            <!-- SettingsView header -->
+            <Frame BackgroundColor="DarkSlateBlue" CornerRadius="10">
+                <HorizontalStackLayout HorizontalOptions="Start" Spacing="60">
+                    <Button Command="{Binding NavigateToGameCommand}"/>
+                    <Label Text="Postavke" FontSize="24" TextColor="GhostWhite" HorizontalOptions="Center" />
+                </HorizontalStackLayout>
+            </Frame>
+            
             <!-- App Visuals Expander -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
