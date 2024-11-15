@@ -10,8 +10,12 @@
     
     <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center" >
         
-        <Label FontSize="24" Text="Bela Blok" TextColor="DarkSlateBlue" HorizontalOptions="Center" />
-
+        <!-- Header -->
+        <HorizontalStackLayout>
+            <Label FontSize="24" Text="Bela Blok" TextColor="DarkSlateBlue" HorizontalOptions="Center" />
+            <Button Command="{Binding NavigateToSettingsCommand}"/>
+        </HorizontalStackLayout>
+        
         <!-- Team Selection -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
             <RadioButton Content="{Binding TeamOneName}" GroupName="TeamName" Style="{DynamicResource RadioButtonStyle}" IsChecked="{Binding TeamOneCallCheck}"/>

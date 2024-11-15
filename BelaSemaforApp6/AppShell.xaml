@@ -11,5 +11,9 @@
     <ShellContent
         ContentTemplate="{DataTemplate views:GameView}"
         Route="GameView" />
+    <ShellContent 
+        ContentTemplate="{DataTemplate views:SettingsView}"
+        Route="SettingsView"
+        />
 
 </Shell>

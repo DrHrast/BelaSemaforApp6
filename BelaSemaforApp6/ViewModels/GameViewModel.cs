@@ -81,4 +81,10 @@ public partial class GameViewModel : ObservableObject
         TeamOneBela = false;
         TeamTwoBela = false;
     }
+
+    [RelayCommand]
+    private async void NavigateToSettings()
+    {
+        await Shell.Current.GoToAsync($"///SettingsView");
+    }
 }
