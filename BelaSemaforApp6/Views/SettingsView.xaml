@@ -21,7 +21,9 @@
             <!-- App Visuals Expander -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
-                    <Label Text="App Visuals" FontSize="20" FontAttributes="Bold" TextColor="DarkSlateGray" />
+                    <Frame CornerRadius="10" Padding="10" HorizontalOptions="Center">
+                        <Label Text="App Visuals" FontSize="20" FontAttributes="Bold" TextColor="DarkSlateGray" />
+                    </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
                     <VerticalStackLayout Spacing="10">
@@ -34,14 +36,15 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Frame CornerRadius="5" Padding="5" IsClippedToBounds="True" HasShadow="False">
-                                        <BoxView Color="{Binding}" WidthRequest="40" HeightRequest="40" />
+                                        <BoxView Color="{Binding}" WidthRequest="40" HeightRequest="40"/>
                                     </Frame>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                         <HorizontalStackLayout>
-                            <Label Text="Font Size" VerticalOptions="Center" />
-                            <Slider Minimum="12" Maximum="24" />
+                            <RadioButton Content="Slova" GroupName="ColorTheme"/>
+                            <RadioButton Content="Zaglavlja" GroupName="ColorTheme"/>
+                            <RadioButton Content="Pozadina" GroupName="ColorTheme"/>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </toolkit:Expander.Content>
@@ -50,7 +53,9 @@
             <!-- Winning Conditions Expander -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
-                    <Label Text="Winning Conditions" FontSize="20" FontAttributes="Bold" TextColor="DarkSlateGray" />
+                    <Frame CornerRadius="10" Padding="10" HorizontalOptions="Center">
+                        <Label Text="Winning Conditions" FontSize="20" FontAttributes="Bold" TextColor="DarkSlateGray" />
+                    </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
                     <VerticalStackLayout Spacing="10">
@@ -69,7 +74,9 @@
             <!-- Players and Teams Expander -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
-                    <Label Text="Players and Teams" FontSize="20" FontAttributes="Bold" TextColor="DarkSlateGray" />
+                    <Frame CornerRadius="10" Padding="10" HorizontalOptions="Center">
+                        <Label Text="Players and Teams" FontSize="20" FontAttributes="Bold" TextColor="DarkSlateGray" />
+                    </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
                     <VerticalStackLayout Spacing="10">

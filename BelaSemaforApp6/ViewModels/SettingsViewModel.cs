@@ -9,7 +9,7 @@ namespace BelaSemaforApp6.ViewModels;
 partial class SettingsViewModel : ObservableObject
 {
     private Color _selectedColor;
-    public ColorsModel ThemeColors { get; } = new ColorsModel();
+    [ObservableProperty] private ColorsModel _themeColors;
     public Color SelectedColor
     {
         get => _selectedColor;
@@ -26,6 +26,8 @@ partial class SettingsViewModel : ObservableObject
     
     [ObservableProperty] private ObservableCollection<Color> _colors = new ObservableCollection<Color>
     {
+        Color.Parse("#000000"),
+        Color.Parse("#FFFFFF"),
         Color.Parse("#D3D3D3"), // Light Gray
         Color.Parse("#708090"), // Slate Gray
         Color.Parse("#2F2F2F"), // Dark Gray
