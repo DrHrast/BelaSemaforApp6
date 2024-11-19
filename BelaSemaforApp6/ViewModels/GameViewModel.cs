@@ -9,7 +9,7 @@ namespace BelaSemaforApp6.ViewModels;
 
 public partial class GameViewModel : ObservableObject
 {
-    
+    [ObservableProperty] private ColorsModel _themeColors;
     [ObservableProperty] private string? _teamOneName = "TeamOne";
     [ObservableProperty] private string? _teamTwoName = "TeamTwo";
     [ObservableProperty] private int _teamOneScore;
@@ -27,16 +27,22 @@ public partial class GameViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<TurnScoreModel>? _scores = [];
 
     private const int Maxscore = 162;
-    
-    public GameViewModel(IConfiguration config) {}
+    private bool _canAddScore = true;
+
+    public GameViewModel(IConfiguration config, ColorsModel colorSettings)
+    {
+        ThemeColors = colorSettings;
+    }
     
     partial void OnTeamOneScoreChanged(int value)
     {
+        if (_canAddScore == false) return;
         TeamTwoScore = Maxscore - value;
     }
 
     partial void OnTeamTwoScoreChanged(int value)
     {
+        if (_canAddScore == false) return;
         TeamOneScore = Maxscore - value;
     }
 
@@ -72,6 +78,7 @@ public partial class GameViewModel : ObservableObject
 
     private void ClearInputs()
     {
+        _canAddScore = false;
         TeamOneCallCheck = false;
         TeamTwoCallCheck = false;
         TeamOneScore = 0;
@@ -80,6 +87,7 @@ public partial class GameViewModel : ObservableObject
         TeamTwoCall = 0;
         TeamOneBela = false;
         TeamTwoBela = false;
+        _canAddScore = true;
     }
 
     [RelayCommand]

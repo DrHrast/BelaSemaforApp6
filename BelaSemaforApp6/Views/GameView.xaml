@@ -6,50 +6,50 @@
              xmlns:models="clr-namespace:BelaSemaforApp6.Models"
              x:DataType="viewModels:GameViewModel"
              x:Class="BelaSemaforApp6.Views.GameView"
-             BackgroundColor="#f0f0f0">
+             BackgroundColor="{Binding ThemeColors.PrimaryColor}">
     
     <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center" >
         
         <!-- Header -->
-        <Frame BackgroundColor="DarkSlateBlue" CornerRadius="10">
+        <Frame BackgroundColor="{Binding ThemeColors.SecondaryColor}" CornerRadius="10">
             <HorizontalStackLayout HorizontalOptions="End" Spacing="60">
-                <Label FontSize="24" Text="Bela Blok" TextColor="GhostWhite" HorizontalOptions="Center" />
-                <Button Command="{Binding NavigateToSettingsCommand}"/>
+                <Label FontSize="24" Text="Bela Blok" TextColor="{Binding ThemeColors.PrimaryColor}" HorizontalOptions="Center" />
+                <Button Command="{Binding NavigateToSettingsCommand}" BackgroundColor="{Binding ThemeColors.PrimaryColor}"/>
             </HorizontalStackLayout>
         </Frame>
         
         <!-- Team Selection -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <RadioButton Content="{Binding TeamOneName}" GroupName="TeamName" Style="{DynamicResource RadioButtonStyle}" IsChecked="{Binding TeamOneCallCheck}"/>
-            <RadioButton Content="{Binding TeamTwoName}" GroupName="TeamName" Style="{DynamicResource RadioButtonStyle}" IsChecked="{Binding TeamTwoCallCheck}"/>
+            <RadioButton Content="{Binding TeamOneName}" TextColor="{Binding ThemeColors.SecondaryColor}" GroupName="TeamName" Style="{DynamicResource RadioButtonStyle}" IsChecked="{Binding TeamOneCallCheck}"/>
+            <RadioButton Content="{Binding TeamTwoName}" TextColor="{Binding ThemeColors.SecondaryColor}" GroupName="TeamName" Style="{DynamicResource RadioButtonStyle}" IsChecked="{Binding TeamTwoCallCheck}"/>
         </HorizontalStackLayout>
 
         <!-- Team Scores -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <Entry Text="{Binding TeamOneScore}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="0, 0, 15, 0"/>
-            <Entry Text="{Binding TeamTwoScore}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="30, 0, 0, 0"/>
+            <Entry Text="{Binding TeamOneScore}" TextColor="{Binding ThemeColors.SecondaryColor}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="0, 0, 15, 0"/>
+            <Entry Text="{Binding TeamTwoScore}" TextColor="{Binding ThemeColors.SecondaryColor}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="30, 0, 0, 0"/>
         </HorizontalStackLayout>
 
         <!-- Team Calls -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <Entry Text="{Binding TeamOneCall}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="0, 0, 15, 0"/>
-            <Entry Text="{Binding TeamTwoCall}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="30, 0, 0, 0"/>
+            <Entry Text="{Binding TeamOneCall}" TextColor="{Binding ThemeColors.SecondaryColor}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="0, 0, 15, 0"/>
+            <Entry Text="{Binding TeamTwoCall}" TextColor="{Binding ThemeColors.SecondaryColor}" Placeholder="0" Style="{DynamicResource EntryStyle}" FontSize="16" Margin="30, 0, 0, 0"/>
         </HorizontalStackLayout>
 
         <!-- Bela Checkboxes -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
             <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-                <CheckBox IsChecked="{Binding TeamOneBela}" VerticalOptions="Center"/>
-                <Label Text="Bela" Style="{DynamicResource LabelStyle}" VerticalOptions="Center"/>
+                <CheckBox IsChecked="{Binding TeamOneBela}" VerticalOptions="Center" Color="{Binding ThemeColors.SecondaryColor}"/>
+                <Label Text="Bela" TextColor="{Binding ThemeColors.SecondaryColor}" Style="{DynamicResource LabelStyle}" VerticalOptions="Center"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-                <CheckBox IsChecked="{Binding TeamTwoBela}" VerticalOptions="Center"/>
-                <Label Text="Bela" Style="{DynamicResource LabelStyle}" VerticalOptions="Center"/>
+                <CheckBox IsChecked="{Binding TeamTwoBela}" VerticalOptions="Center" Color="{Binding ThemeColors.SecondaryColor}"/>
+                <Label Text="Bela" TextColor="{Binding ThemeColors.SecondaryColor}" Style="{DynamicResource LabelStyle}" VerticalOptions="Center"/>
             </HorizontalStackLayout>
         </HorizontalStackLayout>
 
         <!-- Add Score Button -->
-        <Button Command="{Binding AddScoreCommand}" Text="Unesi" Style="{DynamicResource ButtonStyle}"/>
+        <Button Command="{Binding AddScoreCommand}" TextColor="{Binding ThemeColors.PrimaryColor}" BackgroundColor="{Binding ThemeColors.SecondaryColor}" Text="Unesi" Style="{DynamicResource ButtonStyle}"/>
 
         <!-- Score CollectionView -->
         <Frame BackgroundColor="#e6e6ff" CornerRadius="10" Margin="0" Padding="0">

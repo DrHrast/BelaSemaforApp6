@@ -26,12 +26,12 @@ public class TurnScoreService
 
     private void CalculateTurnTotal()
     {
-        _turnScoreModel.TeamOneTurnTotal = _turnScoreModel.IsTeamOneBelaChecked ? 
-            _turnScoreModel.TeamOneScoreOnly + BelaValue + _turnScoreModel.TeamOneCall : 
-            _turnScoreModel.TeamOneScoreOnly + _turnScoreModel.TeamOneCall;
-        _turnScoreModel.TeamTwoTurnTotal = _turnScoreModel.IsTeamTwoBelaChecked ?
-            _turnScoreModel.TeamTwoScoreOnly + BelaValue + _turnScoreModel.TeamTwoCall :
-            _turnScoreModel.TeamTwoScoreOnly + _turnScoreModel.TeamTwoCall;
+        _turnScoreModel.TeamOneTurnTotal = _turnScoreModel.IsTeamOneBelaChecked
+            ? _turnScoreModel.TeamOneScoreOnly + BelaValue + _turnScoreModel.TeamOneCall
+            : _turnScoreModel.TeamOneScoreOnly + _turnScoreModel.TeamOneCall;
+        _turnScoreModel.TeamTwoTurnTotal = _turnScoreModel.IsTeamTwoBelaChecked
+            ? _turnScoreModel.TeamTwoScoreOnly + BelaValue + _turnScoreModel.TeamTwoCall
+            : _turnScoreModel.TeamTwoScoreOnly + _turnScoreModel.TeamTwoCall;
     }
     
     private void CheckCallConditions()

@@ -6,50 +6,63 @@
              xmlns:viewModels="clr-namespace:BelaSemaforApp6.ViewModels"
              x:DataType="viewModels:SettingsViewModel"
              x:Class="BelaSemaforApp6.Views.SettingsView"
-             BackgroundColor="{Binding ThemeColors.BackgroundColor}">
+             BackgroundColor="{Binding ThemeColors.PrimaryColor}">
     <ContentPage.Content>
         <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="20" Spacing="20">
             
             <!-- SettingsView header -->
-            <Frame BackgroundColor="{Binding ThemeColors.HeaderColor}" CornerRadius="10" Padding="10" Margin="0">
+            <Frame BackgroundColor="{Binding ThemeColors.SecondaryColor}" CornerRadius="10" Padding="10" Margin="0">
                 <HorizontalStackLayout HorizontalOptions="Start" Spacing="60">
-                    <Button Command="{Binding NavigateToGameCommand}"/>
-                    <Label Text="Postavke" FontSize="24" TextColor="{Binding ThemeColors.TextColor}" HorizontalOptions="Center" />
+                    <Button Command="{Binding NavigateToGameCommand}" BackgroundColor="{Binding ThemeColors.PrimaryColor}"/>
+                    <Label Text="Postavke" FontSize="24" TextColor="{Binding ThemeColors.PrimaryColor}" HorizontalOptions="Center" />
                 </HorizontalStackLayout>
             </Frame>
             
             <!-- App Visuals Expander -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
-                    <Frame CornerRadius="10" Padding="10" HorizontalOptions="Center">
-                        <Label Text="App Visuals" FontSize="20" FontAttributes="Bold" TextColor="DarkSlateGray" />
+                    <Frame CornerRadius="10" Padding="10" BackgroundColor="{Binding ThemeColors.SecondaryColor}">
+                        <Label Text="App Visuals" FontSize="20" FontAttributes="Bold" TextColor="{Binding ThemeColors.PrimaryColor}" HorizontalTextAlignment="Center"/>
                     </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
                     <VerticalStackLayout Spacing="10" Margin="10">
-                        <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Colors}">
+                        <CollectionView HorizontalOptions="CenterAndExpand" ItemsSource="{Binding PrimaryColors}">
+                            <CollectionView.ItemsLayout>
+                                <!-- Display squares in a grid layout -->
+                                <GridItemsLayout Orientation="Vertical" Span="3" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Button BackgroundColor="{Binding .}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SetPrimaryCommand}"
+                                            CommandParameter="{Binding .}"
+                                            BorderColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}"
+                                            BorderWidth="1"
+                                            Margin="2"
+                                            HeightRequest="40"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <CollectionView HorizontalOptions="CenterAndExpand" ItemsSource="{Binding SecondaryColors}">
                             <CollectionView.ItemsLayout>
                                 <!-- Display squares in a grid layout -->
                                 <GridItemsLayout Orientation="Vertical" Span="6" />
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Frame CornerRadius="5" Padding="5" IsClippedToBounds="True" HasShadow="False">
-                                        <Button BackgroundColor="{Binding .}" 
-                                                WidthRequest="40" 
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SetThemeCommand}"
-                                                CommandParameter="{Binding .}"
-                                                HeightRequest="40"/>
-                                    </Frame>
+                                    <Button BackgroundColor="{Binding .}" 
+                                            WidthRequest="40" 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SetSecondaryCommand}"
+                                            CommandParameter="{Binding .}"
+                                            BorderColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}"
+                                            BorderWidth="1"
+                                            Margin="2"
+                                            HeightRequest="40"/>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                        <HorizontalStackLayout>
-                            <RadioButton Content="Zaglavlja" GroupName="ColorTheme" IsChecked="{Binding IsHeader}"/>
-                            <RadioButton Content="Slova" GroupName="ColorTheme" IsChecked="{Binding IsText}"/>
-                            <RadioButton Content="Pozadina" GroupName="ColorTheme" IsChecked="{Binding IsBackground}"/>
-                        </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </toolkit:Expander.Content>
             </toolkit:Expander>
@@ -57,8 +70,8 @@
             <!-- Winning Conditions Expander -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
-                    <Frame CornerRadius="10" Padding="10" HorizontalOptions="Center">
-                        <Label Text="Winning Conditions" FontSize="20" FontAttributes="Bold" TextColor="DarkSlateGray" />
+                    <Frame CornerRadius="10" Padding="10" BackgroundColor="{Binding ThemeColors.SecondaryColor}">
+                        <Label Text="Winning Conditions" FontSize="20" FontAttributes="Bold" TextColor="{Binding ThemeColors.PrimaryColor}" HorizontalTextAlignment="Center"/>
                     </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
@@ -78,8 +91,8 @@
             <!-- Players and Teams Expander -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
-                    <Frame CornerRadius="10" Padding="10" HorizontalOptions="Center">
-                        <Label Text="Players and Teams" FontSize="20" FontAttributes="Bold" TextColor="DarkSlateGray" />
+                    <Frame CornerRadius="10" Padding="10" BackgroundColor="{Binding ThemeColors.SecondaryColor}">
+                        <Label Text="Players and Teams" FontSize="20" FontAttributes="Bold" TextColor="{Binding ThemeColors.PrimaryColor}" HorizontalTextAlignment="Center"/>
                     </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>

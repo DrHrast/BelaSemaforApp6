@@ -5,41 +5,28 @@ namespace BelaSemaforApp6.Models;
 
 public class ColorsModel : INotifyPropertyChanged
 {
-    private Color _textColor = Color.Parse("#FFF8F8FF");
-    private Color _backgroundColor = Color.Parse("#f0f0f0f0");
-    private Color _headerColor = Color.Parse("#FF483D8B");
+    private Color _primaryColor = Color.Parse("#FFF8F8FF");
+    private Color _secondaryColor = Color.Parse("#FF483D8B");
 
-    public Color TextColor
+    public Color PrimaryColor
     {
-        get => _textColor;
+        get => _primaryColor;
         set
         {
-            if (Equals(value, _textColor)) return;
+            if (Equals(value, _primaryColor)) return;
             
-            _textColor = value;
+            _primaryColor = value;
             OnPropertyChanged();
         }
     }
 
-    public Color BackgroundColor
+    public Color SecondaryColor
     {
-        get => _backgroundColor;
+        get => _secondaryColor;
         set
         {
-            if (Equals(value, _backgroundColor)) return;
-            
-            _backgroundColor = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public Color HeaderColor
-    {
-        get => _headerColor;
-        set
-        {
-            if (Equals(value, _headerColor)) return;
-            _headerColor = value;
+            if (Equals(value, _secondaryColor)) return;
+            _secondaryColor = value;
             OnPropertyChanged();
         }
     }

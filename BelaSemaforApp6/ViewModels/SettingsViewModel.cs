@@ -8,13 +8,20 @@ namespace BelaSemaforApp6.ViewModels;
 
 partial class SettingsViewModel : ObservableObject
 {
-    [ObservableProperty] private ColorsModel _themeColors = new();
+    [ObservableProperty] private ColorsModel _themeColors;
     [ObservableProperty] private bool _isHeader = true;
     [ObservableProperty] private bool _isText;
     [ObservableProperty] private bool _isBackground;
+
+    [ObservableProperty] private ObservableCollection<Color> _primaryColors =
+    [
+        Color.Parse("#fdfdfd"),
+        Color.Parse("#696969"),
+        Color.Parse("#181818"),
+    ];
     
-    [ObservableProperty] private ObservableCollection<Color> _colors = new ()
-    {
+    [ObservableProperty] private ObservableCollection<Color> _secondaryColors =
+    [
         Color.Parse("#000000"),
         Color.Parse("#FFFFFF"),
         Color.Parse("#D3D3D3"), // Light Gray
@@ -32,10 +39,13 @@ partial class SettingsViewModel : ObservableObject
         Color.Parse("#00CED1"), // Dark Turquoise
         Color.Parse("#1E90FF"), // Dodger Blue
         Color.Parse("#5D3FD3"), // Dark Purple
-        Color.Parse("#4B0082"), // Indigo
-    };
-    
-    public SettingsViewModel(IConfiguration config) {}
+        Color.Parse("#4B0082") // Indigo
+    ];
+
+    public SettingsViewModel(IConfiguration config, ColorsModel colorSettings)
+    {
+        ThemeColors = colorSettings;
+    }
 
     [RelayCommand]
     private async void NavigateToGame()
@@ -44,12 +54,14 @@ partial class SettingsViewModel : ObservableObject
     }
     
     [RelayCommand]
-    private async Task SetTheme(Color selectedColor)
+    private void SetPrimary(Color selectedColor)
     {
-        if (IsHeader)
-            ThemeColors.HeaderColor = selectedColor;
-        else if (IsText)
-            ThemeColors.TextColor = selectedColor;
-        else ThemeColors.BackgroundColor = selectedColor;
+        ThemeColors.PrimaryColor = selectedColor;
+    }
+
+    [RelayCommand]
+    private void SetSecondary(Color selectedColor)
+    {
+        ThemeColors.SecondaryColor = selectedColor;
     }
 }
