@@ -26,7 +26,7 @@
                     </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
-                    <VerticalStackLayout Spacing="10">
+                    <VerticalStackLayout Spacing="10" Margin="10">
                         <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Colors}" SelectionMode="Single"
                                         SelectedItem="{Binding SelectedColor, Mode=TwoWay}">
                             <CollectionView.ItemsLayout>
@@ -36,14 +36,18 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Frame CornerRadius="5" Padding="5" IsClippedToBounds="True" HasShadow="False">
-                                        <BoxView Color="{Binding}" WidthRequest="40" HeightRequest="40"/>
+                                        <Button BackgroundColor="{Binding .}" 
+                                                WidthRequest="40" 
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SettingsViewModel}}, Path=SetThemeCommand}"
+                                                CommandParameter="{Binding .}"
+                                                HeightRequest="40"/>
                                     </Frame>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                         <HorizontalStackLayout>
+                            <RadioButton Content="Zaglavlja" GroupName="ColorTheme" IsChecked="True"/>
                             <RadioButton Content="Slova" GroupName="ColorTheme"/>
-                            <RadioButton Content="Zaglavlja" GroupName="ColorTheme"/>
                             <RadioButton Content="Pozadina" GroupName="ColorTheme"/>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
@@ -58,7 +62,7 @@
                     </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
-                    <VerticalStackLayout Spacing="10">
+                    <VerticalStackLayout Spacing="10" Margin="10">
                         <VerticalStackLayout HorizontalOptions="Start" Padding="10">
                             <RadioButton GroupName="ScoreSelection" Content="301" Style="{DynamicResource RadioButtonStyle}"/>
                             <RadioButton GroupName="ScoreSelection" Content="501" Style="{DynamicResource RadioButtonStyle}"/>
@@ -79,7 +83,7 @@
                     </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
-                    <VerticalStackLayout Spacing="10">
+                    <VerticalStackLayout Spacing="10" Margin="10">
                         <Button Text="Add Player" />
                         <Button Text="Add Team" />
                         <CollectionView >

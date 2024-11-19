@@ -8,23 +8,10 @@ namespace BelaSemaforApp6.ViewModels;
 
 partial class SettingsViewModel : ObservableObject
 {
-    private Color _selectedColor;
-    [ObservableProperty] private ColorsModel _themeColors;
-    public Color SelectedColor
-    {
-        get => _selectedColor;
-        set
-        {
-            if (_selectedColor != value)
-            {
-                _selectedColor = value;
-                OnPropertyChanged(nameof(SelectedColor));
-                UpdateThemeColors(_selectedColor);
-            }
-        }
-    }
+    [ObservableProperty] private ColorsModel _themeColors = new();
+    [ObservableProperty] private Color _selectedColor;
     
-    [ObservableProperty] private ObservableCollection<Color> _colors = new ObservableCollection<Color>
+    [ObservableProperty] private ObservableCollection<Color> _colors = new ()
     {
         Color.Parse("#000000"),
         Color.Parse("#FFFFFF"),
@@ -54,11 +41,9 @@ partial class SettingsViewModel : ObservableObject
         await Shell.Current.GoToAsync("///GameView");
     }
     
-    private void UpdateThemeColors(Color selectedColor)
+    [RelayCommand]
+    private async Task SetTheme()
     {
-        // Update specific theme colors (adjust logic as needed)
-        ThemeColors.TextColor = selectedColor;
-        ThemeColors.BackgroundColor = selectedColor.WithLuminosity((float)0.9); // Slightly lighter for background
-        ThemeColors.HeaderColor = selectedColor.WithLuminosity((float)0.7); // Medium lightness for headers
+        _themeColors.HeaderColor = SelectedColor;
     }
 }
