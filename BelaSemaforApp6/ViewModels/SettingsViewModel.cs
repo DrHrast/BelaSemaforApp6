@@ -9,7 +9,9 @@ namespace BelaSemaforApp6.ViewModels;
 partial class SettingsViewModel : ObservableObject
 {
     [ObservableProperty] private ColorsModel _themeColors = new();
-    [ObservableProperty] private Color _selectedColor;
+    [ObservableProperty] private bool _isHeader = true;
+    [ObservableProperty] private bool _isText;
+    [ObservableProperty] private bool _isBackground;
     
     [ObservableProperty] private ObservableCollection<Color> _colors = new ()
     {
@@ -42,8 +44,12 @@ partial class SettingsViewModel : ObservableObject
     }
     
     [RelayCommand]
-    private async Task SetTheme()
+    private async Task SetTheme(Color selectedColor)
     {
-        _themeColors.HeaderColor = SelectedColor;
+        if (IsHeader)
+            ThemeColors.HeaderColor = selectedColor;
+        else if (IsText)
+            ThemeColors.TextColor = selectedColor;
+        else ThemeColors.BackgroundColor = selectedColor;
     }
 }

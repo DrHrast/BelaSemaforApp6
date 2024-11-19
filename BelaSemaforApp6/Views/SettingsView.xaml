@@ -5,7 +5,8 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModels="clr-namespace:BelaSemaforApp6.ViewModels"
              x:DataType="viewModels:SettingsViewModel"
-             x:Class="BelaSemaforApp6.Views.SettingsView">
+             x:Class="BelaSemaforApp6.Views.SettingsView"
+             BackgroundColor="{Binding ThemeColors.BackgroundColor}">
     <ContentPage.Content>
         <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
@@ -14,7 +15,7 @@
             <Frame BackgroundColor="{Binding ThemeColors.HeaderColor}" CornerRadius="10" Padding="10" Margin="0">
                 <HorizontalStackLayout HorizontalOptions="Start" Spacing="60">
                     <Button Command="{Binding NavigateToGameCommand}"/>
-                    <Label Text="Postavke" FontSize="24" TextColor="GhostWhite" HorizontalOptions="Center" />
+                    <Label Text="Postavke" FontSize="24" TextColor="{Binding ThemeColors.TextColor}" HorizontalOptions="Center" />
                 </HorizontalStackLayout>
             </Frame>
             
@@ -27,8 +28,7 @@
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
                     <VerticalStackLayout Spacing="10" Margin="10">
-                        <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Colors}" SelectionMode="Single"
-                                        SelectedItem="{Binding SelectedColor, Mode=TwoWay}">
+                        <CollectionView HorizontalOptions="Center" ItemsSource="{Binding Colors}">
                             <CollectionView.ItemsLayout>
                                 <!-- Display squares in a grid layout -->
                                 <GridItemsLayout Orientation="Vertical" Span="6" />
@@ -38,7 +38,7 @@
                                     <Frame CornerRadius="5" Padding="5" IsClippedToBounds="True" HasShadow="False">
                                         <Button BackgroundColor="{Binding .}" 
                                                 WidthRequest="40" 
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SettingsViewModel}}, Path=SetThemeCommand}"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SetThemeCommand}"
                                                 CommandParameter="{Binding .}"
                                                 HeightRequest="40"/>
                                     </Frame>
@@ -46,9 +46,9 @@
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                         <HorizontalStackLayout>
-                            <RadioButton Content="Zaglavlja" GroupName="ColorTheme" IsChecked="True"/>
-                            <RadioButton Content="Slova" GroupName="ColorTheme"/>
-                            <RadioButton Content="Pozadina" GroupName="ColorTheme"/>
+                            <RadioButton Content="Zaglavlja" GroupName="ColorTheme" IsChecked="{Binding IsHeader}"/>
+                            <RadioButton Content="Slova" GroupName="ColorTheme" IsChecked="{Binding IsText}"/>
+                            <RadioButton Content="Pozadina" GroupName="ColorTheme" IsChecked="{Binding IsBackground}"/>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </toolkit:Expander.Content>
