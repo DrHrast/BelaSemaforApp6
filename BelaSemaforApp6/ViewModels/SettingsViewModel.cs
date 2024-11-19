@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using BelaSemaforApp6.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ namespace BelaSemaforApp6.ViewModels;
 partial class SettingsViewModel : ObservableObject
 {
     private Color _selectedColor;
+    public ColorsModel ThemeColors { get; } = new ColorsModel();
     public Color SelectedColor
     {
         get => _selectedColor;
@@ -16,8 +18,8 @@ partial class SettingsViewModel : ObservableObject
             if (_selectedColor != value)
             {
                 _selectedColor = value;
-                OnPropertyChanged();
-                ApplyThemeColor(_selectedColor); // Apply the selected color to the theme
+                OnPropertyChanged(nameof(SelectedColor));
+                UpdateThemeColors(_selectedColor);
             }
         }
     }
@@ -50,10 +52,11 @@ partial class SettingsViewModel : ObservableObject
         await Shell.Current.GoToAsync("///GameView");
     }
     
-    private void ApplyThemeColor(Color selectedColor)
+    private void UpdateThemeColors(Color selectedColor)
     {
-        // Apply the selected color to your app's theme
-        Console.WriteLine($"Selected Color: {selectedColor}");
-        // Example: Update your application's global resources, styles, or specific elements
+        // Update specific theme colors (adjust logic as needed)
+        ThemeColors.TextColor = selectedColor;
+        ThemeColors.BackgroundColor = selectedColor.WithLuminosity((float)0.9); // Slightly lighter for background
+        ThemeColors.HeaderColor = selectedColor.WithLuminosity((float)0.7); // Medium lightness for headers
     }
 }
