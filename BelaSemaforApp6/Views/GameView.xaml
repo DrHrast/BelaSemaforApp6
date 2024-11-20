@@ -8,15 +8,19 @@
              x:Class="BelaSemaforApp6.Views.GameView"
              BackgroundColor="{Binding ThemeColors.PrimaryColor}">
 
-    <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center">
+    <VerticalStackLayout Padding="0" Spacing="10">
         
         <!-- Header -->
-        <Frame BackgroundColor="{Binding ThemeColors.SecondaryColor}" CornerRadius="10" HorizontalOptions="Fill">
-            <HorizontalStackLayout Spacing="60" HorizontalOptions="End">
+        <Border BackgroundColor="{Binding ThemeColors.SecondaryColor}" 
+                StrokeShape="RoundRectangle 0,0,40,40"
+                HorizontalOptions="FillAndExpand"
+                Stroke="Transparent"
+                Padding="30">
+            <HorizontalStackLayout Spacing="60" HorizontalOptions="Center">
                 <Label Text="Bela Blok" FontSize="24" TextColor="{Binding ThemeColors.PrimaryColor}" HorizontalOptions="Center" />
                 <Button Command="{Binding NavigateToSettingsCommand}" BackgroundColor="{Binding ThemeColors.PrimaryColor}" />
             </HorizontalStackLayout>
-        </Frame>
+        </Border>
 
         <!-- Team Selection -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
@@ -37,11 +41,13 @@
             <Entry Text="{Binding TeamOneScore}" 
                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                    Placeholder="0" 
+                   Keyboard="Numeric"
                    Style="{DynamicResource EntryStyle}" 
                    FontSize="16" />
             <Entry Text="{Binding TeamTwoScore}" 
                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                    Placeholder="0" 
+                   Keyboard="Numeric"
                    Style="{DynamicResource EntryStyle}" 
                    FontSize="16" />
         </HorizontalStackLayout>
@@ -51,11 +57,13 @@
             <Entry Text="{Binding TeamOneCall}" 
                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                    Placeholder="0" 
+                   Keyboard="Numeric"
                    Style="{DynamicResource EntryStyle}" 
                    FontSize="16" />
             <Entry Text="{Binding TeamTwoCall}" 
                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                    Placeholder="0" 
+                   Keyboard="Numeric"
                    Style="{DynamicResource EntryStyle}" 
                    FontSize="16" />
         </HorizontalStackLayout>
@@ -86,7 +94,9 @@
                 Style="{DynamicResource ButtonStyle}" />
 
         <!-- Team Totals and Scores -->
-        <Frame BackgroundColor="{Binding ThemeColors.SecondaryColor}" CornerRadius="10">
+        <Border BackgroundColor="{Binding ThemeColors.SecondaryColor}" 
+                StrokeShape="RoundRectangle 5,5,5,5"
+                Stroke="Transparent">
             <VerticalStackLayout Spacing="1" HorizontalOptions="Fill" Padding="0">
                 
                 <!-- Team Names -->
@@ -131,6 +141,6 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </VerticalStackLayout>
-        </Frame>
+        </Border>
     </VerticalStackLayout>
 </ContentPage>

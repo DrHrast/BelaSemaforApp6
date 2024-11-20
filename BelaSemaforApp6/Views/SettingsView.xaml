@@ -9,22 +9,26 @@
              BackgroundColor="{Binding ThemeColors.PrimaryColor}">
     <ContentPage.Content>
         <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+        <VerticalStackLayout Spacing="20">
             
             <!-- SettingsView header -->
-            <Frame BackgroundColor="{Binding ThemeColors.SecondaryColor}" CornerRadius="10" Padding="10" Margin="0">
+            <Border BackgroundColor="{Binding ThemeColors.SecondaryColor}" 
+                    StrokeShape="RoundRectangle 0,0,40,40"
+                    HorizontalOptions="FillAndExpand"
+                    Stroke="Transparent"
+                    Padding="30">
                 <HorizontalStackLayout HorizontalOptions="Start" Spacing="60">
                     <Button Command="{Binding NavigateToGameCommand}" BackgroundColor="{Binding ThemeColors.PrimaryColor}"/>
                     <Label Text="Postavke" FontSize="24" TextColor="{Binding ThemeColors.PrimaryColor}" HorizontalOptions="Center" />
                 </HorizontalStackLayout>
-            </Frame>
+            </Border>
             
             <!-- App Visuals Expander -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
-                    <Frame CornerRadius="10" Padding="10" BackgroundColor="{Binding ThemeColors.SecondaryColor}">
+                    <Border StrokeShape="RoundRectangle 7,7,7,7" Stroke="Transparent" Padding="13" Margin="10,0,10,0" BackgroundColor="{Binding ThemeColors.SecondaryColor}">
                         <Label Text="App Visuals" FontSize="20" FontAttributes="Bold" TextColor="{Binding ThemeColors.PrimaryColor}" HorizontalTextAlignment="Center"/>
-                    </Frame>
+                    </Border>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
                     <VerticalStackLayout Spacing="10" Margin="10">
@@ -70,12 +74,12 @@
             <!-- Winning Conditions Expander -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
-                    <Frame CornerRadius="10" Padding="10" BackgroundColor="{Binding ThemeColors.SecondaryColor}">
+                    <Border StrokeShape="RoundRectangle 7,7,7,7" Stroke="Transparent" Padding="13" Margin="10,0,10,0" BackgroundColor="{Binding ThemeColors.SecondaryColor}">
                         <Label Text="Winning Conditions" 
                                FontSize="20" FontAttributes="Bold" 
                                TextColor="{Binding ThemeColors.PrimaryColor}" 
                                HorizontalTextAlignment="Center"/>
-                    </Frame>
+                    </Border>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
                     <VerticalStackLayout Spacing="10" Margin="10">
@@ -98,9 +102,9 @@
             <!-- Players and Teams Expander -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
-                    <Frame CornerRadius="10" Padding="10" BackgroundColor="{Binding ThemeColors.SecondaryColor}">
+                    <Border StrokeShape="RoundRectangle 7,7,7,7" Stroke="Transparent" Padding="13" Margin="10,0,10,0" BackgroundColor="{Binding ThemeColors.SecondaryColor}">
                         <Label Text="Players and Teams" FontSize="20" FontAttributes="Bold" TextColor="{Binding ThemeColors.PrimaryColor}" HorizontalTextAlignment="Center"/>
-                    </Frame>
+                    </Border>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
                     <VerticalStackLayout Spacing="10" Margin="10">
