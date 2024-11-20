@@ -71,19 +71,26 @@
             <toolkit:Expander>
                 <toolkit:Expander.Header>
                     <Frame CornerRadius="10" Padding="10" BackgroundColor="{Binding ThemeColors.SecondaryColor}">
-                        <Label Text="Winning Conditions" FontSize="20" FontAttributes="Bold" TextColor="{Binding ThemeColors.PrimaryColor}" HorizontalTextAlignment="Center"/>
+                        <Label Text="Winning Conditions" 
+                               FontSize="20" FontAttributes="Bold" 
+                               TextColor="{Binding ThemeColors.PrimaryColor}" 
+                               HorizontalTextAlignment="Center"/>
                     </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
                     <VerticalStackLayout Spacing="10" Margin="10">
-                        <VerticalStackLayout HorizontalOptions="Start" Padding="10">
-                            <RadioButton GroupName="ScoreSelection" Content="301" Style="{DynamicResource RadioButtonStyle}"/>
-                            <RadioButton GroupName="ScoreSelection" Content="501" Style="{DynamicResource RadioButtonStyle}"/>
-                            <RadioButton GroupName="ScoreSelection" Content="701" Style="{DynamicResource RadioButtonStyle}"/>
-                            <RadioButton GroupName="ScoreSelection" Content="901" Style="{DynamicResource RadioButtonStyle}"/>
-                            <RadioButton GroupName="ScoreSelection" Content="1001" Style="{DynamicResource RadioButtonStyle}"/>
-                            <RadioButton GroupName="ScoreSelection" Content="1301" Style="{DynamicResource RadioButtonStyle}"/>
-                        </VerticalStackLayout>
+                        <Grid ColumnDefinitions="*,*"
+                              RowDefinitions="Auto,Auto,Auto">
+                            <!-- First Row -->
+                            <RadioButton Grid.Row="0" Grid.Column="0" GroupName="ScoreSelection" Content="301" Style="{DynamicResource RadioButtonStyle}" />
+                            <RadioButton Grid.Row="1" Grid.Column="0" GroupName="ScoreSelection" Content="501" Style="{DynamicResource RadioButtonStyle}" />
+                            <RadioButton Grid.Row="2" Grid.Column="0" GroupName="ScoreSelection" Content="701" Style="{DynamicResource RadioButtonStyle}" />
+            
+                            <!-- Second Row -->
+                            <RadioButton Grid.Row="0" Grid.Column="1" GroupName="ScoreSelection" Content="901" Style="{DynamicResource RadioButtonStyle}" />
+                            <RadioButton Grid.Row="1" Grid.Column="1" GroupName="ScoreSelection" Content="1001" Style="{DynamicResource RadioButtonStyle}" IsChecked="True"/>
+                            <RadioButton Grid.Row="2" Grid.Column="1" GroupName="ScoreSelection" Content="1301" Style="{DynamicResource RadioButtonStyle}" />
+                        </Grid>
                     </VerticalStackLayout>
                 </toolkit:Expander.Content>
             </toolkit:Expander>
@@ -97,13 +104,45 @@
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
                     <VerticalStackLayout Spacing="10" Margin="10">
-                        <Button Text="Add Player" />
-                        <Button Text="Add Team" />
-                        <CollectionView >
+                        <!-- Add Player Button -->
+                        <Button Text="Add Player" 
+                                Command="{Binding AddPlayerCommand}" 
+                                TextColor="{Binding ThemeColors.PrimaryColor}" 
+                                BackgroundColor="{Binding ThemeColors.SecondaryColor}"/>
+
+                        <!-- Add Team Button -->
+                        <Button Text="Add Team" 
+                                Command="{Binding AddTeamCommand}" 
+                                TextColor="{Binding ThemeColors.PrimaryColor}" 
+                                BackgroundColor="{Binding ThemeColors.SecondaryColor}"/>
+
+                        <!-- List of Players -->
+                        <Label Text="Players" FontSize="16" FontAttributes="Bold" TextColor="{Binding ThemeColors.SecondaryColor}"/>
+                        <CollectionView ItemsSource="{Binding Players}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <StackLayout>
-                                        <Label />
+                                        <Label Text="{Binding Name}" 
+                                               FontSize="14" 
+                                               TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, 
+                                                    Path=BindingContext.ThemeColors.SecondaryColor}"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <!-- List of Teams -->
+                        <Label Text="Teams" FontSize="16" FontAttributes="Bold" TextColor="{Binding ThemeColors.SecondaryColor}"/>
+                        <CollectionView ItemsSource="{Binding Teams}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" FontSize="14" 
+                                               TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, 
+                                                    Path=BindingContext.ThemeColors.SecondaryColor}"/>
+                                        <Label Text="Players: {Binding PlayerOneId}, {Binding PlayerTwoId}" FontSize="12" 
+                                               TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, 
+                                                    Path=BindingContext.ThemeColors.SecondaryColor}"/>
                                     </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

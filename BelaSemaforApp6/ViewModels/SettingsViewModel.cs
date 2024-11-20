@@ -12,14 +12,13 @@ partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private bool _isHeader = true;
     [ObservableProperty] private bool _isText;
     [ObservableProperty] private bool _isBackground;
-
+    [ObservableProperty] private string? _name;
     [ObservableProperty] private ObservableCollection<Color> _primaryColors =
     [
         Color.Parse("#fdfdfd"),
         Color.Parse("#696969"),
         Color.Parse("#181818"),
     ];
-    
     [ObservableProperty] private ObservableCollection<Color> _secondaryColors =
     [
         Color.Parse("#000000"),
@@ -41,6 +40,10 @@ partial class SettingsViewModel : ObservableObject
         Color.Parse("#5D3FD3"), // Dark Purple
         Color.Parse("#4B0082") // Indigo
     ];
+    
+    public ObservableCollection<PlayersModel> Players { get; set; } = new();
+    public ObservableCollection<TeamsModel> Teams { get; set; } = new();
+
 
     public SettingsViewModel(IConfiguration config, ColorsModel colorSettings)
     {
@@ -64,4 +67,51 @@ partial class SettingsViewModel : ObservableObject
     {
         ThemeColors.SecondaryColor = selectedColor;
     }
+    
+    [RelayCommand]
+    private async Task AddPlayer()
+    {
+        // Prompt the user for a player name (use a dialog or input form)
+        string playerName = await App.Current.MainPage.DisplayPromptAsync("Add Player", "Enter player's name:");
+
+        if (!string.IsNullOrWhiteSpace(playerName))
+        {
+            Players.Add(new PlayersModel
+            {
+                Id = Players.Count + 1,
+                Name = playerName
+            });
+        }
+    }
+
+    [RelayCommand]
+    private async Task AddTeam()
+    {
+        // Ensure there are enough players
+        if (Players.Count < 2)
+        {
+            await App.Current.MainPage.DisplayAlert("Add Team", "You need at least 2 players to form a team.", "OK");
+            return;
+        }
+
+        // Select two players
+        string playerOne = await App.Current.MainPage.DisplayActionSheet("Select Player One", "Cancel", null, Players.Select(p => p.Name).ToArray());
+        string playerTwo = await App.Current.MainPage.DisplayActionSheet("Select Player Two", "Cancel", null, Players.Select(p => p.Name).ToArray());
+
+        if (!string.IsNullOrWhiteSpace(playerOne) && !string.IsNullOrWhiteSpace(playerTwo) && playerOne != playerTwo)
+        {
+            Teams.Add(new TeamsModel
+            {
+                Id = Teams.Count + 1,
+                Name = $"{playerOne} & {playerTwo}",
+                PlayerOneId = Players.First(p => p.Name == playerOne).Id,
+                PlayerTwoId = Players.First(p => p.Name == playerTwo).Id
+            });
+        }
+        else
+        {
+            await App.Current.MainPage.DisplayAlert("Add Team", "You must select two different players.", "OK");
+        }
+    }
+
 }

@@ -4,7 +4,6 @@
         <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
         <Setter Property="VerticalTextAlignment" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
-        <Setter Property="BackgroundColor" Value="#f0f0f0" />
         <Setter Property="Margin" Value="1" />
         <Setter Property="Padding" Value="0"/>
     </Style>
