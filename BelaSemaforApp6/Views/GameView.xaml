@@ -6,32 +6,32 @@
              xmlns:models="clr-namespace:BelaSemaforApp6.Models"
              x:DataType="viewModels:GameViewModel"
              x:Class="BelaSemaforApp6.Views.GameView"
-             BackgroundColor="{Binding ThemeColors.PrimaryColor}"
+             BackgroundColor="{Binding AppSettings.PrimaryColor}"
              Padding="0">
 
     <VerticalStackLayout Padding="0" Spacing="10" Margin="0">
         
         <!-- Header -->
-        <Border BackgroundColor="{Binding ThemeColors.SecondaryColor}" 
+        <Border BackgroundColor="{Binding AppSettings.SecondaryColor}" 
                 StrokeShape="RoundRectangle 0,0,40,40"
                 HorizontalOptions="FillAndExpand"
                 Stroke="Transparent"
                 Padding="30">
             <HorizontalStackLayout Spacing="60" HorizontalOptions="Center">
-                <Label Text="Bela Blok" FontSize="24" TextColor="{Binding ThemeColors.PrimaryColor}" HorizontalOptions="Center" />
-                <Button Command="{Binding NavigateToSettingsCommand}" BackgroundColor="{Binding ThemeColors.PrimaryColor}" />
+                <Label Text="Bela Blok" FontSize="24" TextColor="{Binding AppSettings.PrimaryColor}" HorizontalOptions="Center" />
+                <Button Command="{Binding NavigateToSettingsCommand}" BackgroundColor="{Binding AppSettings.PrimaryColor}" />
             </HorizontalStackLayout>
         </Border>
 
         <!-- Team Selection -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
             <RadioButton Content="{Binding TeamOneName}" 
-                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
+                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                          GroupName="TeamName"
                          Style="{DynamicResource RadioButtonStyle}" 
                          IsChecked="{Binding TeamOneCallCheck}" />
             <RadioButton Content="{Binding TeamTwoName}" 
-                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
+                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                          GroupName="TeamName" 
                          Style="{DynamicResource RadioButtonStyle}" 
                          IsChecked="{Binding TeamTwoCallCheck}" />
@@ -40,13 +40,13 @@
         <!-- Team Scores -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
             <Entry Text="{Binding TeamOneScore}" 
-                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
+                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                    Placeholder="0" 
                    Keyboard="Numeric"
                    Style="{DynamicResource EntryStyle}" 
                    FontSize="16" />
             <Entry Text="{Binding TeamTwoScore}" 
-                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
+                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                    Placeholder="0" 
                    Keyboard="Numeric"
                    Style="{DynamicResource EntryStyle}" 
@@ -56,13 +56,13 @@
         <!-- Team Calls -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
             <Entry Text="{Binding TeamOneCall}" 
-                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
+                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                    Placeholder="0" 
                    Keyboard="Numeric"
                    Style="{DynamicResource EntryStyle}" 
                    FontSize="16" />
             <Entry Text="{Binding TeamTwoCall}" 
-                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
+                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                    Placeholder="0" 
                    Keyboard="Numeric"
                    Style="{DynamicResource EntryStyle}" 
@@ -73,16 +73,16 @@
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
             <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
                 <CheckBox IsChecked="{Binding TeamOneBela}" 
-                          Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}"/>
+                          Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"/>
                 <Label Text="Bela" 
-                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
+                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                        Style="{DynamicResource LabelStyle}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
                 <CheckBox IsChecked="{Binding TeamTwoBela}" 
-                          Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}"/>
+                          Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"/>
                 <Label Text="Bela" 
-                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
+                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                        Style="{DynamicResource LabelStyle}" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
@@ -90,12 +90,12 @@
         <!-- Add Score Button -->
         <Button Command="{Binding AddScoreCommand}" 
                 Text="Unesi" 
-                TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
-                BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
+                TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
+                BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                 Style="{DynamicResource ButtonStyle}" />
 
         <!-- Team Totals and Scores -->
-        <Border BackgroundColor="{Binding ThemeColors.SecondaryColor}" 
+        <Border BackgroundColor="{Binding AppSettings.SecondaryColor}" 
                 StrokeShape="RoundRectangle 5,5,5,5"
                 Stroke="Transparent"
                 Margin="5">
@@ -104,24 +104,24 @@
                 <!-- Team Names -->
                 <StackLayout Orientation="Horizontal" Spacing="1">
                     <Label Text="{Binding TeamOneName}" FontSize="16" FontAttributes="Bold"
-                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
-                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
+                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
+                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
                            HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
                     <Label Text="{Binding TeamTwoName}" FontSize="16" FontAttributes="Bold"
-                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
-                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
+                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
+                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
                            HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
                 </StackLayout>
 
                 <!-- Game Totals -->
                 <StackLayout Orientation="Horizontal" Spacing="1">
                     <Label Text="{Binding TeamOneGameTotal}" FontSize="15" FontAttributes="Bold"
-                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
-                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
+                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
+                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
                            HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
                     <Label Text="{Binding TeamTwoGameTotal}" FontSize="15" FontAttributes="Bold"
-                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
-                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
+                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
+                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
                            HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
                 </StackLayout>
 
@@ -131,12 +131,12 @@
                         <DataTemplate x:DataType="models:GameScoreModel">
                             <StackLayout Orientation="Horizontal" Spacing="1" Margin="0,0,0,1">
                                 <Label Text="{Binding TeamOneScore}" FontSize="12"
-                                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
-                                       BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
+                                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
+                                       BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
                                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
                                 <Label Text="{Binding TeamTwoScore}" FontSize="12"
-                                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
-                                       BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
+                                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
+                                       BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
                                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
                             </StackLayout>
                         </DataTemplate>

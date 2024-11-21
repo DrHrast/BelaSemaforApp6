@@ -8,7 +8,7 @@ namespace BelaSemaforApp6.ViewModels;
 
 public partial class GameViewModel : ObservableObject
 {
-    [ObservableProperty] private ColorsModel _themeColors;
+    [ObservableProperty] private AppSettingsModel _appSettings;
     [ObservableProperty] private string? _teamOneName = "TeamOne";
     [ObservableProperty] private string? _teamTwoName = "TeamTwo";
     [ObservableProperty] private int _teamOneScore;
@@ -19,18 +19,18 @@ public partial class GameViewModel : ObservableObject
     [ObservableProperty] private bool _teamTwoBela;
     [ObservableProperty] private int _teamOneTurnScore;
     [ObservableProperty] private int _teamTwoTurnScore;
-    [ObservableProperty] private bool _teamOneCallCheck = false;
-    [ObservableProperty] private bool _teamTwoCallCheck = false;
-    [ObservableProperty] private int _teamOneGameTotal = 0;
-    [ObservableProperty] private int _teamTwoGameTotal = 0;
+    [ObservableProperty] private bool _teamOneCallCheck;
+    [ObservableProperty] private bool _teamTwoCallCheck;
+    [ObservableProperty] private int _teamOneGameTotal;
+    [ObservableProperty] private int _teamTwoGameTotal;
     [ObservableProperty] private ObservableCollection<GameScoreModel>? _scores = [];
 
     private const int Maxscore = 162;
     private bool _canAddScore = true;
 
-    public GameViewModel(IConfiguration config, ColorsModel colorSettings)
+    public GameViewModel(IConfiguration config, AppSettingsModel appSettingSettings)
     {
-        ThemeColors = colorSettings;
+        AppSettings = appSettingSettings;
     }
     
     partial void OnTeamOneScoreChanged(int value)
@@ -75,13 +75,23 @@ public partial class GameViewModel : ObservableObject
         Scores?.Add(gameScoreModel);
         TeamOneGameTotal += gameScoreModel.TeamOneScore;
         TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
-        CheckForWin();
+        CheckForWin(gameScoreModel);
         ClearInputs();
     }
 
-    private void CheckForWin()
+    private void CheckForWin(GameScoreModel gameScoreModel)
     {
-        
+        if (TeamOneGameTotal >= gameScoreModel.TargetScore)
+        {
+            App.Current.MainPage.DisplayAlert("Pobjeda", $"Team {TeamOneName} won!!", "Nova Igra");
+            NewGame();
+        }
+
+        if (TeamTwoGameTotal >= gameScoreModel.TargetScore)
+        {
+            App.Current.MainPage.DisplayAlert("Pobjeda", $"Team {TeamTwoName} won!!", "Nova Igra");
+            NewGame();
+        }
     }
 
     private void ClearInputs()
@@ -96,6 +106,12 @@ public partial class GameViewModel : ObservableObject
         TeamOneBela = false;
         TeamTwoBela = false;
         _canAddScore = true;
+    }
+
+    private void NewGame()
+    {
+        ClearInputs();
+        Scores.Clear();
     }
 
     [RelayCommand]
