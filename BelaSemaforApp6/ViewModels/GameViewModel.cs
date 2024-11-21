@@ -71,16 +71,17 @@ public partial class GameViewModel : ObservableObject
             Call = TeamTwoCall,
             IsCallChecked = TeamTwoCallCheck
         };
-        // var turnScoreService = new ScoreService(turnScoreModel);
-        // Scores?.Add(turnScoreService.GetModel());
-        // TeamOneGameTotal += turnScoreService.GetModel().TeamOneTurnTotal;
-        // TeamTwoGameTotal += turnScoreService.GetModel().TeamTwoTurnTotal;
-        // ClearInputs();
         var gameScoreModel = new GameScoreModel(teamOneTurnScoreModel, teamTwoTurnScoreModel);
         Scores?.Add(gameScoreModel);
         TeamOneGameTotal += gameScoreModel.TeamOneScore;
         TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
+        CheckForWin();
         ClearInputs();
+    }
+
+    private void CheckForWin()
+    {
+        
     }
 
     private void ClearInputs()
