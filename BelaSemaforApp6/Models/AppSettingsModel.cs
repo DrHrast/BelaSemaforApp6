@@ -1,8 +1,10 @@
-﻿namespace BelaSemaforApp6.Models;
+﻿using SQLite;
+
+namespace BelaSemaforApp6.Models;
 
 public class AppSettingsModel
 {
-    public int Id { get; set; }
-    public string? Key { get; set; } = "";
-    public string? Value { get; set; } = "";
+    public string PrimaryColor { get; set; }
+    public string SecondaryColor { get; set; }
+    public int GameScore { get; set; }
 }

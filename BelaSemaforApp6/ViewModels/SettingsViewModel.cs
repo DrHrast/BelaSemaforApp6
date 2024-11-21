@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using BelaSemaforApp6.Models;
+using BelaSemaforApp6.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
