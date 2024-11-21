@@ -121,36 +121,36 @@
                                 BackgroundColor="{Binding AppSettings.SecondaryColor}"/>
 
                         <!-- List of Players -->
-                        <Label Text="Players" FontSize="16" FontAttributes="Bold" TextColor="{Binding AppSettings.SecondaryColor}"/>
-                        <CollectionView ItemsSource="{Binding Players}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout>
-                                        <Label Text="{Binding Name}" 
-                                               FontSize="14" 
-                                               TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, 
-                                                    Path=BindingContext.AppSettings.SecondaryColor}"/>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                        <!-- <Label Text="Players" FontSize="16" FontAttributes="Bold" TextColor="{Binding AppSettings.SecondaryColor}"/> -->
+                        <!-- <CollectionView ItemsSource="{Binding Players}"> -->
+                        <!--     <CollectionView.ItemTemplate> -->
+                        <!--         <DataTemplate> -->
+                        <!--             <StackLayout> -->
+                        <!--                 <Label Text="{Binding Name}"  -->
+                        <!--                        FontSize="14"  -->
+                        <!--                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},  -->
+                        <!--                             Path=BindingContext.AppSettings.SecondaryColor}"/> -->
+                        <!--             </StackLayout> -->
+                        <!--         </DataTemplate> -->
+                        <!--     </CollectionView.ItemTemplate> -->
+                        <!-- </CollectionView> -->
 
                         <!-- List of Teams -->
-                        <Label Text="Teams" FontSize="16" FontAttributes="Bold" TextColor="{Binding AppSettings.SecondaryColor}"/>
-                        <CollectionView ItemsSource="{Binding Teams}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout>
-                                        <Label Text="{Binding Name}" FontSize="14" 
-                                               TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, 
-                                                    Path=BindingContext.AppSettings.SecondaryColor}"/>
-                                        <Label Text="Players: {Binding PlayerOneId}, {Binding PlayerTwoId}" FontSize="12" 
-                                               TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, 
-                                                    Path=BindingContext.AppSettings.SecondaryColor}"/>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                        <!-- <Label Text="Teams" FontSize="16" FontAttributes="Bold" TextColor="{Binding AppSettings.SecondaryColor}"/> -->
+                        <!-- <CollectionView ItemsSource="{Binding Teams}"> -->
+                        <!--     <CollectionView.ItemTemplate> -->
+                        <!--         <DataTemplate> -->
+                        <!--             <StackLayout> -->
+                        <!--                 <Label Text="{Binding Name}" FontSize="14"  -->
+                        <!--                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},  -->
+                        <!--                             Path=BindingContext.AppSettings.SecondaryColor}"/> -->
+                        <!--                 <Label Text="Players: {Binding PlayerOneId}, {Binding PlayerTwoId}" FontSize="12"  -->
+                        <!--                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},  -->
+                        <!--                             Path=BindingContext.AppSettings.SecondaryColor}"/> -->
+                        <!--             </StackLayout> -->
+                        <!--         </DataTemplate> -->
+                        <!--     </CollectionView.ItemTemplate> -->
+                        <!-- </CollectionView> -->
                     </VerticalStackLayout>
                 </toolkit:Expander.Content>
             </toolkit:Expander>

@@ -112,6 +112,8 @@ public partial class GameViewModel : ObservableObject
     {
         ClearInputs();
         Scores.Clear();
+        TeamOneGameTotal = 0;
+        TeamTwoGameTotal = 0;
     }
 
     [RelayCommand]
