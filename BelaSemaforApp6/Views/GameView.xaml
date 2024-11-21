@@ -6,9 +6,10 @@
              xmlns:models="clr-namespace:BelaSemaforApp6.Models"
              x:DataType="viewModels:GameViewModel"
              x:Class="BelaSemaforApp6.Views.GameView"
-             BackgroundColor="{Binding ThemeColors.PrimaryColor}">
+             BackgroundColor="{Binding ThemeColors.PrimaryColor}"
+             Padding="0">
 
-    <VerticalStackLayout Padding="0" Spacing="10">
+    <VerticalStackLayout Padding="0" Spacing="10" Margin="0">
         
         <!-- Header -->
         <Border BackgroundColor="{Binding ThemeColors.SecondaryColor}" 
@@ -96,11 +97,12 @@
         <!-- Team Totals and Scores -->
         <Border BackgroundColor="{Binding ThemeColors.SecondaryColor}" 
                 StrokeShape="RoundRectangle 5,5,5,5"
-                Stroke="Transparent">
-            <VerticalStackLayout Spacing="1" HorizontalOptions="Fill" Padding="0">
+                Stroke="Transparent"
+                Margin="5">
+            <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="Fill" Padding="1" Margin="2">
                 
                 <!-- Team Names -->
-                <HorizontalStackLayout Spacing="1">
+                <StackLayout Orientation="Horizontal" Spacing="1">
                     <Label Text="{Binding TeamOneName}" FontSize="16" FontAttributes="Bold"
                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                            BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
@@ -109,10 +111,10 @@
                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                            BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
                            HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                </HorizontalStackLayout>
+                </StackLayout>
 
                 <!-- Game Totals -->
-                <HorizontalStackLayout Spacing="1">
+                <StackLayout Orientation="Horizontal" Spacing="1">
                     <Label Text="{Binding TeamOneGameTotal}" FontSize="12" FontAttributes="Bold"
                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                            BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
@@ -121,13 +123,13 @@
                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                            BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
                            HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                </HorizontalStackLayout>
+                </StackLayout>
 
                 <!-- Scores Collection -->
                 <CollectionView ItemsSource="{Binding Scores}" Margin="0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:TurnScoreModel">
-                            <HorizontalStackLayout Spacing="1">
+                            <StackLayout Orientation="Horizontal" Spacing="1" Margin="0,0,0,1">
                                 <Label Text="{Binding TeamOneTurnTotal}" FontSize="12"
                                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                                        BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
@@ -136,11 +138,11 @@
                                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                                        BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
                                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                            </HorizontalStackLayout>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </VerticalStackLayout>
+            </StackLayout>
         </Border>
     </VerticalStackLayout>
 </ContentPage>
