@@ -115,11 +115,11 @@
 
                 <!-- Game Totals -->
                 <StackLayout Orientation="Horizontal" Spacing="1">
-                    <Label Text="{Binding TeamOneGameTotal}" FontSize="12" FontAttributes="Bold"
+                    <Label Text="{Binding TeamOneGameTotal}" FontSize="15" FontAttributes="Bold"
                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                            BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
                            HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                    <Label Text="{Binding TeamTwoGameTotal}" FontSize="12" FontAttributes="Bold"
+                    <Label Text="{Binding TeamTwoGameTotal}" FontSize="15" FontAttributes="Bold"
                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                            BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
                            HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
@@ -128,13 +128,13 @@
                 <!-- Scores Collection -->
                 <CollectionView ItemsSource="{Binding Scores}" Margin="0">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:TurnScoreModel">
+                        <DataTemplate x:DataType="models:GameScoreModel">
                             <StackLayout Orientation="Horizontal" Spacing="1" Margin="0,0,0,1">
-                                <Label Text="{Binding TeamOneTurnTotal}" FontSize="12"
+                                <Label Text="{Binding TeamOneScore}" FontSize="12"
                                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                                        BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
                                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                                <Label Text="{Binding TeamTwoTurnTotal}" FontSize="12"
+                                <Label Text="{Binding TeamTwoScore}" FontSize="12"
                                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.SecondaryColor}" 
                                        BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ThemeColors.PrimaryColor}" 
                                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />

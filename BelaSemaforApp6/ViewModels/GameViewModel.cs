@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using BelaSemaforApp6.Models;
-using BelaSemaforApp6.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +23,7 @@ public partial class GameViewModel : ObservableObject
     [ObservableProperty] private bool _teamTwoCallCheck = false;
     [ObservableProperty] private int _teamOneGameTotal = 0;
     [ObservableProperty] private int _teamTwoGameTotal = 0;
-    [ObservableProperty] private ObservableCollection<TurnScoreModel>? _scores = [];
+    [ObservableProperty] private ObservableCollection<GameScoreModel>? _scores = [];
 
     private const int Maxscore = 162;
     private bool _canAddScore = true;
@@ -59,20 +58,28 @@ public partial class GameViewModel : ObservableObject
     [RelayCommand]
     private void AddScore()
     {
-        var turnScoreModel = new TurnScoreModel {
-            TeamOneScoreOnly = TeamOneScore, 
-            IsTeamOneBelaChecked = TeamOneBela, 
-            TeamOneCall = TeamOneCall,
-            IsTeamOneCallChecked = TeamOneCallCheck,
-            TeamTwoScoreOnly = TeamTwoScore,
-            IsTeamTwoBelaChecked = TeamTwoBela,
-            TeamTwoCall = TeamTwoCall,
-            IsTeamTwoCallChecked = TeamTwoCallCheck
+        var teamOneTurnScoreModel = new ScoreModel {
+            ScoreOnly = TeamOneScore, 
+            Bela = TeamOneBela ? 20 : 0, 
+            Call = TeamOneCall,
+            IsCallChecked = TeamOneCallCheck
         };
-        var turnScoreService = new TurnScoreService(turnScoreModel);
-        Scores?.Add(turnScoreService.GetModel());
-        TeamOneGameTotal += turnScoreService.GetModel().TeamOneTurnTotal;
-        TeamTwoGameTotal += turnScoreService.GetModel().TeamTwoTurnTotal;
+        var teamTwoTurnScoreModel = new ScoreModel
+        {
+            ScoreOnly = TeamTwoScore,
+            Bela = TeamTwoBela ? 20 : 0,
+            Call = TeamTwoCall,
+            IsCallChecked = TeamTwoCallCheck
+        };
+        // var turnScoreService = new ScoreService(turnScoreModel);
+        // Scores?.Add(turnScoreService.GetModel());
+        // TeamOneGameTotal += turnScoreService.GetModel().TeamOneTurnTotal;
+        // TeamTwoGameTotal += turnScoreService.GetModel().TeamTwoTurnTotal;
+        // ClearInputs();
+        var gameScoreModel = new GameScoreModel(teamOneTurnScoreModel, teamTwoTurnScoreModel);
+        Scores?.Add(gameScoreModel);
+        TeamOneGameTotal += gameScoreModel.TeamOneScore;
+        TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
         ClearInputs();
     }
 

@@ -1,5 +1,4 @@
 ﻿using BelaSemaforApp6.Models;
-using BelaSemaforApp6.Services;
 using BelaSemaforApp6.ViewModels;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
@@ -43,7 +42,6 @@ namespace BelaSemaforApp6
         
         private static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
         {
-            builder.Services.AddTransient<TurnScoreService>();
             builder.Services.AddSingleton<ColorsModel>();
             return builder;
         }
