@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModels="clr-namespace:BelaSemaforApp6.ViewModels"
+             xmlns:models="clr-namespace:BelaSemaforApp6.Models"
              x:DataType="viewModels:SettingsViewModel"
              x:Class="BelaSemaforApp6.Views.SettingsView"
              BackgroundColor="{Binding AppSettings.PrimaryColor}">
@@ -82,36 +83,20 @@
                     </Border>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
-                    <VerticalStackLayout Spacing="10" Margin="10">
-                        <!-- <Grid ColumnDefinitions="*,*" -->
-                        <!--       RowDefinitions="Auto,Auto,Auto"> -->
-                        <!--     ~1~ First Row @1@ -->
-                        <!--     <RadioButton Grid.Row="0" Grid.Column="0" GroupName="ScoreSelection" Content="301" Style="{DynamicResource RadioButtonStyle}" /> -->
-                        <!--     <RadioButton Grid.Row="1" Grid.Column="0" GroupName="ScoreSelection" Content="501" Style="{DynamicResource RadioButtonStyle}" /> -->
-                        <!--     <RadioButton Grid.Row="2" Grid.Column="0" GroupName="ScoreSelection" Content="701" Style="{DynamicResource RadioButtonStyle}" /> -->
-                        <!-- -->
-                        <!--     ~1~ Second Row @1@ -->
-                        <!--     <RadioButton Grid.Row="0" Grid.Column="1" GroupName="ScoreSelection" Content="901" Style="{DynamicResource RadioButtonStyle}" /> -->
-                        <!--     <RadioButton Grid.Row="1" Grid.Column="1" GroupName="ScoreSelection" Content="1001" Style="{DynamicResource RadioButtonStyle}" IsChecked="True"/> -->
-                        <!--     <RadioButton Grid.Row="2" Grid.Column="1" GroupName="ScoreSelection" Content="1301" Style="{DynamicResource RadioButtonStyle}" /> -->
-                        <!-- </Grid> -->
-                        <CollectionView HorizontalOptions="CenterAndExpand" ItemsSource="{Binding TargetSores}">
+                    <VerticalStackLayout Spacing="10" Margin="10" VerticalOptions="Center">
+                        <CollectionView HorizontalOptions="CenterAndExpand" ItemsSource="{Binding DisplayScore}">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout Orientation="Vertical" Span="3"/>
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <RadioButton BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
+                                <DataTemplate x:DataType="models:DisplayScoreModel">
+                                    <RadioButton Content="{Binding Score}"
+                                                 TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, 
                                                     Path=BindingContext.AppSettings.SecondaryColor}"
-                                                 Content="{Binding .}"
+                                                 IsChecked="{Binding IsSelected}"
                                                  GroupName="ScoreSelection"
-                                                 HeightRequest="40">
-                                        <RadioButton.Behaviors> 
-                                            <toolkit:EventToCommandBehavior
-                                                EventName="Clicked"
-                                                Command="{Binding Source={x:Reference Page}, Path=BindingContext.SetTargetScoreCommand}" 
-                                                CommandParameter="{Binding .}"/>
-                                        </RadioButton.Behaviors>
+                                                 HeightRequest="40"
+                                                 Margin="10, 0, 0, 0 ">
                                     </RadioButton>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
@@ -130,7 +115,14 @@
                 <toolkit:Expander.Content>
                     <VerticalStackLayout Spacing="10" Margin="10">
                         <!-- Add Player Button -->
-
+                        <StackLayout Orientation="Horizontal">
+                            <Entry Placeholder="Igrač..."
+                                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                   FontSize="16" />
+                            <Button Text="Dodaj"
+                                    Command="{Binding AddPlayerCommand}"/>
+                        </StackLayout>
+                        
                         <!-- List of Players -->
                         <!-- <Label Text="Players" FontSize="16" FontAttributes="Bold" TextColor="{Binding AppSettings.SecondaryColor}"/> -->
                         <!-- <CollectionView ItemsSource="{Binding Players}"> -->

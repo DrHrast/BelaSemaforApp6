@@ -2,7 +2,7 @@
 
 namespace BelaSemaforApp6.Models;
 
-public class PlayersModel
+public class PlayerModel
 {
     [PrimaryKey] [AutoIncrement]
     public int Id { get; set; }

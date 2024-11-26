@@ -41,17 +41,17 @@ partial class SettingsViewModel : ObservableObject
         Color.Parse("#4B0082") // Indigo
     ];
 
-    [ObservableProperty] private ObservableCollection<int> _targetSores =
-    [
-            301,
-            501,
-            701,
-            901,
-            1001,
-            1301
-    ];
+    public List<DisplayScoreModel> DisplayScore { get; set; } = new()
+    {
+        new DisplayScoreModel { Score = 301, IsSelected = false },
+        new DisplayScoreModel { Score = 501, IsSelected = false },
+        new DisplayScoreModel { Score = 701, IsSelected = false },
+        new DisplayScoreModel { Score = 901, IsSelected = false },
+        new DisplayScoreModel { Score = 1001, IsSelected = false },
+        new DisplayScoreModel { Score = 1301, IsSelected = false }
+    };
     
-    // public ObservableCollection<PlayersModel> Players { get; set; } = new();
+    // public ObservableCollection<PlayerModel> Players { get; set; } = new();
     // public ObservableCollection<TeamsModel> Teams { get; set; } = new();
 
 
@@ -84,4 +84,9 @@ partial class SettingsViewModel : ObservableObject
         AppSettings.TargetScore = selectedScore;
     }
 
+    [RelayCommand]
+    private void AddPlayer()
+    {
+        
+    }
 }
