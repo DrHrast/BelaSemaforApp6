@@ -3,6 +3,7 @@ using BelaSemaforApp6.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Maui.Layouts;
 
 namespace BelaSemaforApp6.ViewModels;
 
@@ -12,7 +13,8 @@ partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private bool _isHeader = true;
     [ObservableProperty] private bool _isText;
     [ObservableProperty] private bool _isBackground;
-    [ObservableProperty] private string? _name;
+    [ObservableProperty] private string? _playerName;
+    [ObservableProperty] private bool _canAddPlayer = false;
     [ObservableProperty] private ObservableCollection<Color> _primaryColors =
     [
         Color.Parse("#fdfdfd"),
@@ -51,13 +53,25 @@ partial class SettingsViewModel : ObservableObject
         new DisplayScoreModel { Score = 1301, IsSelected = false }
     };
     
-    // public ObservableCollection<PlayerModel> Players { get; set; } = new();
+    public ObservableCollection<PlayerModel> Players { get; set; } = new();
     // public ObservableCollection<TeamsModel> Teams { get; set; } = new();
 
 
     public SettingsViewModel(IConfiguration config, AppSettingsModel appSettingSettings)
     {
         AppSettings = appSettingSettings;
+    }
+    
+    partial void OnPlayerNameChanged(string? oldValue, string? newValue)
+    {
+        if (!string.IsNullOrWhiteSpace(newValue) && !Players.Any(x => x.Name == newValue))
+        {
+            CanAddPlayer = true;
+        }
+        else
+        {
+            CanAddPlayer = false;
+        }
     }
 
     [RelayCommand]
@@ -87,6 +101,7 @@ partial class SettingsViewModel : ObservableObject
     [RelayCommand]
     private void AddPlayer()
     {
-        
+        Players.Add( new PlayerModel {Name = PlayerName});
+        PlayerName = "";
     }
 }
