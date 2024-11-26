@@ -40,6 +40,16 @@ partial class SettingsViewModel : ObservableObject
         Color.Parse("#5D3FD3"), // Dark Purple
         Color.Parse("#4B0082") // Indigo
     ];
+
+    [ObservableProperty] private ObservableCollection<int> _targetSores =
+    [
+            301,
+            501,
+            701,
+            901,
+            1001,
+            1301
+    ];
     
     // public ObservableCollection<PlayersModel> Players { get; set; } = new();
     // public ObservableCollection<TeamsModel> Teams { get; set; } = new();
@@ -67,51 +77,11 @@ partial class SettingsViewModel : ObservableObject
     {
         AppSettings.SecondaryColor = selectedColor;
     }
-    
-    [RelayCommand]
-    private async Task AddPlayer()
-    {
-        // Prompt the user for a player name (use a dialog or input form)
-        string playerName = await App.Current.MainPage.DisplayPromptAsync("Add Player", "Enter player's name:");
-
-        if (!string.IsNullOrWhiteSpace(playerName))
-        {
-            // Players.Add(new PlayersModel
-            // {
-            //     Id = Players.Count + 1,
-            //     Name = playerName
-            // });
-        }
-    }
 
     [RelayCommand]
-    private async Task AddTeam()
+    private void SetTargetScore(int selectedScore)
     {
-        // Ensure there are enough players
-        // if (Players.Count < 2)
-        // {
-        //     await App.Current.MainPage.DisplayAlert("Add Team", "You need at least 2 players to form a team.", "OK");
-        //     return;
-        // }
-        //
-        // // Select two players
-        // string playerOne = await App.Current.MainPage.DisplayActionSheet("Select Player One", "Cancel", null, Players.Select(p => p.Name).ToArray());
-        // string playerTwo = await App.Current.MainPage.DisplayActionSheet("Select Player Two", "Cancel", null, Players.Select(p => p.Name).ToArray());
-
-        // if (!string.IsNullOrWhiteSpace(playerOne) && !string.IsNullOrWhiteSpace(playerTwo) && playerOne != playerTwo)
-        // {
-        //     // Teams.Add(new TeamsModel
-        //     // {
-        //     //     Id = Teams.Count + 1,
-        //     //     Name = $"{playerOne} & {playerTwo}",
-        //     //     PlayerOneId = Players.First(p => p.Name == playerOne).Id,
-        //     //     PlayerTwoId = Players.First(p => p.Name == playerTwo).Id
-        //     // });
-        // }
-        // else
-        // {
-        //     await App.Current.MainPage.DisplayAlert("Add Team", "You must select two different players.", "OK");
-        // }
+        AppSettings.TargetScore = selectedScore;
     }
 
 }

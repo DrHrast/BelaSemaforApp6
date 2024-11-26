@@ -7,6 +7,7 @@ public class AppSettingsModel : INotifyPropertyChanged
 {
     private Color _primaryColor = Color.Parse("#FFF8F8FF");
     private Color _secondaryColor = Color.Parse("#FF483D8B");
+    public int TargetScore { get; set; } = 1001;
 
     public Color PrimaryColor
     {
