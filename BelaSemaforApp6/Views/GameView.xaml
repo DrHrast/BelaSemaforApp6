@@ -86,6 +86,24 @@
                        Style="{DynamicResource LabelStyle}" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
+        
+        <!-- Stilja Checkboxes -->
+        <HorizontalStackLayout Spacing="40" HorizontalOptions="Center" IsVisible="{Binding IsStilja}">
+            <HorizontalStackLayout Spacing="5" HorizontalOptions="Start" IsEnabled="{Binding HasTeamOneStilja}">
+                <CheckBox IsChecked="{Binding TeamOneStilja}" 
+                          Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"/>
+                <Label Text="Štilja" 
+                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
+                       Style="{DynamicResource LabelStyle}" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="5" HorizontalOptions="End" IsEnabled="{Binding HasTeamTwoStilja}">
+                <CheckBox IsChecked="{Binding TeamTwoStilja}" 
+                          Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"/>
+                <Label Text="Štilja" 
+                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
+                       Style="{DynamicResource LabelStyle}" />
+            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
         <!-- Add Score Button -->
         <Button Command="{Binding AddScoreCommand}" 

@@ -20,7 +20,20 @@ public class GameScoreModel
 
     public void CalculateScore()
     {
+        CheckStilja();
         CheckFall();
+    }
+
+    private void CheckStilja()
+    {
+        if (_teamOne.IsStilja)
+        {
+            TeamOneScore = GameScore + 90;
+        }
+        else if (_teamTwo.IsStilja)
+        {
+            TeamTwoScore = GameScore + 90;
+        }
     }
 
     private void CheckFall()

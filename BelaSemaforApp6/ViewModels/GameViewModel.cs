@@ -23,6 +23,11 @@ public partial class GameViewModel : ObservableObject
     [ObservableProperty] private bool _teamTwoCallCheck;
     [ObservableProperty] private int _teamOneGameTotal;
     [ObservableProperty] private int _teamTwoGameTotal;
+    [ObservableProperty] private bool _isStilja;
+    [ObservableProperty] private bool _hasTeamOneStilja;
+    [ObservableProperty] private bool _hasTeamTwoStilja;
+    [ObservableProperty] private bool _teamOneStilja;
+    [ObservableProperty] private bool _teamTwoStilja;
     [ObservableProperty] private ObservableCollection<GameScoreModel>? _scores = [];
 
     private const int Maxscore = 162;
@@ -35,14 +40,28 @@ public partial class GameViewModel : ObservableObject
     
     partial void OnTeamOneScoreChanged(int value)
     {
+        ClearStiljaComponents();
         if (_canAddScore == false) return;
         TeamTwoScore = Maxscore - value;
+        if (TeamOneScore == 0)
+        {
+            IsStilja = true;
+            HasTeamTwoStilja = true;
+            TeamTwoScore = Maxscore;
+        }
     }
 
     partial void OnTeamTwoScoreChanged(int value)
     {
+        ClearStiljaComponents();
         if (_canAddScore == false) return;
         TeamOneScore = Maxscore - value;
+        if (TeamTwoScore == 0)
+        {
+            IsStilja = true;
+            HasTeamOneStilja = true;
+            TeamOneScore = Maxscore;
+        }
     }
 
     partial void OnTeamOneBelaChanged(bool value)
@@ -58,24 +77,29 @@ public partial class GameViewModel : ObservableObject
     [RelayCommand]
     private void AddScore()
     {
-        var teamOneTurnScoreModel = new ScoreModel {
-            ScoreOnly = TeamOneScore, 
-            Bela = TeamOneBela ? 20 : 0, 
-            Call = TeamOneCall,
-            IsCallChecked = TeamOneCallCheck
-        };
-        var teamTwoTurnScoreModel = new ScoreModel
+        if (TeamOneScore != 0 && TeamTwoScore != 0)
         {
-            ScoreOnly = TeamTwoScore,
-            Bela = TeamTwoBela ? 20 : 0,
-            Call = TeamTwoCall,
-            IsCallChecked = TeamTwoCallCheck
-        };
-        var gameScoreModel = new GameScoreModel(teamOneTurnScoreModel, teamTwoTurnScoreModel);
-        Scores?.Add(gameScoreModel);
-        TeamOneGameTotal += gameScoreModel.TeamOneScore;
-        TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
-        CheckForWin(gameScoreModel);
+            var teamOneTurnScoreModel = new ScoreModel {
+                ScoreOnly = TeamOneScore, 
+                Bela = TeamOneBela ? 20 : 0, 
+                Call = TeamOneCall,
+                IsCallChecked = TeamOneCallCheck,
+                IsStilja = TeamOneStilja
+            };
+            var teamTwoTurnScoreModel = new ScoreModel
+            {
+                ScoreOnly = TeamTwoScore,
+                Bela = TeamTwoBela ? 20 : 0,
+                Call = TeamTwoCall,
+                IsCallChecked = TeamTwoCallCheck,
+                IsStilja = TeamTwoStilja
+            };
+            var gameScoreModel = new GameScoreModel(teamOneTurnScoreModel, teamTwoTurnScoreModel);
+            Scores?.Add(gameScoreModel);
+            TeamOneGameTotal += gameScoreModel.TeamOneScore;
+            TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
+            CheckForWin(gameScoreModel);
+        }
         ClearInputs();
     }
 
@@ -105,7 +129,17 @@ public partial class GameViewModel : ObservableObject
         TeamTwoCall = 0;
         TeamOneBela = false;
         TeamTwoBela = false;
+        ClearStiljaComponents();
         _canAddScore = true;
+    }
+
+    private void ClearStiljaComponents()
+    {
+        HasTeamOneStilja = false;
+        HasTeamTwoStilja = false;
+        TeamOneStilja = false;
+        TeamTwoStilja = false;
+        IsStilja = false;
     }
 
     private void NewGame()

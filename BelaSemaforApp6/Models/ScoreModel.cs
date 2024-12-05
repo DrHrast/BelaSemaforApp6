@@ -6,5 +6,6 @@ public class ScoreModel
     public int Bela { get; set; }
     public int Call { get; set; }
     public bool IsCallChecked  { get; set; }
+    public bool IsStilja { get; set; }
     
 }
