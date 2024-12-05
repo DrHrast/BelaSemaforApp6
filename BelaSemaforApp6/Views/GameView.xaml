@@ -107,7 +107,7 @@
 
         <!-- Add Score Button -->
         <Button Command="{Binding AddScoreCommand}" 
-                Text="Unesi" 
+                Text="Dodaj" 
                 TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
                 BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                 Style="{DynamicResource ButtonStyle}" />

@@ -77,29 +77,26 @@ public partial class GameViewModel : ObservableObject
     [RelayCommand]
     private void AddScore()
     {
-        if (TeamOneScore != 0 && TeamTwoScore != 0)
+        var teamOneTurnScoreModel = new ScoreModel {
+            ScoreOnly = TeamOneScore, 
+            Bela = TeamOneBela ? 20 : 0, 
+            Call = TeamOneCall,
+            IsCallChecked = TeamOneCallCheck,
+            IsStilja = TeamOneStilja
+        };
+        var teamTwoTurnScoreModel = new ScoreModel
         {
-            var teamOneTurnScoreModel = new ScoreModel {
-                ScoreOnly = TeamOneScore, 
-                Bela = TeamOneBela ? 20 : 0, 
-                Call = TeamOneCall,
-                IsCallChecked = TeamOneCallCheck,
-                IsStilja = TeamOneStilja
-            };
-            var teamTwoTurnScoreModel = new ScoreModel
-            {
-                ScoreOnly = TeamTwoScore,
-                Bela = TeamTwoBela ? 20 : 0,
-                Call = TeamTwoCall,
-                IsCallChecked = TeamTwoCallCheck,
-                IsStilja = TeamTwoStilja
-            };
-            var gameScoreModel = new GameScoreModel(teamOneTurnScoreModel, teamTwoTurnScoreModel);
-            Scores?.Add(gameScoreModel);
-            TeamOneGameTotal += gameScoreModel.TeamOneScore;
-            TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
-            CheckForWin(gameScoreModel);
-        }
+            ScoreOnly = TeamTwoScore,
+            Bela = TeamTwoBela ? 20 : 0,
+            Call = TeamTwoCall,
+            IsCallChecked = TeamTwoCallCheck,
+            IsStilja = TeamTwoStilja
+        };
+        var gameScoreModel = new GameScoreModel(teamOneTurnScoreModel, teamTwoTurnScoreModel);
+        Scores?.Add(gameScoreModel);
+        TeamOneGameTotal += gameScoreModel.TeamOneScore;
+        TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
+        CheckForWin(gameScoreModel);
         ClearInputs();
     }
 

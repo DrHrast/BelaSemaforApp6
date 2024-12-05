@@ -4,7 +4,7 @@ public class GameScoreModel
 {
     public readonly ScoreModel? _teamOne;
     public readonly ScoreModel? _teamTwo;
-    public int TargetScore = 301;
+    public int TargetScore = 501;
     private int GameScore => _teamOne.Call + _teamTwo.Call + _teamOne.Bela + _teamTwo.Bela + 162;
     public int TeamOneScore { get; private set; }
     public int TeamTwoScore { get; private set; }
@@ -20,19 +20,19 @@ public class GameScoreModel
 
     public void CalculateScore()
     {
-        CheckStilja();
         CheckFall();
+        CheckStilja();
     }
 
     private void CheckStilja()
     {
         if (_teamOne.IsStilja)
         {
-            TeamOneScore = GameScore + 90;
+            TeamOneScore += 90;
         }
         else if (_teamTwo.IsStilja)
         {
-            TeamTwoScore = GameScore + 90;
+            TeamTwoScore += 90;
         }
     }
 
