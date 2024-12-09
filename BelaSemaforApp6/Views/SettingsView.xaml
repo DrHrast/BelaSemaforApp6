@@ -19,7 +19,13 @@
                     Stroke="Transparent"
                     Padding="30">
                 <HorizontalStackLayout HorizontalOptions="Start" Spacing="60">
-                    <Button Command="{Binding NavigateToGameCommand}" BackgroundColor="{Binding AppSettings.PrimaryColor}"/>
+                    <!-- <Button Command="{Binding NavigateToGameCommand}" BackgroundColor="{Binding AppSettings.PrimaryColor}"/> -->
+                    <ImageButton Source="arrow_circle_left.svg" 
+                                 Command="{Binding NavigateToGameCommand}" 
+                                 BackgroundColor="{Binding AppSettings.SecondaryColor}" 
+                                 WidthRequest="40" 
+                                 HeightRequest="40" 
+                                 Padding="0"/>
                     <Label Text="Postavke" FontSize="24" TextColor="{Binding AppSettings.PrimaryColor}" HorizontalOptions="Center" />
                 </HorizontalStackLayout>
             </Border>

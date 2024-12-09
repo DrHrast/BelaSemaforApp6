@@ -17,10 +17,18 @@
                 HorizontalOptions="FillAndExpand"
                 Stroke="Transparent"
                 Padding="30">
-            <HorizontalStackLayout Spacing="60" HorizontalOptions="Center">
+            <StackLayout Orientation="Horizontal" Spacing="60" HorizontalOptions="Center">
                 <Label Text="Bela Blok" FontSize="24" TextColor="{Binding AppSettings.PrimaryColor}" HorizontalOptions="Center" />
-                <Button Command="{Binding NavigateToSettingsCommand}" BackgroundColor="{Binding AppSettings.PrimaryColor}" />
-            </HorizontalStackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="20">
+                    <!-- <Button Command="{Binding NavigateToSettingsCommand}" BackgroundColor="{Binding AppSettings.PrimaryColor}"/> -->
+                    <ImageButton Source="gear.svg" 
+                                 Command="{Binding NavigateToSettingsCommand}" 
+                                 BackgroundColor="{Binding AppSettings.SecondaryColor}" 
+                                 WidthRequest="40" 
+                                 HeightRequest="40" 
+                                 Padding="0"/>
+                </StackLayout>
+            </StackLayout>
         </Border>
 
         <!-- Team Selection -->
