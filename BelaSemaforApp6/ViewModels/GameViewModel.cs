@@ -93,6 +93,7 @@ public partial class GameViewModel : ObservableObject
             IsStilja = TeamTwoStilja
         };
         var gameScoreModel = new GameScoreModel(teamOneTurnScoreModel, teamTwoTurnScoreModel);
+        gameScoreModel.CalculateScore();
         Scores?.Add(gameScoreModel);
         TeamOneGameTotal += gameScoreModel.TeamOneScore;
         TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
