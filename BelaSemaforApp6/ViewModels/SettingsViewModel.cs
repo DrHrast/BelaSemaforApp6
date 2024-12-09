@@ -14,7 +14,9 @@ partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private bool _isText;
     [ObservableProperty] private bool _isBackground;
     [ObservableProperty] private string? _playerName;
+    [ObservableProperty] private string? _teamName;
     [ObservableProperty] private bool _canAddPlayer = false;
+    [ObservableProperty] private bool _canAddTeam = false;
     [ObservableProperty] private ObservableCollection<Color> _primaryColors =
     [
         Color.Parse("#FFFFFF"), // Soft White
@@ -54,7 +56,8 @@ partial class SettingsViewModel : ObservableObject
     };
     
     public ObservableCollection<PlayerModel> Players { get; set; } = new();
-    // public ObservableCollection<TeamsModel> Teams { get; set; } = new();
+    public ObservableCollection<PlayerModel> SelectedPlayers { get; set; } = new();
+    public ObservableCollection<TeamModel> Teams { get; set; } = new();
 
 
     public SettingsViewModel(IConfiguration config, AppSettingsModel appSettingSettings)
@@ -72,6 +75,22 @@ partial class SettingsViewModel : ObservableObject
         {
             CanAddPlayer = false;
         }
+    }
+
+    partial void OnTeamNameChanged(string? oldValue, string? newValue)
+    {
+        if (!string.IsNullOrWhiteSpace(newValue) && !Teams.Any(x => x.Name == newValue) && SelectedPlayers.Count == 2)
+        {
+            CanAddTeam = true;
+        }
+        else CanAddTeam = false;
+    }
+
+    private void ClearSelectedPlayers()
+    {
+        Players.Add(SelectedPlayers[0]);
+        Players.Add(SelectedPlayers[1]);
+        SelectedPlayers.Clear();
     }
 
     [RelayCommand]
@@ -103,5 +122,42 @@ partial class SettingsViewModel : ObservableObject
     {
         Players.Add( new PlayerModel {Name = PlayerName});
         PlayerName = "";
+    }
+
+    [RelayCommand]
+    private void SelectPlayer(PlayerModel player)
+    {
+        if (SelectedPlayers.Count() < 2)
+        {
+            SelectedPlayers.Add(player);
+            Players.Remove(player);
+        }
+        else
+        {
+            var temp = SelectedPlayers[0];
+            SelectedPlayers.RemoveAt(0);
+            Players.Add(temp);
+            SelectedPlayers.Add(player);
+            Players.Remove(player);
+        }
+    }
+
+    [RelayCommand]
+    private void DeselectPlayer(PlayerModel player)
+    {
+        Players.Add(player);
+        SelectedPlayers.Remove(player);
+    }
+
+    [RelayCommand]
+    private void AddTeam()
+    {
+        Teams.Add( new TeamModel
+        {
+            Name = TeamName,
+            FirstPlayer = SelectedPlayers[0].Name,
+            SecondPlayer = SelectedPlayers[1].Name
+        });
+        ClearSelectedPlayers();
     }
 }
