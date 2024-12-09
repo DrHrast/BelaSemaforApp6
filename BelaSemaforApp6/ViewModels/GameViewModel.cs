@@ -77,27 +77,31 @@ public partial class GameViewModel : ObservableObject
     [RelayCommand]
     private void AddScore()
     {
-        var teamOneTurnScoreModel = new ScoreModel {
-            ScoreOnly = TeamOneScore, 
-            Bela = TeamOneBela ? 20 : 0, 
-            Call = TeamOneCall,
-            IsCallChecked = TeamOneCallCheck,
-            IsStilja = TeamOneStilja
-        };
-        var teamTwoTurnScoreModel = new ScoreModel
+        if (IsInputValid())
         {
-            ScoreOnly = TeamTwoScore,
-            Bela = TeamTwoBela ? 20 : 0,
-            Call = TeamTwoCall,
-            IsCallChecked = TeamTwoCallCheck,
-            IsStilja = TeamTwoStilja
-        };
-        var gameScoreModel = new GameScoreModel(teamOneTurnScoreModel, teamTwoTurnScoreModel);
-        gameScoreModel.CalculateScore();
-        Scores?.Add(gameScoreModel);
-        TeamOneGameTotal += gameScoreModel.TeamOneScore;
-        TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
-        CheckForWin(gameScoreModel);
+            var teamOneTurnScoreModel = new ScoreModel {
+                ScoreOnly = TeamOneScore, 
+                Bela = TeamOneBela ? 20 : 0, 
+                Call = TeamOneCall,
+                IsCallChecked = TeamOneCallCheck,
+                IsStilja = TeamOneStilja
+            };
+            var teamTwoTurnScoreModel = new ScoreModel
+            {
+                ScoreOnly = TeamTwoScore,
+                Bela = TeamTwoBela ? 20 : 0,
+                Call = TeamTwoCall,
+                IsCallChecked = TeamTwoCallCheck,
+                IsStilja = TeamTwoStilja
+            };
+            var gameScoreModel = new GameScoreModel(teamOneTurnScoreModel, teamTwoTurnScoreModel);
+            gameScoreModel.CalculateScore();
+            //Scores?.Add(gameScoreModel);
+            Scores?.Insert(0, gameScoreModel);
+            TeamOneGameTotal += gameScoreModel.TeamOneScore;
+            TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
+            CheckForWin(gameScoreModel);
+        }
         ClearInputs();
     }
 
@@ -138,6 +142,15 @@ public partial class GameViewModel : ObservableObject
         TeamOneStilja = false;
         TeamTwoStilja = false;
         IsStilja = false;
+    }
+
+    private bool IsInputValid()
+    {
+        if (TeamOneScore != 0 || TeamTwoScore != 0)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void NewGame()
