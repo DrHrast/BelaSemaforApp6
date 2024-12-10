@@ -9,6 +9,7 @@ namespace BelaSemaforApp6.ViewModels;
 public partial class GameViewModel : ObservableObject
 {
     [ObservableProperty] private AppSettingsModel _appSettings;
+    [ObservableProperty] private GameSettingsModel _gameSettings;
     [ObservableProperty] private string? _teamOneName = "TeamOne";
     [ObservableProperty] private string? _teamTwoName = "TeamTwo";
     [ObservableProperty] private int _teamOneScore;
@@ -33,9 +34,10 @@ public partial class GameViewModel : ObservableObject
     private const int Maxscore = 162;
     private bool _canAddScore = true;
 
-    public GameViewModel(IConfiguration config, AppSettingsModel appSettingSettings)
+    public GameViewModel(IConfiguration config, AppSettingsModel appSettingSettings, GameSettingsModel gameSettings)
     {
         AppSettings = appSettingSettings;
+        GameSettings = gameSettings;
     }
     
     partial void OnTeamOneScoreChanged(int value)
@@ -100,20 +102,20 @@ public partial class GameViewModel : ObservableObject
             Scores?.Insert(0, gameScoreModel);
             TeamOneGameTotal += gameScoreModel.TeamOneScore;
             TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
-            CheckForWin(gameScoreModel);
+            CheckForWin();
         }
         ClearInputs();
     }
 
-    private void CheckForWin(GameScoreModel gameScoreModel)
+    private void CheckForWin()
     {
-        if (TeamOneGameTotal >= gameScoreModel.TargetScore)
+        if (TeamOneGameTotal >= GameSettings.TargetScore)
         {
             App.Current.MainPage.DisplayAlert("Pobjeda", $"Team {TeamOneName} won!!", "Nova Igra");
             NewGame();
         }
 
-        if (TeamTwoGameTotal >= gameScoreModel.TargetScore)
+        if (TeamTwoGameTotal >= GameSettings.TargetScore)
         {
             App.Current.MainPage.DisplayAlert("Pobjeda", $"Team {TeamTwoName} won!!", "Nova Igra");
             NewGame();

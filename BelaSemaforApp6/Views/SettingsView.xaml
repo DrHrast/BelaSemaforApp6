@@ -83,7 +83,7 @@
             <toolkit:Expander>
                 <toolkit:Expander.Header>
                     <Border StrokeShape="RoundRectangle 7,7,7,7" Stroke="Transparent" Padding="13" Margin="10,0,10,0" BackgroundColor="{Binding AppSettings.SecondaryColor}">
-                        <Label Text="Winning Conditions" 
+                        <Label Text="Rezultat igre" 
                                FontSize="20" FontAttributes="Bold" 
                                TextColor="{Binding AppSettings.PrimaryColor}" 
                                HorizontalTextAlignment="Center"/>
@@ -116,7 +116,7 @@
             <toolkit:Expander>
                 <toolkit:Expander.Header>
                     <Border StrokeShape="RoundRectangle 7,7,7,7" Stroke="Transparent" Padding="13" Margin="10,0,10,0" BackgroundColor="{Binding AppSettings.SecondaryColor}">
-                        <Label Text="Players and Teams" FontSize="20" FontAttributes="Bold" TextColor="{Binding AppSettings.PrimaryColor}" HorizontalTextAlignment="Center"/>
+                        <Label Text="Igrači i timovi" FontSize="20" FontAttributes="Bold" TextColor="{Binding AppSettings.PrimaryColor}" HorizontalTextAlignment="Center"/>
                     </Border>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>

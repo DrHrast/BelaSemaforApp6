@@ -33,12 +33,12 @@
 
         <!-- Team Selection -->
         <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <RadioButton Content="{Binding TeamOneName}" 
+            <RadioButton Content="{Binding GameSettings.TeamOne.Name}" 
                          TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                          GroupName="TeamName"
                          Style="{DynamicResource RadioButtonStyle}" 
                          IsChecked="{Binding TeamOneCallCheck}" />
-            <RadioButton Content="{Binding TeamTwoName}" 
+            <RadioButton Content="{Binding GameSettings.TeamTwo.Name}" 
                          TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
                          GroupName="TeamName" 
                          Style="{DynamicResource RadioButtonStyle}" 
