@@ -58,6 +58,7 @@ partial class SettingsViewModel : ObservableObject
     public ObservableCollection<PlayerModel> Players { get; set; } = new();
     public ObservableCollection<PlayerModel> SelectedPlayers { get; set; } = new();
     public ObservableCollection<TeamModel> Teams { get; set; } = new();
+    public ObservableCollection<TeamModel> SelectedTeams { get; set; } = new();
 
 
     public SettingsViewModel(IConfiguration config, AppSettingsModel appSettingSettings)
@@ -159,5 +160,30 @@ partial class SettingsViewModel : ObservableObject
             SecondPlayer = SelectedPlayers[1].Name
         });
         ClearSelectedPlayers();
+    }
+
+    [RelayCommand]
+    private void SelectTeam(TeamModel team)
+    {
+        if (SelectedTeams.Count() < 2)
+        {
+            SelectedTeams.Add(team);
+            Teams.Remove(team);
+        }
+        else
+        {
+            var temp = SelectedTeams[0];
+            SelectedTeams.RemoveAt(0);
+            Teams.Add(temp);
+            SelectedTeams.Add(team);
+            Teams.Remove(team);
+        }
+    }
+
+    [RelayCommand]
+    private void DeselectTeam(TeamModel team)
+    {
+        Teams.Add(team);
+        SelectedTeams.Remove(team);
     }
 }
