@@ -43,6 +43,7 @@ namespace BelaSemaforApp6
         private static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
         {
             builder.Services.AddSingleton<AppSettingsModel>();
+            builder.Services.AddSingleton<GameSettingsModel>();
             return builder;
         }
     }

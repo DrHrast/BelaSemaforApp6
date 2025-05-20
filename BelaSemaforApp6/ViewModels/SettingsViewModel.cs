@@ -10,6 +10,7 @@ namespace BelaSemaforApp6.ViewModels;
 partial class SettingsViewModel : ObservableObject
 {
     [ObservableProperty] private AppSettingsModel _appSettings;
+    [ObservableProperty] private GameSettingsModel _gameSettings;
     [ObservableProperty] private bool _isHeader = true;
     [ObservableProperty] private bool _isText;
     [ObservableProperty] private bool _isBackground;
@@ -58,11 +59,13 @@ partial class SettingsViewModel : ObservableObject
     public ObservableCollection<PlayerModel> Players { get; set; } = new();
     public ObservableCollection<PlayerModel> SelectedPlayers { get; set; } = new();
     public ObservableCollection<TeamModel> Teams { get; set; } = new();
+    public ObservableCollection<TeamModel> SelectedTeams { get; set; } = new();
 
 
-    public SettingsViewModel(IConfiguration config, AppSettingsModel appSettingSettings)
+    public SettingsViewModel(IConfiguration config, AppSettingsModel appSettingSettings, GameSettingsModel gameSettings)
     {
         AppSettings = appSettingSettings;
+        GameSettings = gameSettings;
     }
     
     partial void OnPlayerNameChanged(string? oldValue, string? newValue)
@@ -93,6 +96,12 @@ partial class SettingsViewModel : ObservableObject
         SelectedPlayers.Clear();
     }
 
+    private void FillTeamInGameSettings()
+    {
+        GameSettings.TeamOne = SelectedTeams[0];
+        GameSettings.TeamTwo = SelectedTeams[1];
+    }
+
     [RelayCommand]
     private async void NavigateToGame()
     {
@@ -114,7 +123,7 @@ partial class SettingsViewModel : ObservableObject
     [RelayCommand]
     private void SetTargetScore(int selectedScore)
     {
-        AppSettings.TargetScore = selectedScore;
+        GameSettings.TargetScore = selectedScore;
     }
 
     [RelayCommand]
@@ -160,5 +169,31 @@ partial class SettingsViewModel : ObservableObject
         });
         ClearSelectedPlayers();
         TeamName = "";
+    }
+
+    [RelayCommand]
+    private void SelectTeam(TeamModel team)
+    {
+        if (SelectedTeams.Count() < 2)
+        {
+            SelectedTeams.Add(team);
+            Teams.Remove(team);
+        }
+        else
+        {
+            var temp = SelectedTeams[0];
+            SelectedTeams.RemoveAt(0);
+            Teams.Add(temp);
+            SelectedTeams.Add(team);
+            Teams.Remove(team);
+        }
+        if(SelectedTeams.Count == 2) FillTeamInGameSettings();
+    }
+
+    [RelayCommand]
+    private void DeselectTeam(TeamModel team)
+    {
+        Teams.Add(team);
+        SelectedTeams.Remove(team);
     }
 }

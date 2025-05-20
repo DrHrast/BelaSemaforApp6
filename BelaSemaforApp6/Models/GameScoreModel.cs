@@ -4,7 +4,6 @@ public class GameScoreModel
 {
     public readonly ScoreModel? _teamOne;
     public readonly ScoreModel? _teamTwo;
-    public int TargetScore = 501;
     private int GameScore => _teamOne.Call + _teamTwo.Call + _teamOne.Bela + _teamTwo.Bela + 162;
     public int TeamOneScore { get; private set; } = 0;
     public int TeamTwoScore { get; private set; } = 0;
