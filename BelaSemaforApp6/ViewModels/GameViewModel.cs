@@ -42,8 +42,9 @@ public partial class GameViewModel : ObservableObject
     {
         ClearStiljaComponents();
         if (_canAddScore == false) return;
+        if (string.IsNullOrEmpty(TeamOneScore.ToString())) TeamTwoScore = Maxscore;
         TeamTwoScore = Maxscore - value;
-        if (TeamOneScore == 0)
+        if (TeamOneScore == 0 || string.IsNullOrEmpty(TeamOneScore.ToString()))
         {
             IsStilja = true;
             HasTeamTwoStilja = true;
@@ -55,8 +56,9 @@ public partial class GameViewModel : ObservableObject
     {
         ClearStiljaComponents();
         if (_canAddScore == false) return;
+        if (string.IsNullOrEmpty(TeamTwoScore.ToString())) TeamOneScore = Maxscore;
         TeamOneScore = Maxscore - value;
-        if (TeamTwoScore == 0)
+        if (TeamTwoScore == 0 || string.IsNullOrEmpty(TeamTwoScore.ToString()))
         {
             IsStilja = true;
             HasTeamOneStilja = true;
@@ -109,13 +111,13 @@ public partial class GameViewModel : ObservableObject
     {
         if (TeamOneGameTotal >= gameScoreModel.TargetScore)
         {
-            App.Current.MainPage.DisplayAlert("Pobjeda", $"Team {TeamOneName} won!!", "Nova Igra");
+            App.Current?.MainPage?.DisplayAlert("Pobjeda", $"Team {TeamOneName} won!!", "Nova Igra");
             NewGame();
         }
 
         if (TeamTwoGameTotal >= gameScoreModel.TargetScore)
         {
-            App.Current.MainPage.DisplayAlert("Pobjeda", $"Team {TeamTwoName} won!!", "Nova Igra");
+            App.Current?.MainPage?.DisplayAlert("Pobjeda", $"Team {TeamTwoName} won!!", "Nova Igra");
             NewGame();
         }
     }

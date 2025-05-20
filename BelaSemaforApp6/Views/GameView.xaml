@@ -1,167 +1,149 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:BelaSemaforApp6.ViewModels"
-             xmlns:models="clr-namespace:BelaSemaforApp6.Models"
+<ContentPage x:Class="BelaSemaforApp6.Views.GameView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:BelaSemaforApp6.Models" xmlns:viewModels="clr-namespace:BelaSemaforApp6.ViewModels"
+             Padding="0"
              x:DataType="viewModels:GameViewModel"
-             x:Class="BelaSemaforApp6.Views.GameView"
-             BackgroundColor="{Binding AppSettings.PrimaryColor}"
-             Padding="0">
+             BackgroundColor="{Binding AppSettings.PrimaryColor}">
 
-    <VerticalStackLayout Padding="0" Spacing="10" Margin="0">
-        
-        <!-- Header -->
-        <Border BackgroundColor="{Binding AppSettings.SecondaryColor}" 
-                StrokeShape="RoundRectangle 0,0,40,40"
-                HorizontalOptions="FillAndExpand"
-                Stroke="Transparent"
-                Padding="30">
-            <StackLayout Orientation="Horizontal" Spacing="60" HorizontalOptions="Center">
-                <Label Text="Bela Blok" FontSize="24" TextColor="{Binding AppSettings.PrimaryColor}" HorizontalOptions="Center" />
-                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="20">
-                    <!-- <Button Command="{Binding NavigateToSettingsCommand}" BackgroundColor="{Binding AppSettings.PrimaryColor}"/> -->
-                    <ImageButton Source="gear.svg" 
-                                 Command="{Binding NavigateToSettingsCommand}" 
-                                 BackgroundColor="{Binding AppSettings.SecondaryColor}" 
-                                 WidthRequest="40" 
-                                 HeightRequest="40" 
-                                 Padding="0"/>
-                </StackLayout>
+    <VerticalStackLayout Margin="0" Padding="0" Spacing="10">
+
+        <!--  Header  -->
+        <Border Padding="30"
+                BackgroundColor="{Binding AppSettings.SecondaryColor}"
+                HorizontalOptions="FillAndExpand" Stroke="Transparent" StrokeShape="RoundRectangle 0,0,40,40">
+            <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Spacing="60">
+                <ImageButton Padding="0"
+                                BackgroundColor="{Binding AppSettings.SecondaryColor}"
+                                Command="{Binding NavigateToSettingsCommand}"
+                                CornerRadius="8" HeightRequest="40" Source="help_charcoal_gray.png" WidthRequest="40" />
+                <Label FontSize="24" HorizontalOptions="Center" Text="BELA BLOK" TextColor="{Binding AppSettings.PrimaryColor}" FontAttributes="Bold" />
+                <!-- <Button Command="{Binding NavigateToSettingsCommand}" BackgroundColor="{Binding AppSettings.PrimaryColor}"/> -->
+                <ImageButton Padding="0"
+                                BackgroundColor="{Binding AppSettings.SecondaryColor}"
+                                Command="{Binding NavigateToSettingsCommand}"
+                                CornerRadius="8" HeightRequest="40" Source="gear_charcoal_gray.png" WidthRequest="40" />
             </StackLayout>
         </Border>
 
-        <!-- Team Selection -->
-        <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <RadioButton Content="{Binding TeamOneName}" 
-                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
+        <!--  Team Selection  -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="40">
+            <RadioButton Content="{Binding TeamOneName}"
                          GroupName="TeamName"
-                         Style="{DynamicResource RadioButtonStyle}" 
-                         IsChecked="{Binding TeamOneCallCheck}" />
-            <RadioButton Content="{Binding TeamTwoName}" 
-                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                         GroupName="TeamName" 
-                         Style="{DynamicResource RadioButtonStyle}" 
-                         IsChecked="{Binding TeamTwoCallCheck}" />
+                         IsChecked="{Binding TeamOneCallCheck}"
+                         Style="{DynamicResource RadioButtonStyle}"
+                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+            <RadioButton Content="{Binding TeamTwoName}"
+                         GroupName="TeamName"
+                         IsChecked="{Binding TeamTwoCallCheck}"
+                         Style="{DynamicResource RadioButtonStyle}"
+                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
         </HorizontalStackLayout>
 
-        <!-- Team Scores -->
-        <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <Entry Text="{Binding TeamOneScore}" 
-                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                   Keyboard="Numeric"
-                   Style="{DynamicResource EntryStyle}" 
-                   FontSize="16" />
-            <Entry Text="{Binding TeamTwoScore}" 
-                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                   Keyboard="Numeric"
-                   Style="{DynamicResource EntryStyle}" 
-                   FontSize="16" />
+        <!--  Team Scores  -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="40">
+            <Entry FontSize="16" Keyboard="Numeric"
+                   Style="{DynamicResource EntryStyle}"
+                   Text="{Binding TeamOneScore}"
+                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+            <Entry FontSize="16" Keyboard="Numeric"
+                   Style="{DynamicResource EntryStyle}"
+                   Text="{Binding TeamTwoScore}"
+                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
         </HorizontalStackLayout>
 
-        <!-- Team Calls -->
-        <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <Entry Text="{Binding TeamOneCall}" 
-                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                   Placeholder="0" 
-                   Keyboard="Numeric"
-                   Style="{DynamicResource EntryStyle}" 
-                   FontSize="16" />
-            <Entry Text="{Binding TeamTwoCall}" 
-                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                   Placeholder="0" 
-                   Keyboard="Numeric"
-                   Style="{DynamicResource EntryStyle}" 
-                   FontSize="16" />
+        <!--  Team Calls  -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="40">
+            <Entry FontSize="16" Keyboard="Numeric" Placeholder="0"
+                   Style="{DynamicResource EntryStyle}"
+                   Text="{Binding TeamOneCall}"
+                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+            <Entry FontSize="16" Keyboard="Numeric" Placeholder="0"
+                   Style="{DynamicResource EntryStyle}"
+                   Text="{Binding TeamTwoCall}"
+                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
         </HorizontalStackLayout>
 
-        <!-- Bela Checkboxes -->
-        <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-                <CheckBox IsChecked="{Binding TeamOneBela}" 
-                          Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"/>
-                <Label Text="Bela" 
-                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                       Style="{DynamicResource LabelStyle}" />
+        <!--  Bela Checkboxes  -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="40">
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                <CheckBox IsChecked="{Binding TeamOneBela}" Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+                <Label Style="{DynamicResource LabelStyle}" Text="Bela" TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
             </HorizontalStackLayout>
-            <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-                <CheckBox IsChecked="{Binding TeamTwoBela}" 
-                          Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"/>
-                <Label Text="Bela" 
-                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                       Style="{DynamicResource LabelStyle}" />
-            </HorizontalStackLayout>
-        </HorizontalStackLayout>
-        
-        <!-- Stilja Checkboxes -->
-        <HorizontalStackLayout Spacing="40" HorizontalOptions="Center" IsVisible="{Binding IsStilja}">
-            <HorizontalStackLayout Spacing="5" HorizontalOptions="Start" IsEnabled="{Binding HasTeamOneStilja}">
-                <CheckBox IsChecked="{Binding TeamOneStilja}" 
-                          Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"/>
-                <Label Text="Štilja" 
-                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                       Style="{DynamicResource LabelStyle}" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Spacing="5" HorizontalOptions="End" IsEnabled="{Binding HasTeamTwoStilja}">
-                <CheckBox IsChecked="{Binding TeamTwoStilja}" 
-                          Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"/>
-                <Label Text="Štilja" 
-                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                       Style="{DynamicResource LabelStyle}" />
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                <CheckBox IsChecked="{Binding TeamTwoBela}" Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+                <Label Style="{DynamicResource LabelStyle}" Text="Bela" TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
             </HorizontalStackLayout>
         </HorizontalStackLayout>
 
-        <!-- Add Score Button -->
-        <Button Command="{Binding AddScoreCommand}" 
-                Text="Dodaj" 
-                TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
-                BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                Style="{DynamicResource ButtonStyle}" />
+        <!--  Stilja Checkboxes  -->
+        <HorizontalStackLayout HorizontalOptions="Center" IsVisible="{Binding IsStilja}" Spacing="40">
+            <HorizontalStackLayout HorizontalOptions="Start" IsEnabled="{Binding HasTeamOneStilja}" Spacing="5">
+                <CheckBox IsChecked="{Binding TeamOneStilja}" Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+                <Label Style="{DynamicResource LabelStyle}" Text="Štilja" TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="End" IsEnabled="{Binding HasTeamTwoStilja}" Spacing="5">
+                <CheckBox IsChecked="{Binding TeamTwoStilja}" Color="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+                <Label Style="{DynamicResource LabelStyle}" Text="Štilja" TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+            </HorizontalStackLayout>
+        </HorizontalStackLayout>
 
-        <!-- Team Totals and Scores -->
-        <Border BackgroundColor="{Binding AppSettings.SecondaryColor}" 
-                StrokeShape="RoundRectangle 5,5,5,5"
-                Stroke="Transparent"
-                Margin="5">
-            <StackLayout Orientation="Vertical" Spacing="1" HorizontalOptions="Fill" Padding="1" Margin="2">
-                
-                <!-- Team Names -->
+        <!--  Add Score Button  -->
+        <Button BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                Command="{Binding AddScoreCommand}"
+                Style="{DynamicResource ButtonStyle}"
+                Text="Dodaj"
+                TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" />
+
+        <!--  Team Totals and Scores  -->
+        <Border Margin="5" BackgroundColor="{Binding AppSettings.SecondaryColor}" Stroke="Transparent" StrokeShape="RoundRectangle 5,5,5,5">
+            <StackLayout Margin="2" Padding="1"
+                         HorizontalOptions="Fill" Orientation="Vertical" Spacing="1">
+
+                <!--  Team Names  -->
                 <StackLayout Orientation="Horizontal" Spacing="1">
-                    <Label Text="{Binding TeamOneName}" FontSize="16" FontAttributes="Bold"
-                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
-                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                    <Label Text="{Binding TeamTwoName}" FontSize="16" FontAttributes="Bold"
-                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
-                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
+                    <Label BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
+                           FontAttributes="Bold" FontSize="16" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
+                           Text="{Binding TeamOneName}"
+                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                           VerticalTextAlignment="Center" />
+                    <Label BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
+                           FontAttributes="Bold" FontSize="16" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
+                           Text="{Binding TeamTwoName}"
+                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                           VerticalTextAlignment="Center" />
                 </StackLayout>
 
-                <!-- Game Totals -->
+                <!--  Game Totals  -->
                 <StackLayout Orientation="Horizontal" Spacing="1">
-                    <Label Text="{Binding TeamOneGameTotal}" FontSize="15" FontAttributes="Bold"
-                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
-                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                    <Label Text="{Binding TeamTwoGameTotal}" FontSize="15" FontAttributes="Bold"
-                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                           BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
-                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
+                    <Label BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
+                           FontAttributes="Bold" FontSize="15" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
+                           Text="{Binding TeamOneGameTotal}"
+                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                           VerticalTextAlignment="Center" />
+                    <Label BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
+                           FontAttributes="Bold" FontSize="15" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
+                           Text="{Binding TeamTwoGameTotal}"
+                           TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                           VerticalTextAlignment="Center" />
                 </StackLayout>
 
-                <!-- Scores Collection -->
-                <CollectionView ItemsSource="{Binding Scores}" Margin="0">
+                <!--  Scores Collection  -->
+                <CollectionView Margin="0" ItemsSource="{Binding Scores}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:GameScoreModel">
-                            <StackLayout Orientation="Horizontal" Spacing="1" Margin="0,0,0,1">
-                                <Label Text="{Binding TeamOneScore}" FontSize="12"
-                                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                                       BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
-                                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                                <Label Text="{Binding TeamTwoScore}" FontSize="12"
-                                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                                       BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" 
-                                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
+                            <StackLayout Margin="0,0,0,1" Orientation="Horizontal" Spacing="1">
+                                <Label BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
+                                       FontSize="12" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
+                                       Text="{Binding TeamOneScore}"
+                                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                       VerticalTextAlignment="Center" />
+                                <Label BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
+                                       FontSize="12" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
+                                       Text="{Binding TeamTwoScore}"
+                                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                       VerticalTextAlignment="Center" />
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

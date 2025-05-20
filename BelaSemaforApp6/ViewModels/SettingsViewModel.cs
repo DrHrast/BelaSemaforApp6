@@ -159,5 +159,6 @@ partial class SettingsViewModel : ObservableObject
             SecondPlayer = SelectedPlayers[1].Name
         });
         ClearSelectedPlayers();
+        TeamName = "";
     }
 }
