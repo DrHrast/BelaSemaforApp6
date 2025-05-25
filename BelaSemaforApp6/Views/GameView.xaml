@@ -15,30 +15,31 @@
                 HorizontalOptions="FillAndExpand" Stroke="Transparent" StrokeShape="RoundRectangle 0,0,40,40">
             <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Spacing="60">
                 <ImageButton Padding="0"
-                                BackgroundColor="{Binding AppSettings.SecondaryColor}"
+                             BackgroundColor="{Binding AppSettings.SecondaryColor}"
                                 Command="{Binding NavigateToSettingsCommand}"
-                                CornerRadius="8" HeightRequest="40" Source="help_charcoal_gray.png" WidthRequest="40" />
-                <Label FontSize="24" HorizontalOptions="Center" Text="BELA BLOK" TextColor="{Binding AppSettings.PrimaryColor}" FontAttributes="Bold" />
+                             CornerRadius="8" HeightRequest="40" Source="help_charcoal_gray.png" WidthRequest="40" />
+                <Label FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Text="BELA BLOK"
+                       TextColor="{Binding AppSettings.PrimaryColor}" />
                 <!-- <Button Command="{Binding NavigateToSettingsCommand}" BackgroundColor="{Binding AppSettings.PrimaryColor}"/> -->
                 <ImageButton Padding="0"
-                                BackgroundColor="{Binding AppSettings.SecondaryColor}"
-                                Command="{Binding NavigateToSettingsCommand}"
-                                CornerRadius="8" HeightRequest="40" Source="gear_charcoal_gray.png" WidthRequest="40" />
+                             BackgroundColor="{Binding AppSettings.SecondaryColor}"
+                             Command="{Binding NavigateToSettingsCommand}"
+                             CornerRadius="8" HeightRequest="40" Source="gear_charcoal_gray.png" WidthRequest="40" />
             </StackLayout>
         </Border>
 
-        <!-- Team Selection -->
-        <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
-            <RadioButton Content="{Binding GameSettings.TeamOne.Name}" 
-                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
+        <!--  Team Selection  -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="40">
+            <RadioButton Content="{Binding GameSettings.TeamOne.Name}"
                          GroupName="TeamName"
-                         Style="{DynamicResource RadioButtonStyle}" 
-                         IsChecked="{Binding TeamOneCallCheck}" />
-            <RadioButton Content="{Binding GameSettings.TeamTwo.Name}" 
-                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" 
-                         GroupName="TeamName" 
-                         Style="{DynamicResource RadioButtonStyle}" 
-                         IsChecked="{Binding TeamTwoCallCheck}" />
+                         IsChecked="{Binding TeamOneCallCheck}"
+                         Style="{DynamicResource RadioButtonStyle}"
+                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+            <RadioButton Content="{Binding GameSettings.TeamTwo.Name}"
+                         GroupName="TeamName"
+                         IsChecked="{Binding TeamTwoCallCheck}"
+                         Style="{DynamicResource RadioButtonStyle}"
+                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
         </HorizontalStackLayout>
 
         <!--  Team Scores  -->
@@ -105,12 +106,12 @@
                 <StackLayout Orientation="Horizontal" Spacing="1">
                     <Label BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
                            FontAttributes="Bold" FontSize="16" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
-                           Text="{Binding TeamOneName}"
+                           Text="{Binding GameSettings.TeamOne.Name}"
                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
                            VerticalTextAlignment="Center" />
                     <Label BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
                            FontAttributes="Bold" FontSize="16" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
-                           Text="{Binding TeamTwoName}"
+                           Text="{Binding GameSettings.TeamTwo.Name}"
                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
                            VerticalTextAlignment="Center" />
                 </StackLayout>

@@ -1,11 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:viewModels="clr-namespace:BelaSemaforApp6.ViewModels"
-             xmlns:models="clr-namespace:BelaSemaforApp6.Models"
-             xmlns:layout="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
+<ContentPage x:Class="BelaSemaforApp6.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:layout="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls" xmlns:models="clr-namespace:BelaSemaforApp6.Models" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:viewModels="clr-namespace:BelaSemaforApp6.ViewModels"
              x:DataType="viewModels:SettingsViewModel"
              BackgroundColor="{Binding AppSettings.PrimaryColor}">
     <ContentPage.Content>
@@ -22,14 +19,15 @@
                                      BackgroundColor="{Binding AppSettings.SecondaryColor}"
                                      Command="{Binding NavigateToGameCommand}"
                                      HeightRequest="40" Source="arrow_charcoal_gray.png" WidthRequest="40" />
-                        <Label FontSize="24" HorizontalOptions="Center" Text="Postavke" TextColor="{Binding AppSettings.PrimaryColor}" />
+                        <Label FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Text="POSTAVKE"
+                               TextColor="{Binding AppSettings.PrimaryColor}" />
                     </HorizontalStackLayout>
                 </Border>
 
                 <!--  App Visuals Expander  -->
                 <toolkit:Expander>
                     <toolkit:Expander.Header>
-                        <Border Margin="10,0" Padding="13"
+                        <Border Margin="10,0,10,0" Padding="13"
                                 BackgroundColor="{Binding AppSettings.SecondaryColor}"
                                 Stroke="Transparent" StrokeShape="RoundRectangle 7,7,7,7">
                             <Label FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" Text="Tema"
@@ -37,7 +35,7 @@
                         </Border>
                     </toolkit:Expander.Header>
                     <toolkit:Expander.Content>
-                        <VerticalStackLayout Margin="10" HorizontalOptions="CenterAndExpand" Spacing="10">
+                        <VerticalStackLayout Margin="10" Spacing="10">
                             <CollectionView HorizontalOptions="CenterAndExpand" ItemsSource="{Binding PrimaryColors}">
                                 <CollectionView.ItemsLayout>
                                     <!--  Display squares in a grid layout  -->
@@ -55,8 +53,9 @@
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
-                            <CollectionView Margin="10" HorizontalOptions="Center" ItemsSource="{Binding SecondaryColors}">
+                            <CollectionView HorizontalOptions="CenterAndExpand" ItemsSource="{Binding SecondaryColors}">
                                 <CollectionView.ItemsLayout>
+                                    <!--  Display squares in a grid layout  -->
                                     <GridItemsLayout Orientation="Vertical" Span="6" />
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
@@ -105,101 +104,158 @@
                     </toolkit:Expander.Content>
                 </toolkit:Expander>
 
-            <!-- Players and Teams Expander -->
-            <toolkit:Expander>
-                <toolkit:Expander.Header>
-                    <Border StrokeShape="RoundRectangle 7,7,7,7" Stroke="Transparent" Padding="13" Margin="10,0,10,0" BackgroundColor="{Binding AppSettings.SecondaryColor}">
-                        <Label Text="Players and Teams" FontSize="20" FontAttributes="Bold" TextColor="{Binding AppSettings.PrimaryColor}" HorizontalTextAlignment="Center"/>
-                    </Border>
-                </toolkit:Expander.Header>
-                <toolkit:Expander.Content>
-                    <VerticalStackLayout Spacing="10" Margin="10">
-                        <!-- Add Player Button -->
-                        <StackLayout Orientation="Horizontal">
-                            <Entry Placeholder="Igrač..."
-                                   Text="{Binding PlayerName}"
-                                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
-                                   FontSize="16" />
-                            <Button Text="Dodaj"
-                                    IsEnabled="{Binding CanAddPlayer}"
-                                    Command="{Binding AddPlayerCommand}"/>
-                        </StackLayout>
-                        
-                        <!-- List of Players -->
-                        <Label Text="Igrači" FontSize="16" FontAttributes="Bold" TextColor="{Binding AppSettings.SecondaryColor}"/>
-                        <CollectionView ItemsSource="{Binding Players}" Margin="0, 0, 0, 5">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="models:PlayerModel">
-                                    <StackLayout Spacing="2">
-                                        <Button Text="{Binding Name}"
-                                               FontSize="14"
-                                               BorderWidth="1"
-                                               TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
-                                                    Path=BindingContext.AppSettings.SecondaryColor}"
-                                               BorderColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
-                                                    Path=BindingContext.AppSettings.SecondaryColor}"
-                                               BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
-                                                    Path=BindingContext.AppSettings.PrimaryColor}"
-                                               Margin="0"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
-                                                    Path=BindingContext.SelectPlayerCommand}"
-                                               CommandParameter="{Binding .}"/>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                        
-                        <CollectionView ItemsSource="{Binding SelectedPlayers}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="models:PlayerModel">
-                                    <StackLayout Spacing="2">
-                                        <Button Text="{Binding Name}"
-                                                FontSize="14"
-                                                BorderWidth="1"
-                                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
-                                                    Path=BindingContext.AppSettings.SecondaryColor}"
-                                                BorderColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
-                                                    Path=BindingContext.AppSettings.SecondaryColor}"
-                                                BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
-                                                    Path=BindingContext.AppSettings.PrimaryColor}"
-                                                Margin="0"
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
-                                                    Path=BindingContext.DeselectPlayerCommand}"
-                                                CommandParameter="{Binding .}"/>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                        
-                        <!-- Add Player Button -->
-                        <StackLayout Orientation="Horizontal">
-                            <Entry Placeholder="Ime tima..."
-                                   Text="{Binding TeamName}"
-                                   TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
-                                   FontSize="16" />
-                            <Button Text="Dodaj tim"
-                                    IsEnabled="{Binding CanAddTeam}"
-                                    Command="{Binding AddTeamCommand}"/>
-                        </StackLayout>
+                <!--  Players and Teams Expander  -->
+                <toolkit:Expander>
+                    <toolkit:Expander.Header>
+                        <Border Margin="10,0,10,0" Padding="13"
+                                BackgroundColor="{Binding AppSettings.SecondaryColor}"
+                                Stroke="Transparent" StrokeShape="RoundRectangle 7,7,7,7">
+                            <Label FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" Text="Igrači i timovi"
+                                   TextColor="{Binding AppSettings.PrimaryColor}" />
+                        </Border>
+                    </toolkit:Expander.Header>
+                    <toolkit:Expander.Content>
+                        <VerticalStackLayout Margin="10" Spacing="10">
+                            <!--  Add Player Button  -->
+                            <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Spacing="20">
+                                <Entry FontSize="16" Placeholder="Igrač..."
+                                       Text="{Binding PlayerName}"
+                                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                       WidthRequest="120" />
+                                <Button BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" Command="{Binding AddPlayerCommand}" IsEnabled="{Binding CanAddPlayer}" Text="Dodaj" />
+                            </StackLayout>
 
-                            <CollectionView ItemsSource="{Binding Teams}">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:TeamModel">
-                                        <Frame Margin="4" Padding="10"
-                                               BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
-                                               BorderColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
-                                               CornerRadius="10">
-                                            <VerticalStackLayout Spacing="6">
-                                                <Label HorizontalOptions="Center" FontAttributes="Bold" FontSize="20" Text="{Binding Name}" TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
-                                                <HorizontalStackLayout  HorizontalOptions="Center" Spacing="45">
-                                                    <Label FontAttributes="Italic" FontSize="15" Text="{Binding FirstPlayer}" TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
-                                                    <Label FontAttributes="Italic" FontSize="15" Text="{Binding SecondPlayer}" TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
-                                                </HorizontalStackLayout>
-                                            </VerticalStackLayout>
-                                        </Frame>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
+                            <VerticalStackLayout Padding="10" HorizontalOptions="CenterAndExpand" Spacing="10">
+
+                                <!--  Players and Selected Players Section  -->
+                                <Grid Padding="10"
+                                      ColumnDefinitions="*,*" ColumnSpacing="10" RowDefinitions="Auto,*,Auto,*" RowSpacing="10">
+
+                                    <!--  Labels  -->
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           FontAttributes="Bold" FontSize="16" HorizontalTextAlignment="Center" Text="Igrači"
+                                           TextColor="{Binding AppSettings.SecondaryColor}"
+                                           VerticalTextAlignment="Center" />
+                                    <Label Grid.Row="0" Grid.Column="1"
+                                           FontAttributes="Bold" FontSize="16" HorizontalTextAlignment="Center" Text="Označeni igrači"
+                                           TextColor="{Binding AppSettings.SecondaryColor}"
+                                           VerticalTextAlignment="Center" />
+
+                                    <!--  Players Collection  -->
+                                    <CollectionView Grid.Row="1" Grid.Column="0" Margin="5" ItemsSource="{Binding Players}">
+                                        <CollectionView.ItemsLayout>
+                                            <GridItemsLayout Orientation="Vertical" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:PlayerModel">
+                                                <Button Padding="10"
+                                                        BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
+                                                        BorderColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                                        BorderWidth="2"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectPlayerCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        CornerRadius="10" FontSize="14" HorizontalOptions="FillAndExpand"
+                                                        Text="{Binding Name}"
+                                                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                                        VerticalOptions="Center" />
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+
+                                    <!--  Selected Players Collection  -->
+                                    <CollectionView Grid.Row="1" Grid.Column="1" Margin="5" ItemsSource="{Binding SelectedPlayers}">
+                                        <CollectionView.ItemsLayout>
+                                            <GridItemsLayout Orientation="Vertical" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:PlayerModel">
+                                                <Button Padding="10"
+                                                        BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
+                                                        BorderColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                                        BorderWidth="2"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeselectPlayerCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        CornerRadius="10" FontSize="14" HorizontalOptions="FillAndExpand"
+                                                        Text="{Binding Name}"
+                                                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                                        VerticalOptions="Center" />
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </Grid>
+                            </VerticalStackLayout>
+
+                            <!--  Add Team Button  -->
+                            <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Spacing="20">
+                                <Entry FontSize="16" Placeholder="Ime tima..."
+                                       Text="{Binding TeamName}"
+                                       TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                       WidthRequest="120" />
+                                <Button BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" Command="{Binding AddTeamCommand}" IsEnabled="{Binding CanAddTeam}" Text="Dodaj tim" />
+                            </StackLayout>
+
+                            <!--  List of Teams  -->
+                            <Grid Padding="10"
+                                  ColumnDefinitions="*,*" ColumnSpacing="10" RowDefinitions="Auto,*,Auto,*" RowSpacing="10">
+
+                                <!--  Labels  -->
+                                <Label Grid.Row="0" Grid.Column="0"
+                                       FontAttributes="Bold" FontSize="16" HorizontalTextAlignment="Center" Text="Timovi"
+                                       TextColor="{Binding AppSettings.SecondaryColor}"
+                                       VerticalTextAlignment="Center" />
+                                <Label Grid.Row="0" Grid.Column="1"
+                                       FontAttributes="Bold" FontSize="16" HorizontalTextAlignment="Center" Text="Označeni timovi"
+                                       TextColor="{Binding AppSettings.SecondaryColor}"
+                                       VerticalTextAlignment="Center" />
+
+                                <CollectionView Grid.Row="1" Grid.Column="0" Margin="5" ItemsSource="{Binding Teams}">
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout Orientation="Vertical" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:TeamModel">
+                                            <Border Padding="10"
+                                                    BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
+                                                    Stroke="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                                    StrokeShape="RoundRectangle 10,10,10,10" StrokeThickness="2.0">
+                                                <Grid>
+                                                    <StackLayout>
+                                                        <Label FontSize="14" Text="{Binding Name}" TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+                                                        <Label FontSize="12" Text="{Binding DisplayPlayers}" TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+                                                    </StackLayout>
+                                                </Grid>
+                                                <Border.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectTeamCommand}" CommandParameter="{Binding .}" />
+                                                </Border.GestureRecognizers>
+                                            </Border>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+
+                                <CollectionView Grid.Row="1" Grid.Column="1" Margin="5" ItemsSource="{Binding SelectedTeams}">
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout Orientation="Vertical" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:TeamModel">
+                                            <Border Padding="10"
+                                                    BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
+                                                    Stroke="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                                    StrokeShape="RoundRectangle 10,10,10,10" StrokeThickness="2.0">
+                                                <Grid>
+                                                    <StackLayout>
+                                                        <Label FontSize="14" Text="{Binding Name}" TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+                                                        <Label FontSize="12" Text="{Binding DisplayPlayers}" TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+                                                    </StackLayout>
+                                                </Grid>
+                                                <Border.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeselectTeamCommand}" CommandParameter="{Binding .}" />
+                                                </Border.GestureRecognizers>
+                                            </Border>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </Grid>
                         </VerticalStackLayout>
                     </toolkit:Expander.Content>
                 </toolkit:Expander>
