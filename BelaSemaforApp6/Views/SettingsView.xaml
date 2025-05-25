@@ -122,7 +122,11 @@
                                        Text="{Binding PlayerName}"
                                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
                                        WidthRequest="120" />
-                                <Button BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" Command="{Binding AddPlayerCommand}" IsEnabled="{Binding CanAddPlayer}" Text="Dodaj" />
+                                <Button BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
+                                        Command="{Binding AddPlayerCommand}"
+                                        IsEnabled="{Binding CanAddPlayer}"
+                                        Text="Dodaj"
+                                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}" />
                             </StackLayout>
 
                             <VerticalStackLayout Padding="10" HorizontalOptions="CenterAndExpand" Spacing="10">

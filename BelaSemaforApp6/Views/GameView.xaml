@@ -16,7 +16,7 @@
             <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Spacing="60">
                 <ImageButton Padding="0"
                              BackgroundColor="{Binding AppSettings.SecondaryColor}"
-                                Command="{Binding NavigateToSettingsCommand}"
+                             Command="{Binding NavigateToHelpCommand}"
                              CornerRadius="8" HeightRequest="40" Source="help_charcoal_gray.png" WidthRequest="40" />
                 <Label FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Text="BELA BLOK"
                        TextColor="{Binding AppSettings.PrimaryColor}" />
@@ -44,11 +44,11 @@
 
         <!--  Team Scores  -->
         <HorizontalStackLayout HorizontalOptions="Center" Spacing="40">
-            <Entry FontSize="16" Keyboard="Numeric"
+            <Entry FontSize="16" Keyboard="Numeric" MaxLength="3"
                    Style="{DynamicResource EntryStyle}"
                    Text="{Binding TeamOneScore}"
                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
-            <Entry FontSize="16" Keyboard="Numeric"
+            <Entry FontSize="16" Keyboard="Numeric" MaxLength="3"
                    Style="{DynamicResource EntryStyle}"
                    Text="{Binding TeamTwoScore}"
                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />

@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using BelaSemaforApp6.Models;
+using BelaSemaforApp6.Views;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +44,11 @@ public partial class GameViewModel : ObservableObject
     
     partial void OnTeamOneScoreChanged(int value)
     {
+        if (value > Maxscore)
+        {
+            TeamOneScore = 0;
+            return;
+        }
         ClearStiljaComponents();
         if (_canAddScore == false) return;
         if (string.IsNullOrEmpty(TeamOneScore.ToString())) TeamTwoScore = Maxscore;
@@ -56,6 +63,11 @@ public partial class GameViewModel : ObservableObject
 
     partial void OnTeamTwoScoreChanged(int value)
     {
+        if (value > Maxscore)
+        {
+            TeamTwoScore = 0;
+            return;
+        }
         ClearStiljaComponents();
         if (_canAddScore == false) return;
         if (string.IsNullOrEmpty(TeamTwoScore.ToString())) TeamOneScore = Maxscore;
@@ -169,5 +181,12 @@ public partial class GameViewModel : ObservableObject
     private async void NavigateToSettings()
     {
         await Shell.Current.GoToAsync($"///SettingsView");
+    }
+    
+    [RelayCommand]
+    private async void NavigateToHelp()
+    {
+        var popup = new HelpPopup();
+        await App.Current.MainPage.ShowPopupAsync(popup);
     }
 }
