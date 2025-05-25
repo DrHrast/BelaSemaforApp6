@@ -37,6 +37,7 @@ namespace BelaSemaforApp6
         {
             builder.Services.AddTransient<GameViewModel>();
             builder.Services.AddTransient<SettingsViewModel>();
+            builder.Services.AddTransient<HelpPopupViewModel>();
             return builder;
         }
         
