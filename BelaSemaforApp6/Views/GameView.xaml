@@ -46,11 +46,11 @@
         <HorizontalStackLayout HorizontalOptions="Center" Spacing="40">
             <Entry FontSize="16" Keyboard="Numeric" MaxLength="3"
                    Style="{DynamicResource EntryStyle}"
-                   Text="{Binding TeamOneScore}"
+                   Text="{Binding TeamOneScoreInput}"
                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
             <Entry FontSize="16" Keyboard="Numeric" MaxLength="3"
                    Style="{DynamicResource EntryStyle}"
-                   Text="{Binding TeamTwoScore}"
+                   Text="{Binding TeamTwoScoreInput}"
                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
         </HorizontalStackLayout>
 

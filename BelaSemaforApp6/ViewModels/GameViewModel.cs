@@ -14,8 +14,6 @@ public partial class GameViewModel : ObservableObject
     [ObservableProperty] private GameSettingsModel _gameSettings;
     [ObservableProperty] private string? _teamOneName = "TeamOne";
     [ObservableProperty] private string? _teamTwoName = "TeamTwo";
-    [ObservableProperty] private int _teamOneScore;
-    [ObservableProperty] private int _teamTwoScore;
     [ObservableProperty] private int _teamOneCall;
     [ObservableProperty] private int _teamTwoCall;
     [ObservableProperty] private bool _teamOneBela;
@@ -31,8 +29,12 @@ public partial class GameViewModel : ObservableObject
     [ObservableProperty] private bool _hasTeamTwoStilja;
     [ObservableProperty] private bool _teamOneStilja;
     [ObservableProperty] private bool _teamTwoStilja;
+    [ObservableProperty] private string _teamOneScoreInput = "0";
+    [ObservableProperty] private string _teamTwoScoreInput = "0";
     [ObservableProperty] private ObservableCollection<GameScoreModel>? _scores = [];
 
+    private int _teamOneScore;
+    private int _teamTwoScore;
     private const int Maxscore = 162;
     private bool _canAddScore = true;
 
@@ -41,44 +43,57 @@ public partial class GameViewModel : ObservableObject
         AppSettings = appSettingSettings;
         GameSettings = gameSettings;
     }
-    
-    partial void OnTeamOneScoreChanged(int value)
+
+    partial void OnTeamOneScoreInputChanged(string value)
     {
-        if (value > Maxscore)
+        ClearStiljaComponents();
+
+        if (!_canAddScore) return;
+
+        if (string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out var parsed) || parsed > Maxscore)
         {
-            TeamOneScore = 0;
+            TeamOneScoreInput = "0";
+            TeamTwoScoreInput = Maxscore.ToString();
+
             return;
         }
-        ClearStiljaComponents();
-        if (_canAddScore == false) return;
-        if (string.IsNullOrEmpty(TeamOneScore.ToString())) TeamTwoScore = Maxscore;
-        TeamTwoScore = Maxscore - value;
-        if (TeamOneScore == 0 || string.IsNullOrEmpty(TeamOneScore.ToString()))
+
+        TeamOneScoreInput = parsed.ToString();
+        TeamTwoScoreInput = (Maxscore - parsed).ToString();
+
+        if (parsed == 0)
         {
             IsStilja = true;
             HasTeamTwoStilja = true;
-            TeamTwoScore = Maxscore;
+            TeamTwoScoreInput = Maxscore.ToString();
         }
     }
 
-    partial void OnTeamTwoScoreChanged(int value)
+    partial void OnTeamTwoScoreInputChanged(string value)
     {
-        if (value > Maxscore)
+        ClearStiljaComponents();
+
+        if (!_canAddScore) return;
+
+        if (string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out var parsed) || parsed > Maxscore)
         {
-            TeamTwoScore = 0;
+            TeamTwoScoreInput = 0.ToString();
+            TeamOneScoreInput = Maxscore.ToString();
+
             return;
         }
-        ClearStiljaComponents();
-        if (_canAddScore == false) return;
-        if (string.IsNullOrEmpty(TeamTwoScore.ToString())) TeamOneScore = Maxscore;
-        TeamOneScore = Maxscore - value;
-        if (TeamTwoScore == 0 || string.IsNullOrEmpty(TeamTwoScore.ToString()))
+
+        TeamTwoScoreInput = parsed.ToString();
+        TeamOneScoreInput = (Maxscore - parsed).ToString();
+
+        if (parsed == 0)
         {
             IsStilja = true;
             HasTeamOneStilja = true;
-            TeamOneScore = Maxscore;
+            TeamOneScoreInput = Maxscore.ToString();
         }
     }
+
 
     partial void OnTeamOneBelaChanged(bool value)
     {
@@ -96,7 +111,7 @@ public partial class GameViewModel : ObservableObject
         if (IsInputValid())
         {
             var teamOneTurnScoreModel = new ScoreModel {
-                ScoreOnly = TeamOneScore, 
+                ScoreOnly = _teamOneScore, 
                 Bela = TeamOneBela ? 20 : 0, 
                 Call = TeamOneCall,
                 IsCallChecked = TeamOneCallCheck,
@@ -104,7 +119,7 @@ public partial class GameViewModel : ObservableObject
             };
             var teamTwoTurnScoreModel = new ScoreModel
             {
-                ScoreOnly = TeamTwoScore,
+                ScoreOnly = _teamTwoScore,
                 Bela = TeamTwoBela ? 20 : 0,
                 Call = TeamTwoCall,
                 IsCallChecked = TeamTwoCallCheck,
@@ -141,8 +156,10 @@ public partial class GameViewModel : ObservableObject
         _canAddScore = false;
         TeamOneCallCheck = false;
         TeamTwoCallCheck = false;
-        TeamOneScore = 0;
-        TeamTwoScore = 0;
+        _teamOneScore = 0;
+        TeamOneScoreInput = "0";
+        _teamTwoScore = 0;
+        TeamTwoScoreInput = "0";
         TeamOneCall = 0;
         TeamTwoCall = 0;
         TeamOneBela = false;
@@ -162,10 +179,13 @@ public partial class GameViewModel : ObservableObject
 
     private bool IsInputValid()
     {
-        if (TeamOneScore != 0 || TeamTwoScore != 0)
+        _teamOneScore = int.Parse(TeamOneScoreInput);
+        _teamTwoScore = int.Parse(TeamTwoScoreInput);
+        if (_teamOneScore != 0 || _teamTwoScore != 0)
         {
             return true;
         }
+
         return false;
     }
 
