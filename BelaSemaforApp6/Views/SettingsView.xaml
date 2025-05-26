@@ -18,7 +18,11 @@
                         <ImageButton Padding="0"
                                      BackgroundColor="{Binding AppSettings.SecondaryColor}"
                                      Command="{Binding NavigateToGameCommand}"
-                                     HeightRequest="40" Source="arrow_charcoal_gray.png" WidthRequest="40" />
+                                     HeightRequest="40" Source="arrow_left.png" WidthRequest="40" >
+                            <ImageButton.Behaviors>
+                                <toolkit:IconTintColorBehavior TintColor="{Binding AppSettings.PrimaryColor}" />
+                            </ImageButton.Behaviors>
+                        </ImageButton>
                         <Label FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Text="POSTAVKE"
                                TextColor="{Binding AppSettings.PrimaryColor}" />
                     </HorizontalStackLayout>

@@ -5,6 +5,7 @@ namespace BelaSemaforApp6.Models;
 
 public class GameSettingsModel : INotifyPropertyChanged
 {
+    public int ID { get; set; }
     private int _targetScore = 1001;
     private TeamModel? _teamOne = new TeamModel
     {

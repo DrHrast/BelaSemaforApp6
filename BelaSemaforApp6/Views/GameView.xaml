@@ -2,7 +2,7 @@
 
 <ContentPage x:Class="BelaSemaforApp6.Views.GameView"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:BelaSemaforApp6.Models" xmlns:viewModels="clr-namespace:BelaSemaforApp6.ViewModels"
+             xmlns:models="clr-namespace:BelaSemaforApp6.Models" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:viewModels="clr-namespace:BelaSemaforApp6.ViewModels"
              Padding="0"
              x:DataType="viewModels:GameViewModel"
              BackgroundColor="{Binding AppSettings.PrimaryColor}">
@@ -17,14 +17,23 @@
                 <ImageButton Padding="0"
                              BackgroundColor="{Binding AppSettings.SecondaryColor}"
                              Command="{Binding NavigateToHelpCommand}"
-                             CornerRadius="8" HeightRequest="40" Source="help_charcoal_gray.png" WidthRequest="40" />
+                             CornerRadius="8" HeightRequest="40" Source="about_help.png" WidthRequest="40">
+                    <ImageButton.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="{Binding AppSettings.PrimaryColor}" />
+                    </ImageButton.Behaviors>
+                </ImageButton>
                 <Label FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Text="BELA BLOK"
                        TextColor="{Binding AppSettings.PrimaryColor}" />
                 <!-- <Button Command="{Binding NavigateToSettingsCommand}" BackgroundColor="{Binding AppSettings.PrimaryColor}"/> -->
                 <ImageButton Padding="0"
                              BackgroundColor="{Binding AppSettings.SecondaryColor}"
                              Command="{Binding NavigateToSettingsCommand}"
-                             CornerRadius="8" HeightRequest="40" Source="gear_charcoal_gray.png" WidthRequest="40" />
+                             CornerRadius="8" HeightRequest="40" Source="settings_gear.png" WidthRequest="40">
+                    <ImageButton.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="{Binding AppSettings.PrimaryColor}" />
+                    </ImageButton.Behaviors>
+                </ImageButton>
+
             </StackLayout>
         </Border>
 
