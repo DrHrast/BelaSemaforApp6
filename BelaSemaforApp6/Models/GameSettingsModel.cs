@@ -1,60 +1,81 @@
-﻿using System.ComponentModel;
+﻿using SQLite;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace BelaSemaforApp6.Models;
 
 public class GameSettingsModel : INotifyPropertyChanged
 {
-    public int ID { get; set; }
+    [PrimaryKey, AutoIncrement]
+    public int Id { get; set; }
+
     private int _targetScore = 1001;
-    private TeamModel? _teamOne = new TeamModel
-    {
-        Name = "TeamOne"
-    };
-    private TeamModel? _teamTwo = new TeamModel
-    {
-        Name = "TeamTwo"
-    };
+    private int _teamOneId;
+    private int _teamTwoId;
+
+    private TeamModel? _teamOne;
+    private TeamModel? _teamTwo;
 
     public int TargetScore
     {
         get => _targetScore;
         set
         {
-            if (Equals(value, _targetScore)) return;
-            
+            if (_targetScore == value) return;
             _targetScore = value;
             OnPropertyChanged();
         }
     }
 
-    public TeamModel TeamOne
+    public int TeamOneId
     {
-        get => _teamOne;
+        get => _teamOneId;
         set
         {
-            if (Equals(value, _teamOne)) return;
-            
-            _teamOne = value;
+            if (_teamOneId == value) return;
+            _teamOneId = value;
             OnPropertyChanged();
         }
     }
 
-    public TeamModel TeamTwo
+    public int TeamTwoId
+    {
+        get => _teamTwoId;
+        set
+        {
+            if (_teamTwoId == value) return;
+            _teamTwoId = value;
+            OnPropertyChanged();
+        }
+    }
+
+    [Ignore]
+    public TeamModel? TeamOne
+    {
+        get => _teamOne;
+        set
+        {
+            if (_teamOne == value) return;
+            _teamOne = value;
+            TeamOneId = value?.Id ?? 0;
+            OnPropertyChanged();
+        }
+    }
+
+    [Ignore]
+    public TeamModel? TeamTwo
     {
         get => _teamTwo;
         set
         {
-            if (Equals(value, _teamTwo)) return;
-            
+            if (_teamTwo == value) return;
             _teamTwo = value;
+            TeamTwoId = value?.Id ?? 0;
             OnPropertyChanged();
         }
     }
-    
+
     public event PropertyChangedEventHandler? PropertyChanged;
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null) 
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }

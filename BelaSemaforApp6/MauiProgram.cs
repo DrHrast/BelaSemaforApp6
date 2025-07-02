@@ -45,6 +45,7 @@ namespace BelaSemaforApp6
         {
             builder.Services.AddSingleton<AppSettingsModel>();
             builder.Services.AddSingleton<GameSettingsModel>();
+            builder.Services.AddSingleton<DatabaseManager>();
             return builder;
         }
     }
