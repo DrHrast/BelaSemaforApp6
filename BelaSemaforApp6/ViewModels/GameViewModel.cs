@@ -18,47 +18,54 @@ public partial class GameViewModel : ObservableObject
 
     [ObservableProperty] private int _teamOneCall;
     [ObservableProperty] private int _teamTwoCall;
-
     [ObservableProperty] private bool _teamOneBela;
     [ObservableProperty] private bool _teamTwoBela;
-
     [ObservableProperty] private int _teamOneTurnScore;
     [ObservableProperty] private int _teamTwoTurnScore;
-
     [ObservableProperty] private bool _teamOneCallCheck;
     [ObservableProperty] private bool _teamTwoCallCheck;
-
     [ObservableProperty] private int _teamOneGameTotal;
     [ObservableProperty] private int _teamTwoGameTotal;
-
     [ObservableProperty] private bool _isStilja;
     [ObservableProperty] private bool _hasTeamOneStilja;
     [ObservableProperty] private bool _hasTeamTwoStilja;
     [ObservableProperty] private bool _teamOneStilja;
     [ObservableProperty] private bool _teamTwoStilja;
-
     [ObservableProperty] private string _teamOneScoreInput = "0";
     [ObservableProperty] private string _teamTwoScoreInput = "0";
-
     [ObservableProperty] private ObservableCollection<GameScoreModel> _scores = new();
 
     private int _teamOneScore;
     private int _teamTwoScore;
-
     private const int Maxscore = 162;
     private bool _canAddScore = true;
     private readonly DatabaseManager _db;
 
-    public GameViewModel(IConfiguration config, DatabaseManager db, AppSettingsModel appSettingsModel, GameSettingsModel gameSettingsModel)
+    public GameViewModel(AppSettingsModel appSettings, GameSettingsModel gameSettings, DatabaseManager db)
     {
         _db = db;
-        AppSettings = _db.GetAppSettings() ?? appSettingsModel;
-        GameSettings = _db.GetGameSettings() ?? gameSettingsModel;
-        //TeamOneName = GameSettings.TeamOne?.Name ?? "Team One";
-        //TeamTwoName = GameSettings.TeamTwo?.Name ?? "Team Two";
+        AppSettings = appSettings;
+        GameSettings = gameSettings;
 
-        TeamOneName = _db.GetTeamById(GameSettings.TeamOneId)?.Name ?? "TeamOne";
-        TeamTwoName = _db.GetTeamById(GameSettings.TeamTwoId)?.Name ?? "TeamTwo";
+        var savedApp = _db.GetAppSettings();
+        if (savedApp != null)
+        {
+            AppSettings.PrimaryColor = savedApp.PrimaryColor;
+            AppSettings.SecondaryColor = savedApp.SecondaryColor;
+        }
+
+        var savedGame = _db.GetGameSettings();
+        if (savedGame != null)
+        {
+            GameSettings.TargetScore = savedGame.TargetScore;
+            GameSettings.TeamOneId = savedGame.TeamOneId;
+            GameSettings.TeamTwoId = savedGame.TeamTwoId;
+            GameSettings.TeamOne = _db.GetTeamById(savedGame.TeamOneId);
+            GameSettings.TeamTwo = _db.GetTeamById(savedGame.TeamTwoId);
+        }
+
+        TeamOneName = GameSettings.TeamOne?.Name ?? "TeamOne";
+        TeamTwoName = GameSettings.TeamTwo?.Name ?? "TeamTwo";
 
         var savedScores = _db.GetGameScores();
 
@@ -73,6 +80,9 @@ public partial class GameViewModel : ObservableObject
             TeamOneGameTotal += gs.TeamOneScore;
             TeamTwoGameTotal += gs.TeamTwoScore;
         }
+
+        TeamOneGameTotal = Scores.Sum(s => s.TeamOneScore);
+        TeamTwoGameTotal = Scores.Sum(s => s.TeamTwoScore);
     }
 
     partial void OnTeamOneScoreInputChanged(string value)
@@ -81,7 +91,7 @@ public partial class GameViewModel : ObservableObject
 
         if (!_canAddScore) return;
 
-        if (string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out var parsed) || parsed > Maxscore)
+        if (!int.TryParse(value, out var parsed) || parsed > Maxscore)
         {
             TeamOneScoreInput = "0";
             TeamTwoScoreInput = Maxscore.ToString();
@@ -105,7 +115,7 @@ public partial class GameViewModel : ObservableObject
 
         if (!_canAddScore) return;
 
-        if (string.IsNullOrWhiteSpace(value) || !int.TryParse(value, out var parsed) || parsed > Maxscore)
+        if (!int.TryParse(value, out var parsed) || parsed > Maxscore)
         {
             TeamTwoScoreInput = "0";
             TeamOneScoreInput = Maxscore.ToString();
@@ -125,12 +135,12 @@ public partial class GameViewModel : ObservableObject
 
     partial void OnTeamOneBelaChanged(bool value)
     {
-        if (value) TeamTwoBela = !value;
+        if (value) TeamTwoBela = false;
     }
 
     partial void OnTeamTwoBelaChanged(bool value)
     {
-        if (value) TeamOneBela = !value;
+        if (value) TeamOneBela = false;
     }
 
     [RelayCommand]
@@ -138,7 +148,7 @@ public partial class GameViewModel : ObservableObject
     {
         if (IsInputValid())
         {
-            var teamOneTurnScoreModel = new ScoreModel
+            var teamOneModel = new ScoreModel
             {
                 ScoreOnly = _teamOneScore,
                 Bela = TeamOneBela ? 20 : 0,
@@ -146,8 +156,7 @@ public partial class GameViewModel : ObservableObject
                 IsCallChecked = TeamOneCallCheck,
                 IsStilja = TeamOneStilja
             };
-
-            var teamTwoTurnScoreModel = new ScoreModel
+            var teamTwoModel = new ScoreModel
             {
                 ScoreOnly = _teamTwoScore,
                 Bela = TeamTwoBela ? 20 : 0,
@@ -156,30 +165,28 @@ public partial class GameViewModel : ObservableObject
                 IsStilja = TeamTwoStilja
             };
 
-            var gameScoreModel = new GameScoreModel(teamOneTurnScoreModel, teamTwoTurnScoreModel);
-            gameScoreModel.CalculateScore();
-            Scores.Insert(0, gameScoreModel);
+            var gameScore = new GameScoreModel(teamOneModel, teamTwoModel);
+            gameScore.CalculateScore();
+            Scores.Insert(0, gameScore);
+            _db.AddGameScore(gameScore);
 
-            // Save to DB
-            _db.AddGameScore(gameScoreModel);
-
-            TeamOneGameTotal += gameScoreModel.TeamOneScore;
-            TeamTwoGameTotal += gameScoreModel.TeamTwoScore;
+            TeamOneGameTotal += gameScore.TeamOneScore;
+            TeamTwoGameTotal += gameScore.TeamTwoScore;
             CheckForWin();
+            ClearInputs();
         }
-        ClearInputs();
     }
 
     private void CheckForWin()
     {
         if (TeamOneGameTotal >= GameSettings.TargetScore)
         {
-            App.Current?.MainPage?.DisplayAlert("Pobjeda", $"{TeamOneName} je pobijedio!", "Nova Igra");
+            App.Current?.MainPage?.DisplayAlert("Pobjeda", $"Team {TeamOneName} won!!", "Nova Igra");
             NewGame();
         }
         else if (TeamTwoGameTotal >= GameSettings.TargetScore)
         {
-            App.Current?.MainPage?.DisplayAlert("Pobjeda", $"{TeamTwoName} je pobijedio!", "Nova Igra");
+            App.Current?.MainPage?.DisplayAlert("Pobjeda", $"Team {TeamTwoName} won!!", "Nova Igra");
             NewGame();
         }
     }
@@ -189,9 +196,7 @@ public partial class GameViewModel : ObservableObject
         _canAddScore = false;
         TeamOneCallCheck = false;
         TeamTwoCallCheck = false;
-        _teamOneScore = 0;
         TeamOneScoreInput = "0";
-        _teamTwoScore = 0;
         TeamTwoScoreInput = "0";
         TeamOneCall = 0;
         TeamTwoCall = 0;
@@ -219,23 +224,29 @@ public partial class GameViewModel : ObservableObject
 
     private void NewGame()
     {
-        ClearInputs();
+        _db.ClearCurrentGameScores();
         Scores.Clear();
         TeamOneGameTotal = 0;
         TeamTwoGameTotal = 0;
-        _db.ClearCurrentGameScores();
+        ClearInputs();
     }
 
     [RelayCommand]
-    private async void NavigateToSettings()
+    private async Task NavigateToSettings()
     {
-        await Shell.Current.GoToAsync("///SettingsView");
+        await Shell.Current.GoToAsync($"///SettingsView");
     }
 
     [RelayCommand]
-    private async void NavigateToHelp()
+    private async Task NavigateToHelp()
     {
         var popup = new HelpPopup();
         await App.Current.MainPage.ShowPopupAsync(popup);
+    }
+
+    [RelayCommand]
+    private async Task StartNewGame()
+    {
+        NewGame();
     }
 }

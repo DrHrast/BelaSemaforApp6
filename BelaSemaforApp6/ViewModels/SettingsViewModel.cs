@@ -16,10 +16,10 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private bool _canAddPlayer;
     [ObservableProperty] private bool _canAddTeam;
 
-    public ObservableCollection<PlayerModel> Players { get; set; } = new();
-    public ObservableCollection<PlayerModel> SelectedPlayers { get; set; } = new();
-    public ObservableCollection<TeamModel> Teams { get; set; } = new();
-    public ObservableCollection<TeamModel> SelectedTeams { get; set; } = new();
+    public ObservableCollection<PlayerModel> Players { get; } = new();
+    public ObservableCollection<PlayerModel> SelectedPlayers { get; } = new();
+    public ObservableCollection<TeamModel> Teams { get; } = new();
+    public ObservableCollection<TeamModel> SelectedTeams { get; } = new();
 
     public ObservableCollection<Color> PrimaryColors { get; } =
     [
@@ -36,33 +36,51 @@ public partial class SettingsViewModel : ObservableObject
         Color.Parse("#A4C8EF"), Color.Parse("#B5A5E9"), Color.Parse("#A89FCF")
     ];
 
-    public List<DisplayScoreModel> DisplayScore { get; set; } = new()
+    public List<DisplayScoreModel> DisplayScore { get; } = new()
     {
         new() { Score = 301 }, new() { Score = 501 }, new() { Score = 701 },
         new() { Score = 901 }, new() { Score = 1001 }, new() { Score = 1301 }
     };
 
-    private readonly DatabaseManager _db = new();
+    private readonly DatabaseManager _db;
 
-    public SettingsViewModel(IConfiguration config, AppSettingsModel appSettingSettings, GameSettingsModel gameSettings)
+    public SettingsViewModel(AppSettingsModel appSet, GameSettingsModel gameSet, DatabaseManager db)
     {
-        AppSettings = _db.GetAppSettings() ?? appSettingSettings;
-        GameSettings = _db.GetGameSettings() ?? gameSettings;
+        _db = db;
+        AppSettings = appSet;
+        GameSettings = gameSet;
+
+        var savedAppSettings = _db.GetAppSettings();
+        if (savedAppSettings != null)
+        {
+            AppSettings.PrimaryColor = savedAppSettings.PrimaryColor;
+            AppSettings.SecondaryColor = savedAppSettings.SecondaryColor;
+        }
+
+        var savedGameSettings = _db.GetGameSettings();
+        if (savedGameSettings != null)
+        {
+            GameSettings.TargetScore = savedGameSettings.TargetScore;
+            GameSettings.TeamOneId = savedGameSettings.TeamOneId;
+            GameSettings.TeamTwoId = savedGameSettings.TeamTwoId;
+        }
 
         foreach (var score in DisplayScore)
         {
-            score.IsSelected = score.Score == GameSettings.TargetScore;
+            score.IsSelected = GameSettings.TargetScore == score.Score ? false : true;
         }
 
-        foreach (var player in _db.GetPlayers())
+        var allPlayers = _db.GetPlayers();
+        foreach (var player in allPlayers)
         {
             Players.Add(player);
         }
 
-        foreach (var team in _db.GetTeams())
+        var allTeams = _db.GetTeams();
+        foreach (var team in allTeams)
         {
-            team.FirstPlayer = Players.FirstOrDefault(p => p.Id == team.PlayerOneId)?.Name;
-            team.SecondPlayer = Players.FirstOrDefault(p => p.Id == team.PlayerTwoId)?.Name;
+            team.FirstPlayer = allPlayers.FirstOrDefault(p => p.Id == team.PlayerOneId)?.Name;
+            team.SecondPlayer = allPlayers.FirstOrDefault(p => p.Id == team.PlayerTwoId)?.Name;
             Teams.Add(team);
         }
 
@@ -118,14 +136,17 @@ public partial class SettingsViewModel : ObservableObject
     [RelayCommand]
     private void SetTargetScore(int selectedScore)
     {
-        foreach (var score in DisplayScore)
-            score.IsSelected = false;
-
         var selected = DisplayScore.FirstOrDefault(s => s.Score == selectedScore);
-        if (selected != null) selected.IsSelected = true;
+        if (selected != null)
+            selected.IsSelected = true;
 
         GameSettings.TargetScore = selectedScore;
         _db.SaveGameSettings(GameSettings);
+
+        foreach (var score in DisplayScore)
+        {
+            score.IsSelected = score.Score == GameSettings.TargetScore ? false : true;
+        }
     }
 
     [RelayCommand]
@@ -177,10 +198,12 @@ public partial class SettingsViewModel : ObservableObject
         _db.AddTeam(team);
         Teams.Add(team);
         TeamName = string.Empty;
+
         foreach (var player in SelectedPlayers.ToList())
         {
             Players.Add(player);
         }
+
         SelectedPlayers.Clear();
     }
 
@@ -201,14 +224,9 @@ public partial class SettingsViewModel : ObservableObject
             Teams.Remove(team);
         }
 
-        if (SelectedTeams.Count == 2)
-        {
-            GameSettings.TeamOneId = SelectedTeams[0].Id;
-            GameSettings.TeamTwoId = SelectedTeams[1].Id;
-            GameSettings.TeamOne = SelectedTeams[0];
-            GameSettings.TeamTwo = SelectedTeams[1];
-            _db.SaveGameSettings(GameSettings);
-        }
+        GameSettings.TeamOne = SelectedTeams[0];
+        GameSettings.TeamTwo = SelectedTeams[1];
+        _db.SaveGameSettings(GameSettings);
     }
 
     [RelayCommand]

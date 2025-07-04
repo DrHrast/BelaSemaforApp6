@@ -36,6 +36,8 @@ public class GameScoreModel
 
     private void CheckFall()
     {
+        CheckStilja();
+
         if (_teamOne.IsCallChecked && TeamOneScore > 0 && TeamOneScore < GameScore / 2)
         {
             TeamOneScore = 0;
@@ -46,11 +48,6 @@ public class GameScoreModel
         {
             TeamOneScore = GameScore;
             TeamTwoScore = 0;
-        }
-
-        if (_teamOne.ScoreOnly == 0 || _teamOne.ScoreOnly == 0)
-        {
-            CheckStilja();
         }
     }
 }

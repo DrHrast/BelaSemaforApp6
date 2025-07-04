@@ -18,7 +18,7 @@
                         <ImageButton Padding="0"
                                      BackgroundColor="{Binding AppSettings.SecondaryColor}"
                                      Command="{Binding NavigateToGameCommand}"
-                                     HeightRequest="40" Source="arrow_left.png" WidthRequest="40" >
+                                     HeightRequest="40" Source="arrow_left.png" WidthRequest="40">
                             <ImageButton.Behaviors>
                                 <toolkit:IconTintColorBehavior TintColor="{Binding AppSettings.PrimaryColor}" />
                             </ImageButton.Behaviors>
@@ -96,11 +96,14 @@
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="models:DisplayScoreModel">
-                                        <RadioButton Margin="10,0,0,0"
-                                                     Content="{Binding Score}"
-                                                     GroupName="ScoreSelection" HeightRequest="40"
-                                                     IsChecked="{Binding IsSelected}"
-                                                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+                                        <Button Margin="10,0,0,0"
+                                                BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SetTargetScoreCommand}"
+                                                CommandParameter="{Binding Score}"
+                                                HeightRequest="40"
+                                                IsEnabled="{Binding IsSelected}"
+                                                Text="{Binding Score}"
+                                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>

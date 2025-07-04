@@ -33,18 +33,26 @@
                         <toolkit:IconTintColorBehavior TintColor="{Binding AppSettings.PrimaryColor}" />
                     </ImageButton.Behaviors>
                 </ImageButton>
+                <ImageButton Padding="0"
+                             BackgroundColor="{Binding AppSettings.SecondaryColor}"
+                             Command="{Binding StartNewGameCommand}"
+                             CornerRadius="8" HeightRequest="40" Source="round_plus.png" WidthRequest="40">
+                    <ImageButton.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="{Binding AppSettings.PrimaryColor}" />
+                    </ImageButton.Behaviors>
+                </ImageButton>
 
             </StackLayout>
         </Border>
 
         <!--  Team Selection  -->
         <HorizontalStackLayout HorizontalOptions="Center" Spacing="40">
-            <RadioButton Content="{Binding TeamOneName}"
+            <RadioButton Content="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.GameSettings.TeamOne.Name}"
                          GroupName="TeamName"
                          IsChecked="{Binding TeamOneCallCheck}"
                          Style="{DynamicResource RadioButtonStyle}"
                          TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
-            <RadioButton Content="{Binding TeamTwoName}"
+            <RadioButton Content="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.GameSettings.TeamTwo.Name}"
                          GroupName="TeamName"
                          IsChecked="{Binding TeamTwoCallCheck}"
                          Style="{DynamicResource RadioButtonStyle}"
@@ -115,12 +123,12 @@
                 <StackLayout Orientation="Horizontal" Spacing="1">
                     <Label BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
                            FontAttributes="Bold" FontSize="16" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
-                           Text="{Binding TeamOneName}"
+                           Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.GameSettings.TeamOne.Name}"
                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
                            VerticalTextAlignment="Center" />
                     <Label BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.PrimaryColor}"
                            FontAttributes="Bold" FontSize="16" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"
-                           Text="{Binding TeamTwoName}"
+                           Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.GameSettings.TeamTwo.Name}"
                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"
                            VerticalTextAlignment="Center" />
                 </StackLayout>

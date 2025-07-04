@@ -38,6 +38,7 @@ public class DatabaseManager
     public List<PlayerModel> GetPlayers() => _database.Table<PlayerModel>().ToList();
     public void AddPlayer(PlayerModel player) => _database.Insert(player);
     public void DeletePlayer(PlayerModel player) => _database.Delete(player);
+    public PlayerModel? GetPlayersById(int id) => _database.Table<PlayerModel>().FirstOrDefault(p => p.Id == id);
 
     // Teams
     public List<TeamModel> GetTeams() => _database.Table<TeamModel>().ToList();
