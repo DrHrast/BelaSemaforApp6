@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 
+
 namespace BelaSemaforApp6.ViewModels;
 
 public partial class SettingsViewModel : ObservableObject
@@ -50,6 +51,23 @@ public partial class SettingsViewModel : ObservableObject
         AppSettings = appSet;
         GameSettings = gameSet;
 
+        Task.Run(LoadSettingsAsync);
+    }
+
+    partial void OnPlayerNameChanged(string? oldValue, string? newValue)
+    {
+        CanAddPlayer = !string.IsNullOrWhiteSpace(newValue) && !Players.Any(p => p.Name == newValue);
+    }
+
+    partial void OnTeamNameChanged(string? oldValue, string? newValue)
+    {
+        CanAddTeam = !string.IsNullOrWhiteSpace(newValue)
+                     && !Teams.Any(t => t.Name == newValue)
+                     && SelectedPlayers.Count == 2;
+    }
+
+    private void LoadSettingsAsync()
+    {
         var savedAppSettings = _db.GetAppSettings();
         if (savedAppSettings != null)
         {
@@ -65,59 +83,48 @@ public partial class SettingsViewModel : ObservableObject
             GameSettings.TeamTwoId = savedGameSettings.TeamTwoId;
         }
 
-        foreach (var score in DisplayScore)
+        MainThread.BeginInvokeOnMainThread(() =>
         {
-            score.IsSelected = GameSettings.TargetScore == score.Score ? false : true;
-        }
+            var allPlayers = _db.GetPlayers();
+            foreach (var player in allPlayers)
+                Players.Add(player);
 
-        var allPlayers = _db.GetPlayers();
-        foreach (var player in allPlayers)
-        {
-            Players.Add(player);
-        }
-
-        var allTeams = _db.GetTeams();
-        foreach (var team in allTeams)
-        {
-            team.FirstPlayer = allPlayers.FirstOrDefault(p => p.Id == team.PlayerOneId)?.Name;
-            team.SecondPlayer = allPlayers.FirstOrDefault(p => p.Id == team.PlayerTwoId)?.Name;
-            Teams.Add(team);
-        }
-
-        if (GameSettings.TeamOneId > 0)
-        {
-            var teamOne = Teams.FirstOrDefault(t => t.Id == GameSettings.TeamOneId);
-            if (teamOne != null)
+            var allTeams = _db.GetTeams();
+            foreach (var team in allTeams)
             {
-                GameSettings.TeamOne = teamOne;
-                SelectedTeams.Add(teamOne);
-                Teams.Remove(teamOne);
+                team.FirstPlayer = allPlayers.FirstOrDefault(p => p.Id == team.PlayerOneId)?.Name;
+                team.SecondPlayer = allPlayers.FirstOrDefault(p => p.Id == team.PlayerTwoId)?.Name;
+                Teams.Add(team);
             }
-        }
 
-        if (GameSettings.TeamTwoId > 0)
-        {
-            var teamTwo = Teams.FirstOrDefault(t => t.Id == GameSettings.TeamTwoId);
-            if (teamTwo != null)
+            // Set selected teams
+            if (GameSettings.TeamOneId > 0)
             {
-                GameSettings.TeamTwo = teamTwo;
-                SelectedTeams.Add(teamTwo);
-                Teams.Remove(teamTwo);
+                var teamOne = Teams.FirstOrDefault(t => t.Id == GameSettings.TeamOneId);
+                if (teamOne != null)
+                {
+                    GameSettings.TeamOne = teamOne;
+                    SelectedTeams.Add(teamOne);
+                    Teams.Remove(teamOne);
+                }
             }
-        }
+
+            if (GameSettings.TeamTwoId > 0)
+            {
+                var teamTwo = Teams.FirstOrDefault(t => t.Id == GameSettings.TeamTwoId);
+                if (teamTwo != null)
+                {
+                    GameSettings.TeamTwo = teamTwo;
+                    SelectedTeams.Add(teamTwo);
+                    Teams.Remove(teamTwo);
+                }
+            }
+
+            foreach (var score in DisplayScore)
+                score.IsSelected = score.Score == GameSettings.TargetScore ? false : true;
+        });
     }
 
-    partial void OnPlayerNameChanged(string? oldValue, string? newValue)
-    {
-        CanAddPlayer = !string.IsNullOrWhiteSpace(newValue) && !Players.Any(p => p.Name == newValue);
-    }
-
-    partial void OnTeamNameChanged(string? oldValue, string? newValue)
-    {
-        CanAddTeam = !string.IsNullOrWhiteSpace(newValue)
-                     && !Teams.Any(t => t.Name == newValue)
-                     && SelectedPlayers.Count == 2;
-    }
 
     [RelayCommand]
     private void SetPrimary(Color selectedColor)
@@ -136,18 +143,17 @@ public partial class SettingsViewModel : ObservableObject
     [RelayCommand]
     private void SetTargetScore(int selectedScore)
     {
+        foreach (var score in DisplayScore)
+            score.IsSelected = true;
+
         var selected = DisplayScore.FirstOrDefault(s => s.Score == selectedScore);
         if (selected != null)
-            selected.IsSelected = true;
+            selected.IsSelected = false;
 
         GameSettings.TargetScore = selectedScore;
         _db.SaveGameSettings(GameSettings);
-
-        foreach (var score in DisplayScore)
-        {
-            score.IsSelected = score.Score == GameSettings.TargetScore ? false : true;
-        }
     }
+
 
     [RelayCommand]
     private void AddPlayer()
@@ -224,8 +230,15 @@ public partial class SettingsViewModel : ObservableObject
             Teams.Remove(team);
         }
 
-        GameSettings.TeamOne = SelectedTeams[0];
-        GameSettings.TeamTwo = SelectedTeams[1];
+        if (SelectedTeams.Count > 1)
+        {
+            GameSettings.TeamOne = SelectedTeams[0];
+            GameSettings.TeamTwo = SelectedTeams[1];
+        }
+        else
+        {
+            GameSettings.TeamTwo = SelectedTeams[0];
+        }
         _db.SaveGameSettings(GameSettings);
     }
 

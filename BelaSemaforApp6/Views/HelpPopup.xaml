@@ -11,8 +11,10 @@
                 <Label FontAttributes="Bold" FontSize="20" HorizontalTextAlignment="Center" Text="Upute za korištenje Bela Semafora"
                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
 
-                <Label FontSize="14" HorizontalTextAlignment="Start" LineHeight="1.5" Text="• Opcija izbora s nazivima timova označava tko je zvao. &#10;• Polja označavaju osvojene bodove i zvanja. &#10;• Označavanje 'Bela' daje dodatne bodove. &#10;• Klikom na 'Dodaj' rezultati se bilježe. &#10;• Pobjednik je tim koji prvi dosegne dogovoreni broj bodova. &#10;• U gornjem kutu nalaze se postavke za teme, timove i bodove."
+                <ScrollView>
+                    <Label FontSize="14" HorizontalTextAlignment="Start" LineHeight="1.5" Text="• Opcija izbora s nazivima timova označava tko je zvao. &#10;• Polja označavaju osvojene bodove i zvanja. &#10;• Označavanje 'Bela' daje dodatne bodove. &#10;• Klikom na 'Dodaj' rezultati se bilježe. &#10;• Pobjednik je tim koji prvi dosegne dogovoreni broj bodova. &#10;• U gornjem kutu nalaze se postavke za teme, timove i bodove. &#10;• Klikom na gumb Plus pokreće se nova igra."
                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}" />
+                </ScrollView>
 
                 <Button Margin="10"
                         BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AppSettings.SecondaryColor}"

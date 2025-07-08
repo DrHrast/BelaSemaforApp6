@@ -13,8 +13,21 @@
         <Border Padding="30"
                 BackgroundColor="{Binding AppSettings.SecondaryColor}"
                 HorizontalOptions="FillAndExpand" Stroke="Transparent" StrokeShape="RoundRectangle 0,0,40,40">
-            <StackLayout HorizontalOptions="Center" Orientation="Horizontal" Spacing="60">
-                <ImageButton Padding="0"
+            <Grid Padding="10" ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <!--  Help  -->
+                    <ColumnDefinition Width="*" />
+                    <!--  Title  -->
+                    <ColumnDefinition Width="Auto" />
+                    <!--  Settings  -->
+                    <ColumnDefinition Width="Auto" />
+                    <!--  New Game  -->
+                </Grid.ColumnDefinitions>
+
+                <!--  Help Button  -->
+                <ImageButton Grid.Column="0"
+                             Margin="0,0,15,0" Padding="0"
                              BackgroundColor="{Binding AppSettings.SecondaryColor}"
                              Command="{Binding NavigateToHelpCommand}"
                              CornerRadius="8" HeightRequest="40" Source="about_help.png" WidthRequest="40">
@@ -22,27 +35,36 @@
                         <toolkit:IconTintColorBehavior TintColor="{Binding AppSettings.PrimaryColor}" />
                     </ImageButton.Behaviors>
                 </ImageButton>
-                <Label FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" Text="BELA BLOK"
-                       TextColor="{Binding AppSettings.PrimaryColor}" />
-                <!-- <Button Command="{Binding NavigateToSettingsCommand}" BackgroundColor="{Binding AppSettings.PrimaryColor}"/> -->
-                <ImageButton Padding="0"
+
+                <!--  Title  -->
+                <Label Grid.Column="1"
+                       FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                       Text="BELA BLOK"
+                       TextColor="{Binding AppSettings.PrimaryColor}"
+                       VerticalOptions="Center" />
+
+                <!--  Settings Button  -->
+                <ImageButton Grid.Column="2"
+                             Margin="0,0,0,0" Padding="0"
                              BackgroundColor="{Binding AppSettings.SecondaryColor}"
                              Command="{Binding NavigateToSettingsCommand}"
-                             CornerRadius="8" HeightRequest="40" Source="settings_gear.png" WidthRequest="40">
-                    <ImageButton.Behaviors>
-                        <toolkit:IconTintColorBehavior TintColor="{Binding AppSettings.PrimaryColor}" />
-                    </ImageButton.Behaviors>
-                </ImageButton>
-                <ImageButton Padding="0"
-                             BackgroundColor="{Binding AppSettings.SecondaryColor}"
-                             Command="{Binding StartNewGameCommand}"
-                             CornerRadius="8" HeightRequest="40" Source="round_plus.png" WidthRequest="40">
+                             CornerRadius="8" HeightRequest="30" Source="settings_gear.png" WidthRequest="30">
                     <ImageButton.Behaviors>
                         <toolkit:IconTintColorBehavior TintColor="{Binding AppSettings.PrimaryColor}" />
                     </ImageButton.Behaviors>
                 </ImageButton>
 
-            </StackLayout>
+                <!--  New Game Button  -->
+                <ImageButton Grid.Column="3"
+                             Padding="0"
+                             BackgroundColor="{Binding AppSettings.SecondaryColor}"
+                             Command="{Binding StartNewGameCommand}"
+                             CornerRadius="8" HeightRequest="30" Source="round_plus.png" WidthRequest="30">
+                    <ImageButton.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="{Binding AppSettings.PrimaryColor}" />
+                    </ImageButton.Behaviors>
+                </ImageButton>
+            </Grid>
         </Border>
 
         <!--  Team Selection  -->
