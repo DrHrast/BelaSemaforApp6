@@ -181,12 +181,12 @@ public partial class GameViewModel : ObservableObject
     {
         if (TeamOneGameTotal >= GameSettings.TargetScore)
         {
-            App.Current?.MainPage?.DisplayAlert("Pobjeda", $"Team {TeamOneName} won!!", "Nova Igra");
+            App.Current?.MainPage?.DisplayAlert("Pobjeda", $"Pojedio je tim \"{GameSettings.TeamOne?.Name}\"!!", "Nova Igra");
             NewGame();
         }
         else if (TeamTwoGameTotal >= GameSettings.TargetScore)
         {
-            App.Current?.MainPage?.DisplayAlert("Pobjeda", $"Team {TeamTwoName} won!!", "Nova Igra");
+            App.Current?.MainPage?.DisplayAlert("Pobjeda", $"Pojedio je tim \"{GameSettings.TeamTwo?.Name}\"!!", "Nova Igra");
             NewGame();
         }
     }

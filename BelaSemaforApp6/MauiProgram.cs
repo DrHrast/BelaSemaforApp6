@@ -1,10 +1,10 @@
-﻿using Android.Graphics.Drawables;
-using BelaSemaforApp6.Models;
+﻿using BelaSemaforApp6.Models;
 using BelaSemaforApp6.ViewModels;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Handlers;
+
+
 
 namespace BelaSemaforApp6
 {
@@ -12,10 +12,10 @@ namespace BelaSemaforApp6
 #if ANDROID
     using Android.Graphics;
     using Android.Graphics.Drawables;
-    using Android.Widget;
-    using Android.Content.Res;
+    using Microsoft.Maui.Controls.Handlers;
     using Microsoft.Maui.Platform;
 #endif
+
 
     public static class MauiProgram
     {
@@ -23,6 +23,13 @@ namespace BelaSemaforApp6
         {
             var builder = MauiApp.CreateBuilder();
             builder
+                .ConfigureMauiHandlers(handlers =>
+                {
+#if ANDROID
+    handlers.AddHandler<RadioButton, RadioButtonHandler>();
+#endif
+                })
+
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
                 .RegisterServices()
@@ -38,21 +45,24 @@ namespace BelaSemaforApp6
 #endif
 
 #if ANDROID
-            RadioButtonHandler.Mapper.AppendToMapping("CustomRadio", (handler, view) =>
-            {
-                if (handler.PlatformView is Android.Widget.RadioButton nativeRadio)
-                {
-                    nativeRadio.SetTextColor(view.TextColor.ToAndroid());
+    RadioButtonHandler.Mapper.AppendToMapping("CustomRadio", (handler, view) =>
+    {
+        if (handler.PlatformView is Android.Widget.RadioButton nativeRadio)
+        {
+            var androidColor = Color.ParseColor(view.TextColor.ToArgbHex());
 
-                    var buttonDrawable = nativeRadio.ButtonDrawable?.Mutate();
-                    if (buttonDrawable != null)
-                    {
-                        buttonDrawable.SetTint(view.TextColor.ToAndroid());
-                        nativeRadio.SetButtonDrawable(buttonDrawable);
-                    }
-                }
-            });
+            nativeRadio.SetTextColor(androidColor);
+
+            var buttonDrawable = nativeRadio.ButtonDrawable?.Mutate();
+            if (buttonDrawable != null)
+            {
+                buttonDrawable.SetTint(androidColor);
+                nativeRadio.SetButtonDrawable(buttonDrawable);
+            }
+        }
+    });
 #endif
+
 
             return builder.Build();
         }
